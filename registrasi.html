@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrasi Akun - SIPENKOS</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body>
+    <div class="auth-container">
+    
+    <div class="card-box auth-card">
+      <div class="auth-logo">
+        <a href="beranda.html" class="logo">
+          <span class="logo-judul">SIPENKOS</span>
+          <span class="logo-divider">|</span>
+          <span class="logo-pendukung">Kos Bu Nining</span>
+        </a>
+      </div>
+
+      <div class="informasi">
+        <span class="icon">ℹ️</span>
+        <span>Buat akun untuk melanjutkan reservasi kamar yang anda pilih</span>
+      </div>
+
+      <div class="auth-header">
+        <h1 class="judul-box">Buat Akun</h1>
+        <p class="deskripsi">Lengkapi data diri kamu untuk mulai membuat akun.</p>
+      </div>
+
+      <form class="auth-form" action="#" method="POST">
+        <div class="form-group">
+          <label for="nama" class="form-label">Nama Lengkap</label>
+          <input type="text" id="nama" name="nama" class="form-input" placeholder="Nama lengkap sesuai KTP" required>
+        </div>
+
+        <div class="form-group">
+          <label for="nohp" class="form-label">Nomor HP / WhatsApp</label>
+          <input type="tel" id="nohp" name="nohp" class="form-input" placeholder="08xxxxxxxxxx" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" name="email" class="form-input" placeholder="nama@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Kata Sandi</label>
+          <div class="input-password-wrapper">
+            <input type="password" id="password" name="password" class="form-input" placeholder="Masukkan kata sandi kamu" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="konfirmasi_password" class="form-label">Konfirmasi Kata Sandi</label>
+          <div class="input-password-wrapper">
+            <input type="password" id="konfirmasi_password" name="konfirmasi_password" class="form-input" placeholder="Ulangi kata sandi kamu" required>
+          </div>
+        </div>
+
+        <div class="form-checkbox">
+          <input type="checkbox" id="persetujuan" name="persetujuan" required>
+          <label for="persetujuan">Saya menyetujui <a href="#">aturan kos</a></label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">Daftar</button>
+      </form>
+      <div class="auth-footer-card">
+        Sudah punya akun? <a href="login.html" class="link-auth">Masuk</a>
+      </div>
+    </div>
+
+    <a href="detail-kamar.html" class="back-link back-link-center">← Kembali ke Detail Kamar</a></div>
+
+</body>
+</html>

@@ -1,0 +1,491 @@
+/* beranda */
+.container-image {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.judul-section {
+  font-size: 1.80rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.image-header {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.header-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+.content-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px;
+  color: #ffffff;
+}
+
+.content-overlay .judul-section {
+  color: #ffffff;
+  font-size: 2.25rem;
+  margin: 80px 0;
+}
+
+.content-overlay .deskripsi {
+  color: #e2e8f0;
+  max-width: 500px;
+}
+
+.content-overlay .text-blue {
+  color: #60a5fa;
+}
+
+.section-fasilitas .list-fasilitas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  list-style: none;
+  padding: 10px;
+  margin: 30px 0px;
+  background-color: #ffffff;
+}
+
+.item-fasilitas {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+.section-kamar {
+  background-color: var(--bg-light);
+  padding-bottom: 80px;
+}
+
+.kamar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-bottom: -30px;
+}
+
+.card-kamar {
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-kamar:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.05);
+}
+
+.card {
+  position: relative;
+  height: 180px;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card .tersedia,
+.card .penuh {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.card-body {
+  padding: 16px;
+}
+
+.tipe-kamar {
+  font-size: 1.30rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.deskripsi-kamar {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* daftar kamar */
+.section-header {
+  margin-bottom: 24px;
+  margin-top: 20px;
+}
+
+.label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.harga {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.harga .nominal {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+}
+
+.text-muted-harga .nominal {
+  color: var(--text-muted);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.btn-disabled {
+  background-color: #e2e8f0;
+  color: #94a3b8;
+  border: none;
+  cursor: not-allowed;
+}
+
+.informasi {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 70px;
+  margin-bottom: -30px;
+  padding: 16px 20px;
+  background-color: #f0f7ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  color: #1e40af;
+  font-size: 0.9rem;
+}
+
+.icon {
+  font-size: 1.1rem;
+}
+
+/* tentang */
+.galeri {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.card-galeri {
+  position: relative;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.card-galeri img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.badge-galeri {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.tentang-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.card-box {
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 28px;
+  background-color: #ffffff;
+  margin-bottom: 50px;
+}
+
+.judul-box {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: -10px;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+}
+
+.icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.map-preview {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  background-color: #f1f5f9;
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 16px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.map-pin {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  border: 1px solid var(--border-color);
+}
+
+.btn-maps {
+  text-align: center;
+}
+
+/* detail kamar */
+.back-link {
+  color: var(--primary-blue);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.lokasi-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.galeri-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.galeri-detail .card-galeri {
+  width: 100%;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.galeri-detail .foto-utama {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thumb-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.thumb-item img {
+  width: 100%;
+  height: 120px;
+  border-radius: 10px;
+  border: 1px solid;
+  transition: all 0.2s ease;
+}
+
+.thumb-item span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.reservasi-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: fit-content;
+}
+
+.status-group,
+.durasi-container {
+  flex-direction: column;
+}
+
+.status-group {
+  margin-top: -10px;
+}
+
+.status-group .tersedia {
+  margin-top: 6px;
+}
+
+.durasi-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.btn-durasi {
+  padding: 10px 0;
+  font-size: 0.85rem;
+  border-color: var(--border-color);
+}
+
+.btn-durasi.active {
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
+  background-color: #eff6ff;
+}
+
+.btn-reservasi {
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.catatan-reservasi {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.deskripsi-box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: -30px;
+}
+
+.fasilitas-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.subjudul-box {
+  margin-top: 10px;
+}
+
+.fasilitas {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  gap: 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.list-fasilitas {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: var(--text-dark);
+}
+
+.detail-grid {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .thumb-list {
+    gap: 10px;
+  }
+
+  .thumb-item img {
+    height: 80px;
+  }
+
+  .detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .durasi-group {
+    grid-template-columns: 1fr;
+  }
+}

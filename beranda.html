@@ -3,100 +3,137 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beranda - SIPENKOS</title>
+  <title>SIPENKOS - Kos Bu Nining Malang</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/reservasi.css">
 </head>
 <body>
 
   <header class="navbar">
-  <div class="logo">
-    <span class="logo-text">SIPENKOS</span>
-  </div>
-  <nav class="nav-links">
-    <a href="beranda.html">Beranda</a>
-    <a href="daftarKamar.html" class="active">Kamar</a>
-    <a href="#">Tentang</a>
-  </nav>
-  <div class="auth-button">
-    <a href="login.html" class="btn-login">Login</a>
-  </div>
-</header>
+    <div class="container navbar-container">
+      <a href="beranda.html" class="logo">
+        <span class="logo-judul">SIPENKOS</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-pendukung">Kos Bu Nining</span>
+      </a>
+      
+      <nav class="menu">
+        <a href="beranda.html" class="nav-active">Beranda</a>
+        <a href="daftar-kamar.html" class="nav">Kamar</a>
+        <a href="tentang.html" class="nav">Tentang</a>
+      </nav>
 
-  <section class="section">
-    <img src="img/kamarr.jpeg" alt="Hero Beranda" class="hero-img">
-    <div class="hero-overlay">
-      <div class="hero-content">
-        <h1>Lagi Nyari kos kosan? <span>SIPENKOS</span> aja</h1>
-        
-        <div class="fasilitas">
-          <div class="list">
-            <span class="fasilitas-ikon">&#128246;</span>
-            <span class="deskripsi">WiFi</span>
+      <div class="nav-actions">
+        <a href="registrasi.html" class="btn btn-outline">Daftar</a>
+        <a href="login.html" class="btn btn-primary">Masuk</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section-image">
+  <div class="container-image">
+    <div class="image-header">
+      <img src="assets/images/header.jpeg" alt="Interior Kamar SIPENKOS" class="header-image">
+      <div class="content-overlay">
+        <h1 class="judul-section">Lagi nyari kos? <span class="text-blue">SIPENKOS</span> aja</h1>
+        <p class="deskripsi">
+          Kos Bu Nining, dekat kampus di Malang. Cek kamar kosong dan reservasi langsung dari sini.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section class="section-fasilitas">
+  <div class="container">
+    <div class="fasilitas-wrapper">
+      <ul class="list-fasilitas">
+        <li class="item-fasilitas"><span class="icon">📶</span> Wi-Fi</li>
+        <li class="item-fasilitas"><span class="icon">🍳</span> Dapur</li>
+        <li class="item-fasilitas"><span class="icon">⚡</span> Listrik</li>
+        <li class="item-fasilitas"><span class="icon">🛵</span> Parkir</li>
+        <li class="item-fasilitas"><span class="icon">🧺</span> Laundry</li>
+        <li class="item-fasilitas"><span class="icon">📹</span> CCTV</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+  <section class="section-kamar">
+    <div class="container">
+      <div class="section-header">
+        <h3 class="judul-section">Pilihan Tipe Kamar</h3>
+        <p class="deskripsi">Pilih kamar yang paling pas dengan kebutuhan dan kenyamanan kamu.</p>
+      </div>
+
+      <div class="kamar-grid">
+        <article class="card-kamar">
+          <div class="card">
+            <img src="assets/images/kamar-tipe1.jpeg" alt="Tipe 1 Non-AC Kos Bu Nining">
+            <span class="tersedia">Tersedia - sisa 1</span>
           </div>
-          <div class="list">
-            <span class="ikon">&#127859;</span>
-            <span class="deskripsi">Dapur</span>
+          <div class="card-body">
+            <h3 class="tipe-kamar">Tipe 1 Non-AC, Kamar Mandi Luar</h3>
+            <p class="deskripsi-kamar">Tempat tidur nyaman, lemari pakaian, dan kamar mandi luar bersama yang bersih.</p>
           </div>
-          <div class="list">
-            <span class="ikon">&#9889;</span>
-            <span class="deskripsi">Listrik</span>
+        </article>
+
+        <article class="card-kamar">
+          <div class="card">
+            <img src="assets/images/kamar-tipe2.jpeg" alt="Tipe 2 Non-AC Kos Bu Nining">
+            <span class="tersedia">Tersedia - sisa 2</span>
           </div>
-          <div class="list">
-            <span class="ikon">🅿️</span>
-            <span class="deskripsi">Parkir</span>
+          <div class="card-body">
+            <h3 class="tipe-kamar">Tipe 2 Non-AC, Kamar Mandi Dalam</h3>
+            <p class="deskripsi-kamar">Tempat tidur, lemari, meja belajar, serta fasilitas kamar mandi pribadi di dalam kamar.</p>
           </div>
-          <div class="list">
-            <span class="ikon">&#129530;</span>
-            <span class="deskripsi">Laundry</span>
+        </article>
+
+        <article class="card-kamar">
+          <div class="card">
+            <img src="assets/images/kamar-tipe3.jpeg" alt="Tipe 3 AC Kos Bu Nining">
+            <span class="penuh">Penuh</span>
           </div>
-          <div class="list">
-            <span class="ikon">&#128249;</span>
-            <span class="deskripsi">CCTV</span>
+          <div class="card-body">
+            <h3 class="tipe-kamar">Tipe 3 AC, Kamar Mandi Luar</h3>
+            <p class="deskripsi-kamar">Kamar ber-AC sejuk dengan kasur empuk, lemari, dan kamar mandi bersama di koridor luar.</p>
           </div>
-        </div>
+        </article>
+
+        <article class="card-kamar">
+          <div class="card">
+            <img src="assets/images/kamar-tipe4.jpeg" alt="Tipe 4 AC Kos Bu Nining">
+            <span class="tersedia">Tersedia - sisa 3</span>
+          </div>
+          <div class="card-body">
+            <h3 class="tipe-kamar">Tipe 4 AC, Kamar Mandi Dalam</h3>
+            <p class="deskripsi-kamar">Tipe terlengkap dengan pendingin AC, perabot lengkap, dan kamar mandi privat dalam kamar.</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <main class="container">
-    <h2 class="section-title">Pilihan Tipe Kamar</h2>
+  <footer class="footer">
+      <div class="logo-judul text-white">SIPENKOS</div>
+      <p class="footer-tagline">🛡️ Hunian terpercaya & dikelola langsung oleh pemilik</p>
+      <p class="footer-location">Kos Bu Nining · Malang, Jawa Timur</p>
 
-    <div class="grid">
-      <div class="card">
-        <img src="img/kamar-tipe1.jpeg" alt="Kamar Tipe 1" class="img">
-        <div class="card-body">
-          <h3>Tipe 1 Kamar Non-AC, Kamar Mandi Luar</h3>
-          <p class="deskripsi-kamar">Tempat tidur, lemari, dan kamar mandi bersama</p>
-        </div>
+      <div class="kontak">
+        <span>📍 Jl. Pisang Agung III No. 29</span>
+        <span>💬 WhatsApp 0854-4421-1076</span>
+        <span>⏰ Jam bertamu 07.00–22.00 WIB</span>
       </div>
 
-      <div class="card">
-        <img src="img/kamar-tipe2.jpeg" alt="Kamar Tipe 2" class="img">
-        <div class="card-body">
-          <h3>Tipe 2 Kamar Non-AC, Kamar Mandi Dalam</h3>
-          <p class="deskripsi-kamar">Tempat tidur, lemari, dan kamar mandi dalam</p>
-        </div>
+      <div class="copyright">
+        © 2026 SIPENKOS - Kos Bu Nining Malang
       </div>
-
-      <div class="card">
-        <img src="img/kamar-tipe3.jpeg" alt="Kamar Tipe 3" class="img">
-        <div class="card-body">
-          <h3>Tipe 3 Kamar AC, Kamar Mandi Luar</h3>
-          <p class="deskripsi-kamar">Menggunakan AC dengan kamar mandi bersama di luar kamar</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="img/kamar-tipe4.jpeg" alt="Kamar Tipe 4" class="img">
-        <div class="card-body">
-          <h3>Tipe 4 Kamar AC, Kamar Mandi Dalam</h3>
-          <p class="deskripsi-kamar">Menggunakan AC dengan kamar mandi pribadi di dalam kamar.</p>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <footer class="footer"></footer>
-  <script src="js/komponen.js"></script>
+  </footer>
 
 </body>
 </html>

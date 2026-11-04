@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail kamar - SIPENKOS</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/reservasi.css">
+</head>
+<body>
+    <header class="navbar">
+    <div class="container navbar-container">
+      <a href="beranda.html" class="logo">
+        <span class="logo-judul">SIPENKOS</span>
+        <span class="logo-divider">|</span>
+        <span class="logo-pendukung">Kos Bu Nining</span>
+      </a>
+      
+      <nav class="menu">
+        <a href="beranda.html" class="nav">Beranda</a>
+        <a href="daftar-kamar.html" class="nav-active">Kamar</a>
+        <a href="tentang.html" class="nav">Tentang</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="registrasi.html" class="btn btn-outline">Daftar</a>
+        <a href="login.html" class="btn btn-primary">Masuk</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section-kamar">
+    <div class="container">      
+      <a href="daftar-kamar.html" class="back-link">← Kembali ke Daftar Kamar</a>
+
+      <div class="detail-header">
+        <h1 class="tipe-kamar">Memuat Detail Kamar...</h1>
+        <div class="lokasi-tag">
+          <span class="icon">📍</span> Jl. Pisang Agung III No. 29, Malang
+        </div>
+        </div>
+
+      <div class="detail-grid">
+        <div class="galeri-detail">
+          <div class="card-galeri">
+            <img src="" alt="Foto Utama Kamar" class="foto-utama">
+          </div>
+          <div class="thumb-list"></div>
+        </div>
+
+        <div class="card-box reservasi-box">
+          <div class="status-group">
+            <span class="label">Status Ketersediaan</span>
+            <span class="tersedia">Tersedia</span>
+          </div>
+
+          <div class="harga-container">
+            <span class="label">Biaya Sewa</span>
+            <div class="harga"><span class="nominal">Rp -</span> / bulan</div>
+          </div>
+
+          <div class="durasi-container">
+            <span class="label">Pilihan Durasi Sewa</span>
+            <div class="durasi-group">
+              <button class="btn btn-outline btn-durasi">1 Bulan</button>
+              <button class="btn btn-outline btn-durasi active">6 Bulan</button>
+              <button class="btn btn-outline btn-durasi">12 Bulan</button>
+            </div>
+          </div>
+
+          <a href="registrasi.html" class="btn btn-primary btn-full btn-reservasi">Reservasi Sekarang</a> 
+          <p class="catatan-reservasi">Kamu perlu masuk atau daftar akun untuk reservasi</p>
+        </div>
+      </div>
+
+      <div class="card-box deskripsi-box">
+        <h2 class="judul-box">Deskripsi Kamar</h2>
+        <p class="deskripsi-kamar">Memuat deskripsi...</p>
+
+        <div class="fasilitas-wrapper">
+          <h3 class="subjudul-box">Fasilitas Kamar</h3>
+          <ul class="fasilitas">
+          </ul>
+        </div>
+
+        <div class="fasilitas-wrapper">
+          <h3 class="subjudul-box">Fasilitas Bersama & Umum</h3>
+          <ul class="fasilitas">
+            <li class="list-fasilitas"><span class="icon">📶</span> <span>Wi-Fi</span></li>
+            <li class="list-fasilitas"><span class="icon">🍳</span> <span>Dapur Bersama</span></li>
+            <li class="list-fasilitas"><span class="icon">⚡</span> <span>Listrik Token</span></li>
+            <li class="list-fasilitas"><span class="icon">🛵</span> <span>Parkir Motor</span></li>
+            <li class="list-fasilitas"><span class="icon">📹</span> <span>CCTV 24 Jam</span></li>
+          </ul>
+        </div>
+      </div>
+  </section>
+  <footer class="footer">
+      <div class="logo-judul text-white">SIPENKOS</div>
+      <p class="footer-tagline">🛡️ Hunian terpercaya & dikelola langsung oleh pemilik</p>
+      <p class="footer-location">Kos Bu Nining · Malang, Jawa Timur</p>
+
+      <div class="kontak">
+        <span>📍 Jl. Pisang Agung III No. 29</span>
+        <span>💬 WhatsApp 0854-4421-1076</span>
+        <span>⏰ Jam bertamu 07.00 - 22.00 WIB</span>
+      </div>
+
+      <div class="copyright">
+        © 2026 SIPENKOS - Kos Bu Nining Malang
+      </div>
+  </footer>  
+  <script src="assets/js/detail-kamar.js"></script>
+</body>
+</html>

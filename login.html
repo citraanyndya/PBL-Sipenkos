@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SIPENKOS</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body>
+    <div class="auth-container">
+    <div class="card-box auth-card">
+      <div class="auth-logo">
+        <a href="beranda.html" class="logo">
+          <span class="logo-judul">SIPENKOS</span>
+          <span class="logo-divider">|</span>
+          <span class="logo-pendukung">Kos Bu Nining</span>
+        </a>
+      </div>
+
+      <div class="informasi">
+        <span class="icon">ℹ️</span>
+        <span>Masukkan email dan kata sandi anda.</span>
+      </div>
+
+      <div class="auth-header">
+        <h1 class="judul-box">Masuk ke SIPENKOS</h1>
+        <p class="deskripsi">Masukkan email dan kata sandi kamu untuk melanjutkan.</p>
+      </div>
+
+      <form class="auth-form" action="#" method="POST">
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" name="email" class="form-input" placeholder="nama@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Kata Sandi</label>
+          <div class="input-password-wrapper">
+            <input type="password" id="password" name="password" class="form-input" placeholder="Masukkan kata sandi kamu" required>
+          </div>
+        </div>
+
+        <div class="auth-options">
+          <div class="form-checkbox">
+            <input type="checkbox" id="ingat_saya" name="ingat_saya">
+            <label for="ingat_saya">Ingat saya</label>
+          </div>
+          <a href="#" class="link-auth-sm">Lupa kata sandi?</a>
+        </div>
+        <a href="formulir-reservasi.html" class="btn btn-primary btn-full btn-reservasi"></a>
+      </form>
+
+      <div class="auth-footer-card">
+        Belum punya akun? <a href="registrasi.html" class="link-auth">Daftar sekarang</a>
+      </div>
+    </div>
+    <a href="detail-kamar.html" class="back-link back-link-center">← Kembali ke Detail Kamar</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,177 @@
+body {
+  background-color: var(--bg-light);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 32px 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 14px;
+}
+
+.auth-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.informasi {
+  background-color: #e8f2fe;
+  border: 1px solid #c9e0fc;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: #1e40af;
+  line-height: 1.4;
+}
+
+.informasi .icon {
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.auth-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.auth-header .judul-box {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.auth-header .deskripsi {
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: var(--primary-blue);
+}
+
+.form-input::placeholder {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.input-password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-dark);
+}
+
+.form-checkbox input[type="checkbox"] {
+  accent-color: var(--primary-blue);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.form-checkbox a {
+  color: var(--primary-blue);
+  text-decoration: none;
+}
+
+.form-checkbox a:hover {
+  text-decoration: underline;
+}
+
+.auth-footer-card {
+  text-align: center;
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.link-auth {
+  color: var(--primary-blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link-auth:hover {
+  text-decoration: underline;
+}
+
+.back-link-center {
+  margin-bottom: 0;
+  justify-content: center;
+}
+
+.auth-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  margin-top: -4px;
+}
+
+.link-auth-sm {
+  color: var(--primary-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link-auth-sm:hover {
+  text-decoration: underline;
+}
