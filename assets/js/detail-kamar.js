@@ -1,131 +1,183 @@
-const dataKamar = {
-  "1": {
-    judul: "Tipe 1 Non-AC, Kamar Mandi Luar",
-    harga: "Rp 500.000",
-    status: "Tersedia - sisa 1",
-    badge: "tersedia",
-    gambarUtama: "assets/images/kamar-tipe1.jpeg",
-    deskripsi: "Kamar Tipe 1 merupakan pilihan ekonomis yang nyaman di Kos Bu Nining, dirancang untuk memaksimalkan sirkulasi udara alami dan pencahayaan ruangan. Dilengkapi fasilitas kamar mandi luar yang selalu terawat bersih, tipe ini sangat cocok bagi mahasiswi yang menginginkan hunian tenang dengan budget ramah kantong di kawasan Malang.",
-    galeri: [
-      { src: "assets/images/Lemari.jpeg", label: "Lemari" },
-      { src: "assets/images/meja-belajar.jpeg", label: "Meja Belajar" }
-    ],
-    fasilitas: [
-      {icon: "🛏️", teks: "Kasur & Bantal" }, 
-      {icon: "🚪", teks: "Lemari Pakaian" }, 
-      {icon: "🪑", teks: "Meja & Kursi" }   
-    ]
-  },
-  "2": {
-    judul: "Tipe 2 Non-AC, Kamar Mandi Dalam",
-    harga: "Rp 650.000",
-    status: "Tersedia - sisa 2",
-    badge: "tersedia",
-    gambarUtama: "assets/images/kamar-tipe2.jpeg",
-    deskripsi: "Kamar Tipe 2 memberikan privasi lebih dengan fasilitas kamar mandi pribadi di dalam kamar tanpa menggunakan AC. Ruangan didesain sejuk dan tertata rapi, menawarkan kenyamanan optimal untuk mendukung aktivitas istirahat maupun fokus belajar mahasiswi sehari-hari.",
-    galeri: [
-      { src: "assets/images/kamar-mandi.jpeg", label: "Kamar Mandi" },
-      { src: "assets/images/Lemari.jpeg", label: "Lemari" },
-      { src: "assets/images/meja-belajar.jpeg", label: "Meja Belajar" }
-    ],
-    fasilitas: [
-      { icon: "🚿", teks: "Kamar Mandi Dalam" }, 
-      { icon: "🛏️", teks: "Kasur & Bantal" },
-      { icon: "🚪", teks: "Lemari Pakaian" }, 
-      { icon: "🪑", teks: "Meja & Kursi" }
-    ]
-  },
-  "3": {
-    judul: "Tipe 3 AC, Kamar Mandi Luar",
-    harga: "Rp 800.000",
-    status: "Penuh",
-    badge: "penuh",
-    gambarUtama: "assets/images/kamar-tipe3.jpeg",
-    deskripsi: "Kamar Tipe 3 menyajikan kenyamanan udara sejuk dengan pendingin ruangan (AC) untuk melepas penat setelah seharian beraktivitas di kampus. Akses fasilitas kamar mandi luar yang bersih dan dekat dari area kamar menjadikannya pilihan ideal yang praktis dan efisien.",
-    galeri: [
-      { src: "assets/images/Lemari.jpeg", label: "Lemari" },
-      { src: "assets/images/meja-belajar.jpeg", label: "Meja Belajar" }
-    ],
-    fasilitas: [
-      { icon: "❄️", teks: "AC" },
-      { icon: "🛏️", teks: "Kasur & Bantal" },
-      { icon: "🚪", teks: "Lemari Pakaian" },
-      { icon: "🪑", teks: "Meja & Kursi" }
-    ]
-  },
-  "4": {
-    judul: "Tipe 4 AC, Kamar Mandi Dalam",
-    harga: "Rp 950.000",
-    status: "Tersedia - sisa 3",
-    badge: "tersedia",
-    gambarUtama: "assets/images/kamar-tipe4.jpeg",
-    deskripsi: "Kamar Tipe 4 merupakan pilihan paling lengkap dan nyaman di Kos Bu Nining, dilengkapi pendingin ruangan (AC) dan fasilitas kamar mandi privat di dalam kamar. Suasana kamar bersih, tenang, dan tertata rapi sehingga sangat ideal untuk mendukung istirahat maupun fokus belajar dan bekerja mahasiswa serta pekerja dikawasan Malang.",
-    galeri: [
-      { src: "assets/images/kamar-mandi.jpeg", label: "Kamar Mandi" },
-      { src: "assets/images/Lemari.jpeg", label: "Lemari" },
-      { src: "assets/images/meja-belajar.jpeg", label: "Meja Belajar" }
-    ],
-    fasilitas: [
-      { icon: "❄️", teks: "AC" },
-      { icon: "🚿", teks: "Kamar Mandi Dalam" },
-      { icon: "🛏️", teks: "Kasur & Bantal" },
-      { icon: "🚪", teks: "Lemari Pakaian" },
-      { icon: "🪑", teks: "Meja & Kursi" }
-    ]
-  }
-};
-
 document.addEventListener("DOMContentLoaded", () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const tipeId = urlParams.get("tipe");
+  const kamarList = window.SIPENKOS?.dataKamar || [];
+  const params = new URLSearchParams(window.location.search);
+  const rawId = params.get("id") || params.get("tipe") || "1";
+  const kamar = kamarList.find((item) => String(item.id) === String(rawId));
+  const formatRupiah = window.SIPENKOS?.formatRupiah || ((nilai) => `Rp ${Number(nilai || 0).toLocaleString("id-ID")}`);
 
-  const kamar = dataKamar[tipeId] || dataKamar["4"];
+  if (!kamar) {
+    const judul = document.querySelector(".detail-header .tipe-kamar");
+    if (judul) judul.textContent = "Kamar tidak ditemukan";
+    const deskripsi = document.querySelector(".deskripsi-kamar");
+    if (deskripsi) deskripsi.textContent = "Tipe kamar yang kamu cari tidak tersedia. Silakan kembali ke daftar kamar.";
+    const tombol = document.querySelector(".btn-reservasi");
+    if (tombol) {
+      tombol.textContent = "Kembali ke Daftar Kamar";
+      tombol.href = "daftar-kamar.html";
+      tombol.classList.remove("btn-primary");
+      tombol.classList.add("btn-outline");
+    }
+    return;
+  }
 
   document.title = `Detail ${kamar.judul} - SIPENKOS`;
 
-  const elJudul = document.querySelector(".detail-header .tipe-kamar");
-  if (elJudul) elJudul.textContent = kamar.judul;
+  const setText = (selector, value) => {
+    const element = document.querySelector(selector);
+    if (element) element.textContent = value;
+  };
 
-  const elHarga = document.querySelector(".nominal");
-  if (elHarga) elHarga.textContent = kamar.harga;
+  setText(".detail-header .tipe-kamar", kamar.judul);
+  setText(".nominal", formatRupiah(kamar.hargaPerBulan));
+  setText(".deskripsi-box .deskripsi-kamar", kamar.deskripsi);
 
-  const elDeskripsi = document.querySelector(".deskripsi-box .deskripsi-kamar");
-  if (elDeskripsi) elDeskripsi.textContent = kamar.deskripsi;
+  const fotoUtama = document.querySelector(".foto-utama");
+  const galeriTambahan = document.querySelector(".galeri-tambahan");
+  const galeriLengkap = Array.isArray(kamar.galeri) ? kamar.galeri : [];
 
-  const elFotoUtama = document.querySelector(".foto-utama");
-  if (elFotoUtama) elFotoUtama.src = kamar.gambarUtama;
-
-  const elStatus = document.querySelector(".status-group span:last-child");
-  if (elStatus) {
-    elStatus.textContent = kamar.status;
-    elStatus.className = kamar.badge;
+  if (fotoUtama) {
+    fotoUtama.src = kamar.gambarUtama;
+    fotoUtama.alt = `Foto utama ${kamar.judul}`;
   }
 
-  const elThumbList = document.querySelector(".thumb-list");
-  if (elThumbList && kamar.galeri) {
-    elThumbList.innerHTML = kamar.galeri.map((item, index) => `
-      <div class="thumb-item ${index === 0 ? 'active' : ''}">
-        <img src="${item.src}" alt="${item.label}">
-        <span>${item.label}</span>
-      </div>
-    `).join("");
+  if (galeriTambahan) {
+    galeriTambahan.replaceChildren();
+
+    galeriLengkap.forEach((item) => {
+      const figure = document.createElement("figure");
+      figure.className = "foto-pendukung";
+
+      const image = document.createElement("img");
+      image.src = item.src;
+      image.alt = `${item.label} pada ${kamar.judul}`;
+      image.loading = "lazy";
+
+      const caption = document.createElement("figcaption");
+      caption.textContent = item.label;
+
+      figure.append(image, caption);
+      galeriTambahan.appendChild(figure);
+    });
   }
 
-  const elFasilitasKamar = document.querySelector(".fasilitas");
-  if (elFasilitasKamar && kamar.fasilitas) {
-    elFasilitasKamar.innerHTML = kamar.fasilitas.map(item => `
-      <li class="list-fasilitas">
-        <span class="icon">${item.icon}</span>
-        <span>${item.teks}</span>
-      </li>
-    `).join("");
+  const status = document.querySelector(".status-group span:last-child");
+  if (status) {
+    status.textContent = kamar.status;
+    status.className = kamar.tersedia ? "tersedia" : "penuh";
   }
 
-  const btnReservasi = document.querySelector(".btn-reservasi");
-  if (btnReservasi && kamar.badge === "penuh") {
-    btnReservasi.textContent = "Kamar Penuh (Tidak Dapat Direservasi)";
-    btnReservasi.classList.add("btn-disabled");
-    btnReservasi.classList.remove("btn-primary");
-    btnReservasi.removeAttribute("href");
+  const daftarFasilitas = document.querySelector(".deskripsi-box .fasilitas-wrapper:first-of-type .fasilitas");
+  if (daftarFasilitas) {
+    daftarFasilitas.replaceChildren();
+    (kamar.fasilitas || []).forEach((item) => {
+      const li = document.createElement("li");
+      li.className = "item-fasilitas";
+      const icon = document.createElement("span");
+      icon.className = "icon";
+      icon.textContent = item.icon;
+      const label = document.createElement("span");
+      label.textContent = item.teks;
+      li.append(icon, label);
+      daftarFasilitas.appendChild(li);
+    });
+  }
+
+  const tombolReservasi = document.querySelector(".btn-reservasi");
+  const tombolDurasi = [...document.querySelectorAll(".btn-durasi")];
+  const durasiCaption = document.getElementById("durasiTerpilih");
+  const totalHargaDurasi = document.getElementById("totalHargaDurasi");
+
+  let pesananTersimpan = null;
+  try {
+    pesananTersimpan = JSON.parse(localStorage.getItem("kamarTerpilih") || "null");
+  } catch (error) {
+    pesananTersimpan = null;
+  }
+
+  let durasiTerpilih = String(pesananTersimpan?.id) === String(kamar.id) && [1, 6, 12].includes(Number(pesananTersimpan?.durasi))
+    ? Number(pesananTersimpan.durasi)
+    : null;
+
+  if (!kamar.tersedia) durasiTerpilih = null;
+
+  const boxTotal = document.querySelector(".total-durasi-box");
+
+  const aturTombolReservasi = () => {
+    if (!tombolReservasi) return;
+
+    let teks = "Reservasi Sekarang";
+    let bisaKlik = true;
+
+    if (!kamar.tersedia) {
+      teks = "Kamar Penuh (Tidak Dapat Direservasi)";
+      bisaKlik = false;
+    } else if (!durasiTerpilih) {
+      teks = "Pilih Durasi Sewa Dulu";
+      bisaKlik = false;
+    }
+
+    tombolReservasi.textContent = teks;
+    tombolReservasi.classList.toggle("btn-primary", bisaKlik);
+    tombolReservasi.classList.toggle("btn-disabled", !bisaKlik);
+    tombolReservasi.setAttribute("aria-disabled", bisaKlik ? "false" : "true");
+  };
+
+  const perbaruiDurasi = (durasi) => {
+    durasiTerpilih = durasi;
+    if (boxTotal) boxTotal.hidden = !durasi;
+
+    if (durasi) {
+      if (durasiCaption) durasiCaption.textContent = String(durasi);
+      if (totalHargaDurasi) totalHargaDurasi.textContent = formatRupiah(kamar.hargaPerBulan * durasi);
+    }
+
+    tombolDurasi.forEach((button) => {
+      const aktif = Number(button.dataset.durasi) === durasi;
+      button.classList.toggle("active", aktif);
+      button.setAttribute("aria-pressed", aktif ? "true" : "false");
+    });
+
+    aturTombolReservasi();
+  };
+
+  if (!kamar.tersedia) {
+    tombolDurasi.forEach((button) => { button.disabled = true; });
+    if (tombolReservasi) tombolReservasi.removeAttribute("href");
+  } else {
+    tombolDurasi.forEach((button) => {
+      button.addEventListener("click", () => {
+        const durasi = Number(button.dataset.durasi);
+        if (![1, 6, 12].includes(durasi)) return;
+        perbaruiDurasi(durasi);
+      });
+    });
+  }
+
+  perbaruiDurasi(durasiTerpilih);
+
+  if (tombolReservasi) {
+    tombolReservasi.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (!kamar.tersedia || !durasiTerpilih) return;
+
+      const dataPesanan = {
+        id: kamar.id,
+        judul: kamar.judul,
+        hargaPerBulan: kamar.hargaPerBulan,
+        gambar: kamar.gambarUtama,
+        fasilitas: kamar.fasilitas,
+        durasi: durasiTerpilih
+      };
+
+      try {
+        localStorage.setItem("kamarTerpilih", JSON.stringify(dataPesanan));
+      } catch (error) {
+        alert("Browser tidak mengizinkan penyimpanan data reservasi. Coba gunakan mode browser biasa.");
+        return;
+      }
+
+      const sudahLogin = localStorage.getItem("isLoggedIn") === "true";
+      window.location.href = sudahLogin ? "form-sewa.html" : "registrasi.html";
+    });
   }
 });

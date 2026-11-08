@@ -1,0 +1,160 @@
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.detail-header .tipe-kamar {
+  font-size: 1.5rem;
+}
+
+.lokasi-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  align-items: start;
+  width: 100%;
+}
+
+.galeri-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.galeri-detail .card-galeri {
+  width: 100%;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.galeri-detail .foto-utama {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.galeri-tambahan {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.foto-pendukung {
+  min-width: 0;
+  margin: 0;
+}
+
+.foto-pendukung img {
+  display: block;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.foto-pendukung figcaption {
+  margin-top: 7px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.reservasi-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: fit-content;
+}
+
+.status-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.durasi-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.durasi-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.btn-durasi {
+  padding: 10px 0;
+  font-size: 0.85rem;
+  border-color: var(--border-color);
+}
+
+.btn-durasi.active {
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
+  background: #eff6ff;
+}
+
+.btn-reservasi {
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.catatan-reservasi {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.total-durasi-box {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 12px;
+}
+
+.total-durasi-box[hidden] {
+  display: none;
+}
+
+.total-durasi-caption {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.total-durasi-nominal {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+}
+
+.deskripsi-box {
+  display: flex;
+  flex-direction: column;
+  font-weight: 100;
+  margin-top: 25px;
+}

@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/reservasi.css">
+    <link rel="stylesheet" href="assets/css/kamar.css">
 </head>
 <body>
     <header class="navbar">
@@ -23,18 +23,29 @@
       
       <nav class="menu">
         <a href="beranda.html" class="nav">Beranda</a>
-        <a href="daftar-kamar.html" class="nav-active">Kamar</a>
+        <a href="daftar-kamar.html" class="nav active">Kamar</a>
         <a href="tentang.html" class="nav">Tentang</a>
       </nav>
 
-      <div class="nav-actions">
-        <a href="registrasi.html" class="btn btn-outline">Daftar</a>
-        <a href="login.html" class="btn btn-primary">Masuk</a>
-      </div>
+      <div class="nav-actions-wrapper">
+        <div class="nav-actions" id="guestActions">
+          <a href="registrasi.html" class="btn btn-outline">Daftar</a>
+          <a href="login.html" class="btn btn-primary">Masuk</a>
+        </div>
+      
+        <div class="user-profile" id="userProfile" style="display: none;">
+          <button class="btn-icon-notif" title="Notifikasi">
+            🔔<span class="badge-dot"></span>
+          </button>
+          <div class="user-info">
+            <div class="user-avatar" id="headerAvatar"></div>
+            <span class="user-name" id="headerName"></span>
+          </div>
+        </div>
     </div>
   </header>
 
-  <section class="section-kamar">
+  <section class="section-halaman">
     <div class="container">
       <div class="section-header">
         <h1 class="judul-section">Daftar Kamar Kos</h1>
@@ -86,7 +97,7 @@
               <span class="label">Biaya sewa</span>
               <div class="harga text-muted-harga"><span class="nominal">Rp 800.000</span> / bulan</div>
             </div>
-            <button class="btn btn-disabled btn-full" disabled>Penuh (Tidak Tersedia)</button>
+            <a href="detail-kamar.html?tipe=3" class="btn btn-outline btn-full">Lihat Detail</a>
           </div>
         </article>
 

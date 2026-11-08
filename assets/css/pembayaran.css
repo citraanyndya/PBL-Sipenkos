@@ -1,0 +1,313 @@
+.rincian-pembayaran-box .rincian-list {
+  margin-bottom: 18px;
+}
+
+.pesan-memuat {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/*pake enih*/
+
+.total-biaya {
+  padding: 15px;
+  background: #f1f7ff;
+  border: 1px solid #dfebff;
+  border-radius: 7px;
+  margin-bottom: 22px;
+}
+
+.total-biaya span {
+  display: block;
+  color: var(--text-dark);
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.total-biaya strong {
+  color: var(--primary-blue);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.pilihan-pembayaran,
+.metode-pembayaran {
+  margin-bottom: 20px;
+}
+
+.pilihan-pembayaran .subjudul-box,
+.metode-pembayaran .subjudul-box{
+  margin-bottom: 10px;
+}
+
+.opsi-pembayaran {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.opsi-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 13px 11px;
+  border: 1px solid var(--border-color);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.opsi-item:hover {
+  border-color: #8db7ff;
+  background: #f8fbff;
+}
+
+.opsi-item:has(input:checked) {
+  border-color: var(--primary-blue);
+  background: #f1f7ff;
+}
+
+.opsi-item input {
+  margin-top: 3px;
+  accent-color: var(--primary-blue);
+}
+
+.opsi-konten {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.opsi-konten strong {
+  font-size: 0.8rem;
+  color: var(--text-dark);
+}
+
+.opsi-konten small {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.rekening-box {
+  padding: 15px;
+  background: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: 7px;
+}
+
+.rekening-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.rekening-header strong {
+  font-size: 0.98rem;
+  color: var(--text-dark);
+}
+
+.rekening-header span {
+  font-size: 0.80rem;
+  color: var(--text-muted);
+}
+
+.rekening-detail {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+
+.rekening-logo {
+  padding: 6px 9px;
+  background: #09265b;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 3px;
+}
+
+.rekening-nomor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.rekening-nomor strong {
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.rekening-nomor small {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.rekening-box .catatan {
+  margin-top: 10px;
+}
+
+.upload-pembayaran-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-pembayaran-box form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.upload-pembayaran-box .form-group {
+  margin-bottom: 15px;
+}
+
+.upload-area {
+  min-height: 175px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border: 1px dashed #bfcbdc;
+  border-radius: 7px;
+  transition: 0.2s;
+}
+
+.upload-kosong {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 135px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.upload-kosong[hidden] {
+  display: none;
+}
+
+.upload-area .preview-file {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.upload-area:hover,
+.upload-area.dragover {
+  background: #f1f7ff;
+  border-color: var(--primary-blue);
+}
+
+.upload-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 8px;
+  color: var(--primary-blue);
+  font-size: 24px;
+}
+
+.upload-area strong {
+  font-size: 0.75rem;
+  color: var(--text-dark);
+}
+
+.upload-area small {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.preview-file {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+
+.preview-file[hidden] {
+  display: none;
+}
+
+.file-icon {
+  font-size: 22px;
+}
+
+.file-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.file-info strong {
+  font-size: 0.75rem;
+  color: var(--text-dark);
+  overflow-wrap: anywhere;
+}
+
+.file-info small {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.btn-hapus-file {
+  border: none;
+  background: transparent;
+  color: #dc4545;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.upload-pembayaran-box .informasi {
+  margin-bottom: 18px; 
+}
+
+.nominal-pembayaran {
+  padding: 15px 0;
+  margin-top: auto;
+}
+
+.nominal-item {
+  margin-bottom: 12px;
+}
+
+.nominal-item:last-child {
+  margin-bottom: 0;
+}
+
+.nominal-item span {
+  display: block;
+  font-size: 0.98rem;
+  color: var(--text-dark);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.nominal-item strong {
+  font-size: 19px;
+  color: var(--primary-blue);
+  font-weight: 600;
+}
+
+.nominal-item:last-child strong {
+  font-size: 19px;
+  color: var(--text-dark);
+}

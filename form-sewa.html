@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Reservasi - SIPENKOS</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/reservasi.css">
+</head>
+<body>
+    <header class="navbar">
+      <div class="container navbar-container">
+        <a href="beranda.html" class="logo">
+          <span class="logo-judul">SIPENKOS</span>
+          <span class="logo-divider">|</span>
+          <span class="logo-pendukung">Kos Bu Nining</span>
+        </a>
+
+        <div class="nav-actions-wrapper">
+          <div class="nav-actions" id="guestActions">
+            <a href="registrasi.html" class="btn btn-outline">Daftar</a>
+            <a href="login.html" class="btn btn-primary">Masuk</a>
+          </div>
+          <div class="user-profile" id="userProfile" style="display: none;">
+            <button type="button" class="btn-icon-notif" title="Notifikasi" aria-label="Notifikasi">
+                🔔<span class="badge-dot"></span>
+            </button>
+            <div class="user-info">
+                <div class="user-avatar" id="headerAvatar"></div>
+                <span class="user-name" id="headerName"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+  </header>
+
+  <main class="section-halaman">
+    <div class="container">
+      <a href="detail-kamar.html" class="back-link">← Kembali ke Detail Kamar</a>
+      <div class="section-header">
+        <h1 class="judul-section">Formulir Reservasi</h1>
+        <p class="deskripsi">Lengkapi data reservasi untuk melanjutkan proses sewa</p>
+      </div>
+
+      <div class="alur-card">
+        <div class="alur-sewa active">
+          <span class="nomor">1</span>
+          <span class="alur-label">Formulir Reservasi</span>
+        </div>
+        <span class="step-arrow">→</span>
+        <div class="alur-sewa">
+          <span class="nomor">2</span>
+          <span class="alur-label">Pembayaran</span>
+        </div>
+        <span class="step-arrow">→</span>
+        <div class="alur-sewa">
+          <span class="nomor">3</span>
+          <span class="alur-label">Menunggu Verifikasi</span>
+        </div>
+      </div>
+
+      <section class="grid-shell" aria-label="Informasi kamar dan formulir reservasi">
+        <div class="grid-dua-kolom grid-dua-kolom--kiri-sempit">
+          <div class="card-box kamar-pilihan-box">
+          <span class="badge">KAMAR PILIHAN</span>
+          <div class="card-kamar">
+            <img id="kamarGambar" alt="Kamar Pilihan">
+          </div>
+          <h3 class="tipe-kamar" id="tipeKamar">-</h3>
+          <div class="harga"><span class="nominal" id="hargaKamar">-</span> / bulan</div>
+
+          <div class="fasilitas-wrapper">
+            <span class="subjudul-box">Fasilitas Termasuk:</span>
+            <ul class="fasilitas" id="fasilitasKamar">
+            </ul>
+          </div>
+        </div>
+
+        <div class="card-box form-reservasi-box">
+          <h2 class="judul-box">Detail Reservasi</h2>
+          <div id="pesanPenolakan" class="rejection-notice" role="alert" hidden></div>
+          
+          <form id="formSewa" class="sewa-form">
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="tglMulai" class="form-label">Tanggal Mulai Kos</label>
+                <input type="date" id="tglMulai" name="tgl_mulai" class="form-input" required>
+              </div>
+
+              <div class="form-group">
+                <label for="durasiSewa" class="form-label">Durasi Sewa</label>
+                <input type="text" id="durasiSewa" name="durasi_sewa" class="form-input readonly-input" value="Memuat durasi..." readonly aria-readonly="true">
+                <small class="catatan">Untuk mengubahnya durasi sewa, kembali ke halaman sebelumnya.</small>
+              </div>
+
+              <div class="form-group">
+                <label for="namaKontak" class="form-label">Nama Kontak Darurat</label>
+                <input type="text" id="namaKontak" name="nama_kontak" class="form-input" placeholder="Masukkan nama orang tua/wali" required>
+              </div>
+
+              <div class="form-group">
+                <label for="hubungan" class="form-label">Hubungan</label>
+                <input type="text" id="hubungan" name="hubungan" class="form-input" placeholder="Contoh: Orang Tua, Kakak" required>
+              </div>
+
+              <div class="form-group">
+                <label for="noKontak" class="form-label">Nomor Kontak Darurat</label>
+                <input type="tel" id="noKontak" name="no_kontak" class="form-input" placeholder="Contoh: 081234567890" required>
+              </div>
+
+              <div class="form-group">
+                <label for="fotoKtp" class="form-label">Foto KTP Penyewa</label>
+                <input type="file" id="fotoKtp" name="foto_ktp" class="form-input-file" accept="image/jpeg,image/png,image/webp" required>
+                <p class="catatan">💡 KTP digunakan khusus untuk pendataan ke pengurus RT/RW demi keamanan kos.</p>
+              </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <div class="card-box rincian-biaya-box">
+        <h2 class="judul-box">Rincian Biaya Reservasi</h2>
+        <div class="rincian-item" id="rincianBiayaList">
+        </div>
+      </div>
+      
+      <div class="action-bar-card">
+        <div class="info-action">
+          <span class="icon">ℹ️</span>
+          <span>Pengajuan akan diperiksa oleh admin. Pembayaran baru dapat dilakukan setelah pengajuan disetujui.</span>
+        </div>
+        <div class="buttons-action">
+          <a href="detail-kamar.html" class="btn btn-outline">Batalkan</a>
+          <button type="submit" form="formSewa" id="btnKirimPengajuan" class="btn btn-primary">Kirim Pengajuan Sewa</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+      <div class="logo-judul text-white">SIPENKOS</div>
+      <p class="footer-tagline">🛡️ Hunian terpercaya & dikelola langsung oleh pemilik</p>
+      <p class="footer-location">Kos Bu Nining · Malang, Jawa Timur</p>
+
+      <div class="kontak">
+        <span>📍 Jl. Pisang Agung III No. 29</span>
+        <span>💬 WhatsApp 0854-4421-1076</span>
+        <span>⏰ Jam bertamu 07.00 - 22.00 WIB</span>
+      </div>
+
+      <div class="copyright">
+        © 2026 SIPENKOS - Kos Bu Nining Malang
+      </div>
+  </footer>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/kamar-data.js"></script>
+  <script src="assets/js/form-sewa.js"></script>
+</body>
+</html>

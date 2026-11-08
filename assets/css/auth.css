@@ -73,39 +73,6 @@ body {
   gap: 16px;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-dark);
-}
-
-.form-input {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-family: 'Poppins', sans-serif;
-  color: var(--text-dark);
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.form-input:focus {
-  border-color: var(--primary-blue);
-}
-
-.form-input::placeholder {
-  color: #94a3b8;
-  font-size: 0.85rem;
-}
-
 .input-password-wrapper {
   position: relative;
   display: flex;
