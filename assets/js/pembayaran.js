@@ -30,6 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const filePreview = document.getElementById("filePreview");
   const uploadEmpty = document.getElementById("uploadEmpty");
   const fileName = document.getElementById("fileName");
+  const previewGambar = document.getElementById("previewGambar");
+  const fileIcon = document.getElementById("fileIcon");
   const fileSize = document.getElementById("fileSize");
   const removeFile = document.getElementById("removeFile");
   const submitPayment = document.getElementById("submitPayment");
@@ -144,6 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   let fileTerpilih = null;
+  let urlPratinjau = null;
   const ukuranMaksimal = 5 * 1024 * 1024;
   function validasiFile(file) {
     const formatDiizinkan = [
@@ -172,6 +175,20 @@ document.addEventListener("DOMContentLoaded", () => {
     filePreview.hidden = false;
     uploadEmpty.hidden = true;
     submitPayment.disabled = false;
+
+    if (urlPratinjau) URL.revokeObjectURL(urlPratinjau);
+    urlPratinjau = null;
+
+    if (file.type.startsWith("image/")) {
+      urlPratinjau = URL.createObjectURL(file);
+      previewGambar.src = urlPratinjau;
+      previewGambar.hidden = false;
+      fileIcon.hidden = true;
+    } else {
+      previewGambar.hidden = true;
+      previewGambar.removeAttribute("src");
+      fileIcon.hidden = false;
+    }
   }
 
   paymentProof.addEventListener("change", () => {
@@ -186,8 +203,14 @@ document.addEventListener("DOMContentLoaded", () => {
     paymentProof.value = "";
     filePreview.hidden = true;
     uploadEmpty.hidden = false;
+    
+    if (urlPratinjau) URL.revokeObjectURL(urlPratinjau);
+    urlPratinjau = null;
+    previewGambar.hidden = true;
+    previewGambar.removeAttribute("src");
+    fileIcon.hidden = false;
     uploadTitle.textContent =
-      document.querySelector(
+    document.querySelector(
         'input[name="metodePembayaran"]:checked'
       ).value === "tunai"
         ? "Unggah Foto Kwitansi"

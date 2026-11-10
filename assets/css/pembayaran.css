@@ -204,7 +204,7 @@
 
 .preview-file {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 10px;
   padding: 12px;
   margin-bottom: 15px;
@@ -212,8 +212,23 @@
   border-radius: 6px;
 }
 
-.preview-file[hidden] {
+.preview-gambar {
+  display: block;
+  width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: var(--bg-light);
+}
+
+.preview-gambar[hidden] {
   display: none;
+}
+
+.preview-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .file-icon {
