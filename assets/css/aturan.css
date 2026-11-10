@@ -1,0 +1,59 @@
+.aturan-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 13px;
+    padding: 0 2px;
+}
+
+.aturan-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.aturan-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 11px 10px;
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 9px;
+    transition: 0.2s ease;
+}
+
+.aturan-item:hover {
+    background: #f0f6ff;
+    border-color: #d6e5fa;
+}
+
+.aturan-item .nomor {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border-radius: 50%;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--primary-blue);
+}
+
+.aturan-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.aturan-content h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.aturan-content p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
