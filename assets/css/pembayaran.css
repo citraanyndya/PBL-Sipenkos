@@ -1,5 +1,9 @@
 .rincian-pembayaran-box .rincian-list {
   margin-bottom: 18px;
+  background: var(--bg-light);
+  border-radius: 12px;
+  padding: 9px;
+  border: 1px solid var(--border-color);
 }
 
 .pilihan-pembayaran,
@@ -169,11 +173,6 @@
   display: none;
 }
 
-.upload-area .preview-file {
-  width: 100%;
-  margin-bottom: 0;
-}
-
 .upload-area:hover,
 .upload-area.dragover {
   background: #f1f7ff;
@@ -188,7 +187,6 @@
   justify-content: center;
   background: #fff;
   border-radius: 8px;
-  color: var(--primary-blue);
   font-size: 24px;
 }
 
@@ -200,16 +198,6 @@
 .upload-area small {
   font-size: 0.75rem;
   color: var(--text-muted);
-}
-
-.preview-file {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
 }
 
 .preview-gambar {
@@ -267,8 +255,11 @@
 }
 
 .nominal-pembayaran {
-  padding: 15px 0;
+  padding: 15px;
   margin-top: auto;
+  background: var(--bg-light);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
 }
 
 .nominal-item {
