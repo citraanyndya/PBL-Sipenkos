@@ -15,7 +15,7 @@
 <body>
     <header class="navbar">
       <div class="container navbar-container">
-        <a href="beranda.html" class="logo">
+        <a href="beranda.php" class="logo">
           <span class="logo-judul">SIPENKOS</span>
           <span class="logo-divider">|</span>
           <span class="logo-pendukung">Kos Bu Nining</span>
@@ -23,8 +23,8 @@
 
         <div class="nav-actions-wrapper">
           <div class="nav-actions" id="guestActions">
-            <a href="registrasi.html" class="btn btn-outline">Daftar</a>
-            <a href="login.html" class="btn btn-primary">Masuk</a>
+            <a href="registrasi.php" class="btn btn-outline">Daftar</a>
+            <a href="login.php" class="btn btn-primary">Masuk</a>
           </div>
           <div class="user-profile" id="userProfile" style="display: none;">
             <button type="button" class="btn-icon-notif" title="Notifikasi" aria-label="Notifikasi">
@@ -41,7 +41,7 @@
 
   <main class="section-halaman">
     <div class="container">
-      <a href="detail-kamar.html" class="back-link">← Kembali ke Detail Kamar</a>
+      <a href="detail-kamar.php" class="back-link">← Kembali ke Detail Kamar</a>
       <div class="section-header">
         <h1 class="judul-section">Formulir Reservasi</h1>
         <p class="deskripsi">Lengkapi data reservasi untuk melanjutkan proses sewa</p>
@@ -136,7 +136,7 @@
           <span>Pengajuan akan diperiksa oleh admin. Pembayaran baru dapat dilakukan setelah pengajuan disetujui.</span>
         </div>
         <div class="buttons-action">
-          <a href="detail-kamar.html" class="btn btn-outline">Batalkan</a>
+          <a href="detail-kamar.php" class="btn btn-outline">Batalkan</a>
           <button type="submit" form="formSewa" id="btnKirimPengajuan" class="btn btn-primary">Kirim Pengajuan Sewa</button>
         </div>
       </div>

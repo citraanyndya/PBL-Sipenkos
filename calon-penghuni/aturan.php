@@ -15,7 +15,7 @@
   <body>
     <header class="navbar">
       <div class="container navbar-container">
-        <a href="beranda.html" class="logo">
+        <a href="beranda.php" class="logo">
           <span class="logo-judul">SIPENKOS</span>
           <span class="logo-divider">|</span>
           <span class="logo-pendukung">Kos Bu Nining</span>
@@ -25,7 +25,7 @@
 
     <section class="section-halaman">
         <div class="container">
-            <a href="registrasi.html" class="back-link">← Kembali ke Registrasi</a>
+            <a href="registrasi.php" class="back-link">← Kembali ke Registrasi</a>
 
             <div class="section-header">
                 <h1 class="judul-section">Aturan Kos Bu Nining</h1>

@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tombol = document.querySelector(".btn-reservasi");
     if (tombol) {
       tombol.textContent = "Kembali ke Daftar Kamar";
-      tombol.href = "daftar-kamar.html";
+      tombol.href = "daftar-kamar.php";
       tombol.classList.remove("btn-primary");
       tombol.classList.add("btn-outline");
     }
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const sudahLogin = localStorage.getItem("isLoggedIn") === "true";
-      window.location.href = sudahLogin ? "form-sewa.html" : "registrasi.html";
+      window.location.href = sudahLogin ? "form-sewa.php" : "registrasi.php";
     });
   }
 });

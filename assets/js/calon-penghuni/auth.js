@@ -18,10 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const lanjutkan = () => {
     const adaPilihanKamar = Boolean(localStorage.getItem("kamarTerpilih"));
-    window.location.href = adaPilihanKamar ? "form-sewa.html" : "beranda.html";
+    window.location.href = adaPilihanKamar ? "form-sewa.php" : "beranda.php";
   };
 
-  if (window.location.pathname.endsWith("registrasi.html")) {
+  if (window.location.pathname.endsWith("registrasi.php")) {
     const password = document.getElementById("password");
     const konfirmasi = document.getElementById("konfirmasi_password");
 

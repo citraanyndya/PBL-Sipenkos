@@ -15,22 +15,22 @@
 <body>
     <header class="navbar">
     <div class="container navbar-container">
-      <a href="beranda.html" class="logo">
+      <a href="beranda.php" class="logo">
         <span class="logo-judul">SIPENKOS</span>
         <span class="logo-divider">|</span>
         <span class="logo-pendukung">Kos Bu Nining</span>
       </a>
       
       <nav class="menu">
-        <a href="beranda.html" class="nav">Beranda</a>
-        <a href="daftar-kamar.html" class="nav active">Kamar</a>
-        <a href="tentang.html" class="nav">Tentang</a>
+        <a href="beranda.php" class="nav">Beranda</a>
+        <a href="daftar-kamar.php" class="nav active">Kamar</a>
+        <a href="tentang.php" class="nav">Tentang</a>
       </nav>
 
       <div class="nav-actions-wrapper">
         <div class="nav-actions" id="guestActions">
-          <a href="registrasi.html" class="btn btn-outline">Daftar</a>
-          <a href="login.html" class="btn btn-primary">Masuk</a>
+          <a href="registrasi.php" class="btn btn-outline">Daftar</a>
+          <a href="login.php" class="btn btn-primary">Masuk</a>
         </div>
       
         <div class="user-profile" id="userProfile" style="display: none;">
@@ -65,7 +65,7 @@
               <span class="label">Biaya sewa</span>
               <div class="harga"><span class="nominal">Rp 500.000</span> / bulan</div>
             </div>
-            <a href="detail-kamar.html?tipe=1" class="btn btn-outline btn-full">Lihat Detail</a>
+            <a href="detail-kamar.php?tipe=1" class="btn btn-outline btn-full">Lihat Detail</a>
           </div>
         </article>
 
@@ -81,7 +81,7 @@
               <span class="label">Biaya sewa</span>
               <div class="harga"><span class="nominal">Rp 650.000</span> / bulan</div>
             </div>
-            <a href="detail-kamar.html?tipe=2" class="btn btn-outline btn-full">Lihat Detail</a>
+            <a href="detail-kamar.php?tipe=2" class="btn btn-outline btn-full">Lihat Detail</a>
           </div>
         </article>
 
@@ -97,7 +97,7 @@
               <span class="label">Biaya sewa</span>
               <div class="harga text-muted-harga"><span class="nominal">Rp 800.000</span> / bulan</div>
             </div>
-            <a href="detail-kamar.html?tipe=3" class="btn btn-outline btn-full">Lihat Detail</a>
+            <a href="detail-kamar.php?tipe=3" class="btn btn-outline btn-full">Lihat Detail</a>
           </div>
         </article>
 
@@ -113,7 +113,7 @@
               <span class="label">Biaya sewa</span>
               <div class="harga"><span class="nominal">Rp 950.000</span> / bulan</div>
             </div>
-            <a href="detail-kamar.html?tipe=4" class="btn btn-outline btn-full">Lihat Detail</a>
+            <a href="detail-kamar.php?tipe=4" class="btn btn-outline btn-full">Lihat Detail</a>
           </div>
         </article>
       </div>

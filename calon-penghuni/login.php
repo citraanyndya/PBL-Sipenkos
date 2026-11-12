@@ -16,7 +16,7 @@
     <div class="auth-container">
     <div class="card-box auth-card">
       <div class="auth-logo">
-        <a href="beranda.html" class="logo">
+        <a href="beranda.php" class="logo">
           <span class="logo-judul">SIPENKOS</span>
           <span class="logo-divider">|</span>
           <span class="logo-pendukung">Kos Bu Nining</span>
@@ -57,10 +57,10 @@
       </form>
 
       <div class="auth-footer-card">
-        Belum punya akun? <a href="registrasi.html" class="link-auth">Daftar sekarang</a>
+        Belum punya akun? <a href="registrasi.php" class="link-auth">Daftar sekarang</a>
       </div>
     </div>
-    <a href="daftar-kamar.html" class="back-link back-link-center">← Kembali ke Daftar Kamar</a>
+    <a href="daftar-kamar.php" class="back-link back-link-center">← Kembali ke Daftar Kamar</a>
   </div>
   <script src="assets/js/auth.js"></script>
 </body>

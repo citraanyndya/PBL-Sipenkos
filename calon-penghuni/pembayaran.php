@@ -15,7 +15,7 @@
 <body>
     <header class="navbar">
     <div class="container navbar-container">
-      <a href="beranda.html" class="logo">
+      <a href="beranda.php" class="logo">
         <span class="logo-judul">SIPENKOS</span>
         <span class="logo-divider">|</span>
         <span class="logo-pendukung">Kos Bu Nining</span>
@@ -23,8 +23,8 @@
 
       <div class="nav-actions-wrapper">
         <div class="nav-actions" id="guestActions">
-          <a href="registrasi.html" class="btn btn-outline">Daftar</a>
-          <a href="login.html" class="btn btn-primary">Masuk</a>
+          <a href="registrasi.php" class="btn btn-outline">Daftar</a>
+          <a href="login.php" class="btn btn-primary">Masuk</a>
         </div>
         <div class="user-profile" id="userProfile" style="display: none;">
           <button type="button" class="btn-icon-notif" title="Notifikasi" aria-label="Notifikasi">
@@ -41,7 +41,7 @@
 
   <main class="section-halaman">
     <div class="container">
-      <a href="form-sewa.html" class="back-link">
+      <a href="form-sewa.php" class="back-link">
         ← Kembali ke Formulir Reservasi
       </a>
 

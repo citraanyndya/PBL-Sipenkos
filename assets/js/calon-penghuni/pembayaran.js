@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem("isLoggedIn") !== "true") {
-    window.location.href = "login.html";
+    window.location.href = "login.php";
     return;
   }
 
@@ -283,8 +283,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    window.SIPENKOS?.buatNotifikasiDemo?.();
     submitPayment.disabled = true;
     submitPayment.textContent = "Mengirim bukti pembayaran...";
-    window.location.href = "status-reservasi.html";
+    window.location.href = "status-reservasi.php";
   });
 });

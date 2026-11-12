@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!form) return;
 
   if (localStorage.getItem("isLoggedIn") !== "true") {
-    window.location.href = "login.html";
+    window.location.href = "login.php";
     return;
   }
 
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const kamar = (window.SIPENKOS?.dataKamar || []).find((item) => String(item.id) === String(pesanan?.id));
   if (!pesanan || !kamar || !kamar.tersedia) {
     alert("Pilihan kamar tidak ditemukan atau sudah tidak tersedia. Silakan pilih kamar kembali.");
-    window.location.href = "daftar-kamar.html";
+    window.location.href = "daftar-kamar.php";
     return;
   }
 
@@ -182,9 +182,9 @@ document.addEventListener("DOMContentLoaded", () => {
       btnKirim.textContent = "Mengirim...";
     }
 
-    window.location.href = "pembayaran.html";
+    window.location.href = "pembayaran.php";
   });
 
   const backLink = document.querySelector(".back-link");
-  if (backLink) backLink.href = `detail-kamar.html?tipe=${kamar.id}`;
+  if (backLink) backLink.href = `detail-kamar.php?tipe=${kamar.id}`;
 });

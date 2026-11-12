@@ -16,22 +16,22 @@
   <body>
     <header class="navbar">
       <div class="container navbar-container">
-        <a href="beranda.html" class="logo">
+        <a href="beranda.php" class="logo">
           <span class="logo-judul">SIPENKOS</span>
           <span class="logo-divider">|</span>
           <span class="logo-pendukung">Kos Bu Nining</span>
         </a>
 
         <nav class="menu">
-          <a href="beranda.html" class="nav active">Beranda</a>
-          <a href="daftar-kamar.html" class="nav">Kamar</a>
-          <a href="tentang.html" class="nav">Tentang</a>
+          <a href="beranda.php" class="nav active">Beranda</a>
+          <a href="daftar-kamar.php" class="nav">Kamar</a>
+          <a href="tentang.php" class="nav">Tentang</a>
         </nav>
 
         <div class="nav-actions-wrapper">
           <div class="nav-actions" id="guestActions">
-            <a href="registrasi.html" class="btn btn-outline">Daftar</a>
-            <a href="login.html" class="btn btn-primary">Masuk</a>
+            <a href="registrasi.php" class="btn btn-outline">Daftar</a>
+            <a href="login.php" class="btn btn-primary">Masuk</a>
           </div>
 
           <div class="user-profile" id="userProfile" style="display: none">

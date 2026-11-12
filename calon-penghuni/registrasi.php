@@ -17,7 +17,7 @@
     
     <div class="card-box auth-card">
       <div class="auth-logo">
-        <a href="beranda.html" class="logo">
+        <a href="beranda.php" class="logo">
           <span class="logo-judul">SIPENKOS</span>
           <span class="logo-divider">|</span>
           <span class="logo-pendukung">Kos Bu Nining</span>
@@ -66,16 +66,16 @@
 
         <div class="form-checkbox">
           <input type="checkbox" id="persetujuan" name="persetujuan" required>
-          <label for="persetujuan">Saya menyetujui <a href="aturan.html" target="_blank" rel="noopener">aturan kos</a></label>
+          <label for="persetujuan">Saya menyetujui <a href="aturan.php" target="_blank" rel="noopener">aturan kos</a></label>
         </div>
 
         <button type="submit" class="btn btn-primary btn-full">Daftar</button>
       </form>
       <div class="auth-footer-card">
-        Sudah punya akun? <a href="login.html" class="link-auth">Masuk</a>
+        Sudah punya akun? <a href="login.php" class="link-auth">Masuk</a>
       </div>
     </div>
-    <a href="daftar-kamar.html" class="back-link back-link-center">← Kembali ke Daftar Kamar</a></div>
+    <a href="daftar-kamar.php" class="back-link back-link-center">← Kembali ke Daftar Kamar</a></div>
   <script src="assets/js/auth.js"></script>
 </body>
 </html>

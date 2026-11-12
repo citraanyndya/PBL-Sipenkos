@@ -1,0 +1,248 @@
+.status-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  background: var(--status-bg);
+  border: 1px solid var(--status-border);
+  border-radius: 12px;
+  color: var(--status-teks);
+}
+
+.status-banner--menunggu {
+  --status-bg: #fefce8;
+  --status-border: #fde68a;
+  --status-teks: #a16207;
+}
+
+.status-banner--diterima {
+  --status-bg: #f0fdf4;
+  --status-border: #bbf7d0;
+  --status-teks: var(--badge-green-text);
+}
+
+.status-banner--ditolak {
+  --status-bg: #fff1f2;
+  --status-border: #fecdd3;
+  --status-teks: var(--badge-red-text);
+}
+
+.status-ikon {
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+
+.status-isi {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.status-pill {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-isi p {
+  font-size: 0.9rem;
+}
+
+.status-banner .btn {
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.status-banner .btn-outline {
+  background-color: #fff;
+}
+
+/* ===== Grid dua kolom sama lebar (hanya dipakai halaman ini) ===== */
+.grid-dua-kolom--sama {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* ===== Ringkasan reservasi ===== */
+.foto-kamar + .rincian-list {
+  margin-top: 18px;
+}
+
+.total-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 14px 16px;
+  background: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.total-box span {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.total-box strong {
+  font-size: 1.25rem;
+  color: var(--primary-blue);
+}
+
+/* ===== Alur reservasi (timeline) ===== */
+.timeline {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  padding-bottom: 22px;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 28px;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-color);
+}
+
+.timeline-marker {
+  position: relative;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.timeline-konten strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+
+.timeline-konten p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.timeline-konten .timeline-catatan {
+  margin-top: 4px;
+  color: var(--badge-green-text);
+}
+
+.timeline-item.selesai::before {
+  background: #bbf7d0;
+}
+
+.timeline-item.selesai .timeline-marker {
+  background: var(--badge-green-bg);
+  color: var(--badge-green-text);
+}
+
+.timeline-item.aktif .timeline-marker {
+  background: #dbeafe;
+  color: var(--primary-blue);
+}
+
+.timeline-item.aktif .timeline-konten strong {
+  color: var(--primary-blue);
+}
+
+.timeline-item.menunggu .timeline-konten strong {
+  color: var(--text-muted);
+}
+
+.timeline-item.ditolak .timeline-marker {
+  background: var(--badge-red-bg);
+  color: var(--badge-red-text);
+}
+
+.timeline-item.ditolak .timeline-konten strong {
+  color: var(--badge-red-text);
+}
+
+/* ===== Dialog lihat bukti pembayaran ===== */
+.dialog-bukti {
+  width: min(480px, calc(100% - 40px));
+  margin: auto;
+  padding: 24px;
+  border: none;
+  border-radius: 16px;
+}
+
+.dialog-bukti::backdrop {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.dialog-bukti .judul-box {
+  margin-top: 0;
+  margin-bottom: 14px;
+}
+
+.dialog-bukti-gambar {
+  display: block;
+  width: 100%;
+  max-height: 60vh;
+  margin-bottom: 14px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: var(--bg-light);
+}
+
+.dialog-bukti-gambar[hidden] {
+  display: none;
+}
+
+.dialog-bukti .pesan-memuat {
+  margin-bottom: 14px;
+}
+
+@media (max-width: 768px) {
+  .grid-dua-kolom--sama {
+    grid-template-columns: 1fr;
+  }
+
+  .status-banner {
+    flex-wrap: wrap;
+  }
+
+  .status-banner .btn {
+    width: 100%;
+  }
+}
