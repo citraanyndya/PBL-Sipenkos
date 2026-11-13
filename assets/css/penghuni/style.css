@@ -1,0 +1,393 @@
+:root {
+    --primary-blue: #2563eb;
+    --primary-hover: #1d4ed8;
+    --bg-footer: #1e3a8a;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --bg-light: #f8fafc;
+    --bg-white: #ffffff;
+    --border-color: #e2e8f0;
+    --badge-green-bg: #dcfce7;
+    --badge-green-text: #15803d;
+    --badge-red-bg: #ffe4e6;
+    --badge-red-text: #be123c;
+    --badge-yellow-bg: #fef3c7;
+    --badge-yellow-text: #92400e;
+    --font-family: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--text-dark);
+    background: var(--bg-light);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+.main-area {
+    min-height: 100vh;
+    margin-left: 208px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 27px 27px 50px;
+}
+
+.sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 20;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 208px;
+    padding: 0 9px;
+
+    background: var(--bg-white);
+    border-right: 1px solid var(--border-color);
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    height: 65px;
+    padding: 0 12px;
+
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.brand-name,
+.logo-judul {
+    color: var(--bg-footer);
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+}
+
+.brand-name span,
+.logo-judul span {
+    font-size: 15px;
+}
+
+.brand-subtitle {
+    padding-left: 9px;
+    color: var(--text-muted);
+    font-size: 11px;
+    border-left: 1px solid var(--border-color);
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 15px;
+}
+
+.nav-link,
+.logout-button {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    min-height: 41px;
+    padding: 0 12px;
+
+    color: #4c5565;
+    font-size: 13px;
+    border-radius: 8px;
+
+    transition: 0.18s;
+}
+
+.nav-link:hover,
+.logout-button:hover {
+    background: var(--bg-light);
+}
+
+.nav-link.active {
+    color: var(--primary-blue);
+    font-weight: 600;
+    background: #e8f1ff;
+}
+
+.nav-icon {
+    width: 15px;
+    flex-shrink: 0;
+    font-size: 16px;
+    text-align: center;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding: 17px 0 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.logout-button {
+    width: 100%;
+    color: var(--badge-red-text);
+    font: inherit;
+    font-size: 13px;
+    text-align: left;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 65px;
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 19px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.logo-divider {
+    color: #d5dae3;
+}
+
+.logo-judul {
+    font-size: 28px;
+}
+
+.logo-pendukung {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.navbar-actions,
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    color: var(--text-dark);
+    font-size: 12px;
+}
+
+.user-avatar {
+    display: grid;
+    place-items: center;
+
+    width: 27px;
+    height: 27px;
+
+    color: white;
+    font-weight: 600;
+    background: var(--primary-blue);
+    border-radius: 50%;
+}
+
+.user-name {
+    font-size: 12px;
+}
+
+.btn-icon-notif {
+    position: relative;
+
+    display: grid;
+    place-items: center;
+
+    width: 32px;
+    height: 32px;
+
+    color: var(--text-dark);
+    font-size: 19px;
+
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.badge-dot {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+
+    width: 7px;
+    height: 7px;
+
+    background: var(--badge-red-text);
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 11px 21px;
+
+    color: white;
+    background: var(--primary-blue);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.badge-success {
+    color: var(--badge-green-text);
+    background: var(--badge-green-bg);
+}
+
+.badge-danger {
+    color: var(--badge-red-text);
+    background: var(--badge-red-bg);
+}
+
+.badge-warning {
+    color: var(--badge-yellow-text);
+    background: var(--badge-yellow-bg);
+}
+
+.form-control {
+    width: 100%;
+    padding: 11px 13px;
+
+    color: var(--text-dark);
+    font-size: 13px;
+
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    outline: none;
+}
+
+.form-control:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px #2563eb15;
+}
+
+.card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 11px;
+    box-shadow: 0 1px 2px #15233b08;
+}
+
+.sidebar-overlay {
+    display: none;
+}
+
+@media (max-width: 680px) {
+    .sidebar {
+        width: 245px;
+        box-shadow: 10px 0 30px #17243a12;
+        transform: translateX(-100%);
+        transition: transform 0.22s ease;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .sidebar-overlay.show {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 15;
+        background: #17243a55;
+    }
+
+    .navbar {
+        height: 58px;
+        padding: 0 15px;
+    }
+
+    .navbar-container {
+        gap: 10px;
+    }
+
+    .logo {
+        gap: 7px;
+    }
+
+    .logo-judul {
+        font-size: 16px;
+    }
+
+    .logo-pendukung {
+        font-size: 10px;
+    }
+
+    .user-profile {
+        gap: 9px;
+    }
+
+    .user-name {
+        display: none;
+    }
+}

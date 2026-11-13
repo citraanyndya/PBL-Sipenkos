@@ -35,6 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const buktiGambar = document.getElementById("buktiGambar");
   const buktiPesan = document.getElementById("buktiPesan");
   const tutupBukti = document.getElementById("tutupBukti");
+  const btnTerimaReservasi = document.getElementById("btnTerimaReservasi");
+  const btnTolakReservasi = document.getElementById("btnTolakReservasi");
 
   function formatRupiah(angka) {
     return "Rp " + Number(angka || 0).toLocaleString("id-ID");
@@ -65,8 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const tambahMenit = (menit) => new Date(waktuUpload.getTime() + menit * 60000);
   const waktuVerifikasi = tambahMenit(25);
   const waktuKeputusan = tambahMenit(40);
-  const alasanPenolakan = pembayaran.alasanPenolakan
-    || "Bukti transfer tidak terbaca oleh pemilik kos. Silakan unggah ulang atau hubungi pemilik kos.";
+  const alasanPenolakanDefault = "Bukti transfer tidak terbaca oleh pemilik kos. Silakan unggah ulang atau hubungi pemilik kos.";
+  const alasanPenolakan = pembayaran.alasanPenolakan || alasanPenolakanDefault;
 
   const judulKamar = reservasi.judulKamar || "kamar yang dipesan";
 
@@ -92,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ikon: "✓",
       pill: "Diterima",
       pesan: `Reservasi dan pembayaran kamu sudah dikonfirmasi. Kamu menempati ${judulKamar} mulai ${formatTanggal(reservasi.tglMulai)}.`,
-      aksi: { teks: "Masuk ke Dashboard Penghuni →", kelas: "btn btn-primary", jenis: "link", href: "dashboard-penghuni.php" },
+      aksi: { teks: "Masuk ke Dashboard Penghuni →", kelas: "btn btn-primary", jenis: "link", href: "dashboard.php" },
       langkah: { kelas: "completed", nomor: "✓", label: "Verifikasi Selesai" },
       tampilTotalHarus: false,
       labelNominal: "Dibayar",
@@ -242,4 +244,42 @@ document.addEventListener("DOMContentLoaded", () => {
   dialogBukti.addEventListener("click", (event) => {
     if (event.target === dialogBukti) dialogBukti.close();
   });
+
+  function terapkanKeputusan(tipe, alasan) {
+    pembayaran.statusPembayaran = tipe;
+    if (tipe === "ditolak") {
+      pembayaran.alasanPenolakan = alasan || alasanPenolakanDefault;
+    } else {
+      delete pembayaran.alasanPenolakan;
+    }
+    localStorage.setItem("paymentData", JSON.stringify(pembayaran));
+
+    if (window.SIPENKOS?.notifikasi) {
+      const sekarang = new Date();
+      const notifBaru = tipe === "diterima"
+        ? {
+            id: "NTF-" + sekarang.getTime(),
+            tipe: "diterima",
+            judul: "Reservasi diterima",
+            pesan: `Reservasi dan pembayaran kamu untuk ${judulKamar} sudah dikonfirmasi oleh pemilik kos.`,
+            waktu: sekarang.toISOString(),
+            dibaca: false
+          }
+        : {
+            id: "NTF-" + sekarang.getTime(),
+            tipe: "ditolak",
+            judul: "Pembayaran ditolak",
+            pesan: pembayaran.alasanPenolakan,
+            waktu: sekarang.toISOString(),
+            dibaca: false
+          };
+
+      window.SIPENKOS.notifikasi.simpan([notifBaru, ...window.SIPENKOS.notifikasi.baca()]);
+    }
+
+    window.location.href = `status-reservasi.php?status=${tipe}`;
+  }
+
+  btnTerimaReservasi?.addEventListener("click", () => terapkanKeputusan("diterima"));
+  btnTolakReservasi?.addEventListener("click", () => terapkanKeputusan("ditolak"));
 });

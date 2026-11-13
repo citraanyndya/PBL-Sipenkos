@@ -3,6 +3,15 @@ window.SIPENKOS = window.SIPENKOS || {};
 (function () {
   const KUNCI_NOTIFIKASI = "sipenkosNotifikasi";
 
+  const AKSI_PER_TIPE = {
+    diterima: { teks: "Masuk ke Dashboard →", href: "../penghuni/dashboard.php" },
+    ditolak: { teks: "⇧ Upload Ulang Bukti", href: "pembayaran.php" }
+  };
+
+  function aksiUntukTipe(tipe) {
+    return AKSI_PER_TIPE[tipe] || { teks: "Lihat Status", href: "status-reservasi.php" };
+  }
+
   function bacaNotifikasi() {
     try {
       const data = JSON.parse(localStorage.getItem(KUNCI_NOTIFIKASI) || "[]");
@@ -38,10 +47,10 @@ window.SIPENKOS = window.SIPENKOS || {};
     kunci: KUNCI_NOTIFIKASI,
     baca: bacaNotifikasi,
     simpan: simpanNotifikasi,
-    tandaiDibaca: tandaiDibaca
+    tandaiDibaca: tandaiDibaca,
+    aksiUntukTipe: aksiUntukTipe
   };
 
-  /*DEMO*/
   window.SIPENKOS.buatNotifikasiDemo = function () {
     const sekarang = new Date();
     const lama = bacaNotifikasi().filter((item) => !item.demo);
@@ -54,7 +63,7 @@ window.SIPENKOS = window.SIPENKOS || {};
         pesan: "Reservasi dan pembayaran kamu sudah dikonfirmasi oleh pemilik kos.",
         waktu: sekarang.toISOString(),
         dibaca: false,
-        tautan: "status-pembayaran.php?status=diterima",
+        tautan: "status-reservasi.php?status=diterima",
         demo: true
       },
       {
@@ -64,7 +73,7 @@ window.SIPENKOS = window.SIPENKOS || {};
         pesan: "Bukti pembayaran belum dapat diterima. Silakan unggah ulang.",
         waktu: sekarang.toISOString(),
         dibaca: false,
-        tautan: "status-pembayaran.php?status=ditolak",
+        tautan: "status-reservasi.php?status=ditolak",
         demo: true
       },
       ...lama
@@ -136,10 +145,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const waktu = document.createElement("small");
     waktu.className = "catatan";
     waktu.textContent = window.SIPENKOS.formatWaktu(item.waktu);
+
+    const aksi = notifikasi.aksiUntukTipe(item.tipe);
     const tautan = document.createElement("a");
     tautan.className = "btn btn-outline btn-sm";
-    tautan.href = item.tautan;
-    tautan.textContent = "Lihat Status";
+    tautan.href = aksi.href;
+    tautan.textContent = aksi.teks;
     tautan.addEventListener("click", () => notifikasi.tandaiDibaca(item.id));
 
     isi.append(judul, pesan, waktu, tautan);

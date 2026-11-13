@@ -42,7 +42,7 @@
 
   <main class="section-halaman">
     <div class="container">
-      <a href="form-sewa.php" class="back-link">
+      <a href="pembayaran.php" class="back-link">
         ← Kembali ke Pembayaran
       </a>
 
