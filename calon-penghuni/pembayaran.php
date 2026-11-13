@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/pembayaran.css">
+    <link rel="stylesheet" href="../assets/css/calon-penghuni/style.css">
+    <link rel="stylesheet" href="../assets/css/calon-penghuni/pembayaran.css">
 </head>
 <body>
     <header class="navbar">
@@ -88,7 +88,7 @@
                   
                   <span class="opsi-konten">
                     <strong>DP 50%</strong>
-                    <small>Bayar setengah dari total sewa sekarang.</small>
+                    <small>Bayar setengah dari total sewa sekarang, sisanya dicicil setiap bulan sesuai durasi sewa</small>
                   </span>
                 </label>
                 
@@ -133,10 +133,12 @@
                 <strong id="paymentAmount">Rp 0</strong>
               </div>
               <div class="nominal-item" id="remainingPayment">
-                <span>Sisa Pelunasan</span>
+                <span>Sisa Pembayaran</span>
                 <strong id="remainingAmount">Rp 0</strong>
               </div>
             </div>
+
+            <div id="installmentPreview" class="informasi" hidden></div>
           </div>
           
           <div class="card-box upload-pembayaran-box">
@@ -217,7 +219,7 @@
         © 2026 SIPENKOS - Kos Bu Nining Malang
       </div>
   </footer>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/pembayaran.js"></script>
+  <script src="../assets/js/calon-penghuni/main.js"></script>
+  <script src="../assets/js/calon-penghuni/pembayaran.js"></script>
 </body>
 </html>

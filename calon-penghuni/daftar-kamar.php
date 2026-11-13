@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/kamar.css">
+    <link rel="stylesheet" href="../assets/css/calon-penghuni/style.css">
+    <link rel="stylesheet" href="../assets/css/calon-penghuni/kamar.css">
 </head>
 <body>
     <header class="navbar">
@@ -55,7 +55,7 @@
       <div class="kamar-grid">
         <article class="card-kamar">
           <div class="card">
-            <img src="assets/images/kamar-tipe1.jpeg" alt="Tipe 1 Non-AC Kos Bu Nining">
+            <img src="../assets/images//kamar-tipe1.jpeg" alt="Tipe 1 Non-AC Kos Bu Nining">
             <span class="tersedia">Tersedia - sisa 1</span>
           </div>
           <div class="card-body">
@@ -71,7 +71,7 @@
 
         <article class="card-kamar">
           <div class="card">
-            <img src="assets/images/kamar-tipe2.jpeg" alt="Tipe 2 Non-AC Kos Bu Nining">
+            <img src="../assets/images//kamar-tipe2.jpeg" alt="Tipe 2 Non-AC Kos Bu Nining">
             <span class="tersedia">Tersedia - sisa 2</span>
           </div>
           <div class="card-body">
@@ -87,7 +87,7 @@
 
         <article class="card-kamar">
           <div class="card">
-            <img src="assets/images/kamar-tipe3.jpeg" alt="Tipe 3 AC Kos Bu Nining">
+            <img src="../assets/images//kamar-tipe3.jpeg" alt="Tipe 3 AC Kos Bu Nining">
             <span class="penuh">Penuh</span>
           </div>
           <div class="card-body">
@@ -103,7 +103,7 @@
 
         <article class="card-kamar">
           <div class="card">
-            <img src="assets/images/kamar-tipe4.jpeg" alt="Tipe 4 AC Kos Bu Nining">
+            <img src="../assets/images//kamar-tipe4.jpeg" alt="Tipe 4 AC Kos Bu Nining">
             <span class="tersedia">Tersedia - sisa 3</span>
           </div>
           <div class="card-body">
@@ -140,5 +140,6 @@
         © 2026 SIPENKOS - Kos Bu Nining Malang
       </div>
   </footer>
+    <script src="../assets/js/calon-penghuni/main.js"></script>
 </body>
 </html>

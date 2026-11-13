@@ -9,9 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/beranda.css" />
-    <link rel="stylesheet" href="assets/css/kamar.css" />
+    <link rel="stylesheet" href="../assets/css/calon-penghuni/style.css" />
+    <link rel="stylesheet" href="../assets/css/calon-penghuni/beranda.css" />
+    <link rel="stylesheet" href="../assets/css/calon-penghuni/kamar.css" />
   </head>
   <body>
     <header class="navbar">
@@ -47,10 +47,19 @@
       </div>
     </header>
 
+    <section class="container banner-status" id="bannerStatus" hidden aria-live="polite">
+      <div class="banner-status-icon" id="bannerStatusIcon">⏳</div>
+      <div class="banner-status-content">
+        <strong id="bannerStatusTitle">Reservasimu sedang diverifikasi</strong>
+        <p id="bannerStatusDescription">Bukti pembayaran sedang diperiksa oleh pemilik kos.</p>
+      </div>
+      <a href="status-pembayaran.php" class="btn btn-outline" id="bannerStatusButton">Lihat Status Reservasi</a>
+    </section>
+
     <section class="section-image">
       <div class="container-image">
         <div class="image-header">
-          <img src="assets/images/header.jpeg" alt="Interior Kamar SIPENKOS" class="header-image"/>
+          <img src="../assets/images//header.jpeg" alt="Interior Kamar SIPENKOS" class="header-image"/>
           <div class="content-overlay">
             <h1 class="judul-section">Lagi nyari kos? <span class="text-blue">SIPENKOS</span> aja</h1>
             <p class="deskripsi">
@@ -89,7 +98,7 @@
         <div class="kamar-grid">
           <article class="card-kamar">
             <div class="card">
-              <img src="assets/images/kamar-tipe1.jpeg" alt="Tipe 1 Non-AC Kos Bu Nining"/>
+              <img src="../assets/images/kamar-tipe1.jpeg" alt="Tipe 1 Non-AC Kos Bu Nining"/>
               <span class="tersedia">Tersedia - sisa 1</span>
             </div>
             <div class="card-body">
@@ -101,7 +110,7 @@
 
           <article class="card-kamar">
             <div class="card">
-              <img src="assets/images/kamar-tipe2.jpeg" alt="Tipe 2 Non-AC Kos Bu Nining" />
+              <img src="../assets/images/kamar-tipe2.jpeg" alt="Tipe 2 Non-AC Kos Bu Nining" />
               <span class="tersedia">Tersedia - sisa 2</span>
             </div>
             <div class="card-body">
@@ -113,7 +122,7 @@
 
           <article class="card-kamar">
             <div class="card">
-              <img src="assets/images/kamar-tipe3.jpeg" alt="Tipe 3 AC Kos Bu Nining" />
+              <img src="../assets/images/kamar-tipe3.jpeg" alt="Tipe 3 AC Kos Bu Nining" />
               <span class="penuh">Penuh</span>
             </div>
             <div class="card-body">
@@ -125,7 +134,7 @@
 
           <article class="card-kamar">
             <div class="card">
-              <img src="assets/images/kamar-tipe4.jpeg" alt="Tipe 4 AC Kos Bu Nining" />
+              <img src="../assets/images/kamar-tipe4.jpeg" alt="Tipe 4 AC Kos Bu Nining" />
               <span class="tersedia">Tersedia - sisa 3</span>
             </div>
             <div class="card-body">
@@ -153,6 +162,7 @@
 
       <div class="copyright">© 2026 SIPENKOS - Kos Bu Nining Malang</div>
     </footer>
-    <script src="assets/js/main.js"></script>
+    <script src="../assets/js/calon-penghuni/main.js"></script>
+    <script src="../assets/js/calon-penghuni/banner-status.js"></script>
   </body>
 </html>

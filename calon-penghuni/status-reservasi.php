@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/status-reservasi.css">
+  <link rel="stylesheet" href="../assets/css/calon-penghuni/style.css">
+  <link rel="stylesheet" href="../assets/css/calon-penghuni/status-reservasi.css">
 </head>
 <body>
   <header class="navbar">
@@ -43,7 +43,7 @@
   <main class="section-halaman">
     <div class="container">
       <a href="form-sewa.php" class="back-link">
-        ← Kembali ke Beranda
+        ← Kembali ke Pembayaran
       </a>
 
       <div class="section-header">
@@ -76,6 +76,27 @@
         </div>
         <a href="#" class="btn btn-outline" id="statusAksi"></a>
       </section>
+
+      <!-- SIMULASI VERIFIKASI (KHUSUS DEVELOPMENT) -->
+<section class="simulasi-verifikasi" id="simulasiVerifikasi" hidden>
+    <div class="simulasi-header">
+        <h3>Simulasi Verifikasi Pemilik Kos</h3>
+        <p>
+            Pilih hasil pemeriksaan untuk menguji alur reservasi.
+            Bagian ini hanya digunakan selama pengembangan.
+        </p>
+    </div>
+
+    <div class="simulasi-actions">
+        <button type="button" id="btnTerimaReservasi" class="btn-simulasi btn-terima">
+            ✓ Terima Reservasi
+        </button>
+
+        <button type="button" id="btnTolakReservasi" class="btn-simulasi btn-tolak">
+            ✕ Tolak Reservasi
+        </button>
+    </div>
+</section>
 
       <div class="grid-dua-kolom grid-dua-kolom--sama">
         <section class="card-box">
@@ -120,7 +141,7 @@
     <div class="copyright">© 2026 SIPENKOS - Kos Bu Nining Malang</div>
   </footer>
 
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/status-reservasi.js"></script>
+  <script src="../assets/js/calon-penghuni/main.js"></script>
+  <script src="../assets/js/calon-penghuni/status-reservasi.js"></script>
 </body>
 </html>

@@ -7,11 +7,10 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/tentang.css" />
+    <link rel="stylesheet" href="../assets/css/calon-penghuni/style.css" />
+    <link rel="stylesheet" href="../assets/css/calon-penghuni/tentang.css" />
   </head>
   <body>
     <header class="navbar">
@@ -61,18 +60,18 @@
         <div class="galeri">
           <div class="card-galeri">
             <img
-              src="assets/images/pagar-utama.jpeg"
+              src="../assets/images//pagar-utama.jpeg"
               alt="Tampak Depan & Pagar Utama"
             />
             <span class="badge-galeri">🏠 Tampak Depan & Pagar Utama</span>
           </div>
           <div class="card-galeri">
-            <img src="assets/images/ruang-tamu.jpeg" alt="Ruang Tamu" />
+            <img src="../assets/images//ruang-tamu.jpeg" alt="Ruang Tamu" />
             <span class="badge-galeri">🛋️ Ruang Tamu</span>
           </div>
           <div class="card-galeri">
             <img
-              src="assets/images/parkiran.jpeg"
+              src="../assets/images//parkiran.jpeg"
               alt="Parkir Motor Berkanopi & CCTV"
             />
             <span class="badge-galeri">🛵 Parkir Motor Berkanopi & CCTV</span>
@@ -153,6 +152,6 @@
 
       <div class="copyright">© 2026 SIPENKOS - Kos Bu Nining Malang</div>
     </footer>
-    <script src="assets/js/main.js"></script>
+    <script src="../assets/js/calon-penghuni/main.js"></script>
   </body>
 </html>
