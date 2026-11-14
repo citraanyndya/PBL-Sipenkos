@@ -253,8 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (status === "Lunas") {
                 aksi = `<span class="aksi-selesai">Selesai</span>`;
             } else if (status === "Menunggu Verifikasi") {
-                aksi = `<span class="aksi-menunggu">Menunggu Verifikasi</span>`;
-            } else {
+                aksi = `<span class="aksi-menunggu">Bukti terkirim</span>`;
                 aksi = `
                     <button
                         class="btn-bayar"
