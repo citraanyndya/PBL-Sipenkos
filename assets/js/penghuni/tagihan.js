@@ -249,11 +249,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (status === "Ditolak") kelasStatus = "status-ditolak";
 
             let aksi = "";
-
             if (status === "Lunas") {
                 aksi = `<span class="aksi-selesai">Selesai</span>`;
             } else if (status === "Menunggu Verifikasi") {
                 aksi = `<span class="aksi-menunggu">Bukti terkirim</span>`;
+            } else {
                 aksi = `
                     <button
                         class="btn-bayar"
@@ -263,7 +263,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     </button>
                 `;
             }
-
             return `
                 <tr>
                     <td>${periode}</td>
