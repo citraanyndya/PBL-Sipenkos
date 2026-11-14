@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perpanjangan Sewa - SIPENKOS</title>
+    <title>Tagihan - SIPENKOS</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   
     <link rel="stylesheet" href="../assets/css/penghuni/style.css">
-    <link rel="stylesheet" href="../assets/css/penghuni/riwayat-pembayaran.css">
+    <link rel="stylesheet" href="../assets/css/penghuni/tagihan.css">
 </head>
 <body>
     <div class="tagihan-layout">
@@ -31,7 +31,7 @@
         <main class="main-area">
         <header class="navbar">
           <div class="container navbar-container">
-            <a href="dashboard-penghuni.php" class="logo">
+            <a href="dashboard.php" class="logo">
               <span class="logo-judul">SIPENKOS</span>
               <span class="logo-divider">|</span>
               <span class="logo-pendukung">Kos Bu Nining</span>
@@ -48,7 +48,57 @@
           </div>
         </header>
 
+        
+        <section class="tagihan-content">
+            <div class="tagihan-heading">
+                <h1>Tagihan</h1>
+                <p>Daftar tagihan sewa kamar kamu</p>
+            </div>
 
+            <div class="tagihan-table-wrapper">
+                <table class="tagihan-table">
+                    <thead>
+                        <tr>
+                            <th>Periode</th>
+                            <th>Jenis</th>
+                            <th>Jumlah</th>
+                            <th>Jatuh Tempo</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tagihanList">
+                        <tr>
+                            <td colspan="6" class="tagihan-loading">
+                                Memuat tagihan...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <div class="modal-upload" id="modalUpload">
+            <div class="modal-upload-content">
+                <button type="button" class="modal-close" id="tutupModal">&times;</button>
+
+                <h2>Upload Bukti Pembayaran</h2>
+                <p class="modal-deskripsi" id="detailTagihan"></p>
+
+                <form id="formUpload">
+                    <label for="buktiPembayaran">Bukti Pembayaran</label>
+                    <input type="file" id="buktiPembayaran" accept=".jpg,.jpeg,.png,.pdf" required>
+                    <small>Format JPG, PNG, atau PDF. Maksimal 5 MB.</small>
+                    <div id="previewBukti"></div>
+                    <button type="submit" class="btn-kirim-bukti">
+                        Kirim Bukti Pembayaran
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
+    <script src="../assets/js/penghuni/penghuni-sesi.js"></script>
+    <script src="../assets/js/penghuni/tagihan.js"></script>
 </body>
 </html>

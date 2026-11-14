@@ -1,0 +1,251 @@
+
+.tagihan-content {
+    padding: 25px 24px;
+    width: 100%;
+}
+
+.tagihan-heading {
+    margin-bottom: 24px;
+}
+
+.tagihan-heading h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #202b3a;
+    margin: 0 0 3px;
+}
+
+.tagihan-heading p {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+}
+
+.tagihan-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    background: #fff;
+    border-radius: 11px;
+    box-shadow: 0 3px 12px rgba(20, 40, 70, 0.04);
+}
+
+.tagihan-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 680px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.tagihan-table th {
+    padding: 15px 18px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 600;
+    color: #354052;
+    background: #f9fafc;
+    white-space: nowrap;
+}
+
+.tagihan-table td {
+    padding: 15px 18px;
+    font-size: 11px;
+    color: #344054;
+    border-top: 1px solid #f0f1f4;
+}
+
+.tagihan-table tbody tr {
+    transition: background 0.2s;
+}
+
+.tagihan-table tbody tr:hover {
+    background: #fafcff;
+}
+
+.nominal-tagihan {
+    color: #0866dc !important;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status-tagihan {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.status-tagihan::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.status-belum {
+    color: #bd2929;
+    background: #ffe0df;
+}
+
+.status-menunggu {
+    color: #236caa;
+    background: #e1efff;
+}
+
+.status-lunas {
+    color: #238254;
+    background: #ddf5e7;
+}
+
+.status-ditolak {
+    color: #bd2929;
+    background: #ffe0df;
+}
+
+.btn-bayar {
+    border: none;
+    border-radius: 6px;
+    background: #1769dc;
+    color: white;
+    padding: 8px 15px;
+    font-family: inherit;
+    font-size: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    white-space: nowrap;
+}
+
+.btn-bayar:hover {
+    background: #1057bb;
+}
+
+.aksi-selesai {
+    font-size: 10px;
+    color: #238254;
+    font-weight: 600;
+}
+
+.aksi-menunggu {
+    font-size: 10px;
+    color: #236caa;
+    font-weight: 500;
+}
+
+.tagihan-loading,
+.tagihan-kosong {
+    text-align: center !important;
+    padding: 35px !important;
+    color: #89919d !important;
+}
+
+.modal-upload {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(20, 30, 45, 0.45);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-upload.active {
+    display: flex;
+}
+
+.modal-upload-content {
+    position: relative;
+    background: #fff;
+    width: 100%;
+    max-width: 420px;
+    padding: 27px;
+    border-radius: 12px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+}
+
+.modal-upload-content h2 {
+    font-size: 17px;
+    color: #263238;
+    margin: 0 0 8px;
+}
+
+.modal-deskripsi {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #78818a;
+    margin-bottom: 22px;
+}
+
+.modal-close {
+    position: absolute;
+    right: 17px;
+    top: 12px;
+    border: none;
+    background: transparent;
+    font-size: 25px;
+    color: #89919d;
+    cursor: pointer;
+}
+
+.modal-upload-content label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 9px;
+    color: #374151;
+}
+
+.modal-upload-content input[type="file"] {
+    width: 100%;
+    font-family: inherit;
+    font-size: 11px;
+}
+
+.modal-upload-content small {
+    display: block;
+    margin-top: 9px;
+    font-size: 10px;
+    color: #9299a1;
+}
+
+#previewBukti {
+    margin-top: 12px;
+}
+
+#previewBukti img {
+    max-width: 100%;
+    max-height: 160px;
+    border-radius: 7px;
+}
+
+.btn-kirim-bukti {
+    width: 100%;
+    margin-top: 22px;
+    padding: 11px;
+    border: none;
+    border-radius: 7px;
+    background: #1769dc;
+    color: white;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-kirim-bukti:hover {
+    background: #1057bb;
+}
+
+@media (max-width: 768px) {
+    .tagihan-content {
+        padding: 22px 15px;
+    }
+
+    .tagihan-heading h1 {
+        font-size: 20px;
+    }
+}

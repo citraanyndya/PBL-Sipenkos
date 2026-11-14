@@ -1,0 +1,147 @@
+
+.riwayat-card {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tabel-riwayat {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 850px;
+}
+
+.tabel-riwayat thead {
+    background: #f7f9fc;
+}
+
+.tabel-riwayat th {
+    padding: 19px 20px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.tabel-riwayat td {
+    padding: 19px 20px;
+    font-size: 13px;
+    color: var(--text-dark);
+    border-bottom: 1px solid #edf0f4;
+    vertical-align: middle;
+}
+
+.tabel-riwayat tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tabel-riwayat tbody tr:hover {
+    background: #fafcff;
+}
+
+.periode-text {
+    line-height: 1.7;
+    min-width: 150px;
+}
+
+.jumlah-pembayaran {
+    color: #1672ee !important;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.status-lunas {
+    display: inline-block;
+    padding: 5px 11px;
+    background: #dcfce7;
+    color: #15803d;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.btn-lihat-bukti {
+    border: none;
+    background: transparent;
+    color: #1672ee;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: inherit;
+}
+
+.btn-lihat-bukti:hover {
+    text-decoration: underline;
+}
+
+.loading-riwayat,
+.riwayat-kosong {
+    text-align: center;
+    padding: 45px 20px !important;
+    color: var(--text-muted) !important;
+}
+
+.dialog-bukti {
+    width: min(90%, 500px);
+    max-height: 85vh;
+    margin: auto;
+    padding: 22px;
+    border: none;
+    border-radius: 12px;
+}
+
+.dialog-bukti::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dialog-header h2 {
+    font-size: 17px;
+}
+
+.btn-tutup {
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.isi-bukti {
+    text-align: center;
+}
+
+.isi-bukti img {
+    width: 100%;
+    max-height: 60vh;
+    object-fit: contain;
+}
+
+.bukti-tidak-tersedia {
+    padding: 30px 15px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.section
+
+@media (max-width: 768px) {
+    .riwayat-card {
+        border-radius: 9px;
+    }
+}
