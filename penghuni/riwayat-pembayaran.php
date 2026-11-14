@@ -98,7 +98,6 @@
         </dialog>
         
     </div>
-    <script src="../assets/js/penghuni/penghuni-sesi.js"></script>
 <script src="../assets/js/penghuni/riwayat-pembayaran.js"></script>
 </body>
 </html>

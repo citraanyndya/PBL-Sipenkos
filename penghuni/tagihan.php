@@ -98,7 +98,6 @@
             </div>
         </div>
     </div>
-    <script src="../assets/js/penghuni/penghuni-sesi.js"></script>
     <script src="../assets/js/penghuni/tagihan.js"></script>
 </body>
 </html>
