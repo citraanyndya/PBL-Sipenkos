@@ -1,15 +1,3 @@
-// =========================================================
-// Fitur Perpanjangan Sewa (penghuni) — frontend
-// Dipakai oleh: penghuni/perpanjangan-sewa.php (form)
-//               penghuni/status-perpanjangan-sewa.php (status)
-//
-// Data demo di localStorage (sampai backend tersedia):
-//   - "paymentData" / "draftSewa"  : sewa yang sedang berjalan (dibuat alur reservasi)
-//   - "sipenkosPerpanjangan"       : pengajuan perpanjangan penghuni
-//
-// Untuk presentasi, status bisa dipaksa lewat URL (tidak disimpan):
-//   status-perpanjangan-sewa.php?status=disetujui | ?status=ditolak
-// =========================================================
 document.addEventListener("DOMContentLoaded", () => {
   const KUNCI = "sipenkosPerpanjangan";
   const PERSEN_DP = 50;
@@ -78,11 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if ($("headerName")) $("headerName").textContent = namaDepan;
   if ($("headerAvatar")) $("headerAvatar").textContent = namaDepan.charAt(0).toUpperCase();
 
-  $("logoutButton")?.addEventListener("click", () => {
-    if (!confirm("Yakin ingin keluar dari akun SIPENKOS?")) return;
-    localStorage.removeItem("isLoggedIn");
-    window.location.href = "../calon-penghuni/beranda.php";
-  });
 
   // ---------- data sewa saat ini ----------
   const ambilSewaSaatIni = () => {
