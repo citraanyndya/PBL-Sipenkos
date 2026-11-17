@@ -19,7 +19,7 @@
               <a class="nav-link" href="dashboard.php"><span class="nav-icon">▦</span>Dashboard</a>
               <a class="nav-link active" href="tagihan.php"><span class="nav-icon">▤</span>Tagihan</a>
               <a class="nav-link" href="riwayat-pembayaran.php"><span class="nav-icon">◴</span>Riwayat Pembayaran</a>
-        <a class="nav-link" href="perpanjangan-sewa.php"><span class="nav-icon">▣</span>Perpanjangan Sewa</a>
+              <a class="nav-link" href="perpanjangan-sewa.php"><span class="nav-icon">▣</span>Perpanjangan Sewa</a>
               <a class="nav-link" href="laporan-kerusakan.php"><span class="nav-icon">⚒</span>Laporan Kerusakan</a>
               <a class="nav-link" href="aturan.php"><span class="nav-icon">⚑</span>Kebijakan &amp; Aturan Kos</a>
             </nav>
