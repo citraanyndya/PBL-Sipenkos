@@ -1,26 +1,25 @@
-body {
-    background: linear-gradient(180deg, #f8fafd 0%, #e9f1fb 100%);
-    background-attachment: fixed;
+/* Buang margin kiri bekas sidebar kalau ada */
+.notifikasi-layout .main-area {
+    margin-left: 0 !important;
+    width: 100%;
 }
 
-.notifikasi-layout {
-    min-height: 100vh;
+/* Lebarkan container khusus di halaman notifikasi biar nggak terbatasi */
+.notifikasi-layout .container {
+    max-width: 100% !important;
+    padding-left: 32px;
+    padding-right: 32px;
 }
 
 .notif-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
     margin-bottom: 24px;
-    padding-top: 12px;
 }
 
 .notif-heading h1 {
-    color: #0f172a;
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -0.4px;
+    margin-bottom: 5px;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
 }
 
 .btn-tandai-semua {
@@ -83,8 +82,6 @@ body {
 .notif-item.belum-dibaca:hover {
     background: #eef2f9;
 }
-
-/* Sudah dibaca: dipisah garis tipis */
 .notif-item:not(.belum-dibaca) + .notif-item:not(.belum-dibaca) {
     border-top: 1px solid #e8ecf2;
     border-radius: 0 0 10px 10px;
@@ -100,7 +97,6 @@ body {
     place-items: center;
     width: 40px;
     height: 40px;
-    color: #1a6fe0;
     background: #fff;
     border-radius: 50%;
 }
@@ -134,7 +130,7 @@ body {
     align-items: center;
     gap: 8px;
     color: #111827;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
 }
 
@@ -153,7 +149,7 @@ body {
 .notif-pesan {
     margin-top: 2px;
     color: #374151;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .notif-tanggal {

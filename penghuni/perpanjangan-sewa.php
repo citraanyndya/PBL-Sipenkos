@@ -37,34 +37,27 @@
             <span class="logo-divider">|</span>
             <span class="logo-pendukung">Kos Bu Nining</span>
           </a>
+        </div>
 
-          <div class="user-profile" id="userProfile" style="display: none;">
-            <a class="btn-icon-notif" href="notifikasi.php" title="Notifikasi" aria-label="Notifikasi">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <div class="user-profile" id="userProfile" style="display: none;">
+          <a class="btn-icon-notif" href="notifikasi.php" title="Notifikasi" aria-label="Notifikasi">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
               <span class="badge-dot" id="notificationDot" hidden></span>
-            </a>
-            <span class="header-divider" aria-hidden="true"></span>
-            <div class="account">
-              <button class="account-toggle" id="accountToggle" type="button" aria-haspopup="true" aria-expanded="false">
-                <span class="user-avatar" id="headerAvatar"></span>
-                <span class="user-name" id="headerName"></span>
-                <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-              </button>
-              <div class="account-menu" id="accountMenu" hidden>
-                <button type="button" data-logout><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>Keluar</button>
-              </div>
-            </div>
+          </a>
+          <span class="header-divider" aria-hidden="true"></span>
+          <div class="account">
+            <span class="user-avatar" id="headerAvatar"></span>
+            <span class="user-name" id="headerName"></span>
           </div>
         </div>
       </header>
 
       <section class="container">
-        <div class="page-heading">
+        <div class="perpanjangan-heading">
           <h1>Perpanjangan Sewa</h1>
           <p>Pilih durasi untuk memperpanjang masa sewa kamu</p>
         </div>
 
-        <!-- Ditampilkan bila data sewa penghuni belum ada -->
         <div class="card-box empty-state" id="emptyState" hidden>
           <h2>Data sewa belum tersedia</h2>
           <p>Perpanjangan hanya bisa diajukan oleh penghuni yang reservasinya sudah diterima.</p>
@@ -72,14 +65,12 @@
         </div>
 
         <form class="card-box form-perpanjangan" id="formPerpanjangan" hidden novalidate>
-          <!-- Informasi kamar & sewa saat ini -->
           <div class="info-sewa">
             <p class="label-kecil">Informasi Kamar &amp; Sewa Saat Ini</p>
             <h2 id="infoKamar">-</h2>
             <p class="info-periode" id="infoPeriode">Masa sewa saat ini -</p>
           </div>
 
-          <!-- Pilih tipe kamar (diisi dari kamar-data.js) -->
           <fieldset class="grup-pilihan">
             <legend>Pilih Tipe Kamar</legend>
             <div class="pilihan pilihan-4" id="pilihanTipe"></div>
@@ -110,7 +101,6 @@
             </div>
           </fieldset>
 
-          <!-- Ringkasan -->
           <ul class="ringkasan" aria-live="polite">
             <li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Tipe Kamar: <b id="ringTipe">-</b></span></li>
             <li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Masa sewa baru: <b id="ringMasa">-</b></span></li>

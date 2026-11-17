@@ -1,27 +1,24 @@
-.riwayat-content {
-    width: 100%;
-    padding: 25px 24px;
-}
 
 .riwayat-heading {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .riwayat-heading h1 {
-    margin: 0 0 5px;
+    margin-bottom: 5px;
     font-size: 24px;
     font-weight: 700;
     letter-spacing: -0.7px;
-    color: var(--text-dark);
 }
 
 .riwayat-heading p {
-    margin: 0;
-    font-size: 12px;
     color: var(--text-muted);
+    font-size: 12px;
 }
 
-/* ---------- filter bulan ---------- */
+.navbar-container {
+    
+}
+
 .riwayat-filter {
     display: flex;
     flex-wrap: wrap;
@@ -53,11 +50,6 @@
     box-shadow: 0 0 0 3px #2563eb15;
 }
 
-.filter-bulan:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
 .btn-reset-filter {
     padding: 8px 12px;
     font-size: 12px;
@@ -77,10 +69,20 @@
     color: var(--text-muted);
 }
 
-/* ---------- status pembayaran ---------- */
-.status-diterima { color: #15803d; background: #dcfce7; }
-.status-menunggu { color: #236caa; background: #e1efff; }
-.status-ditolak  { color: #be123c; background: #ffe4e6; }
+.status-diterima { 
+    color: #238254;
+    background: #ddf5e7;
+}
+
+.status-menunggu { 
+    color: #236caa; 
+    background: #e1efff; 
+}
+
+.status-ditolak { 
+    color: #bd2929;
+    background: #ffe0df;
+}
 
 .alasan-tolak {
     display: block;
@@ -97,7 +99,6 @@
     color: var(--text-muted);
     white-space: normal;
 }
-
 
 .riwayat-card {
     background: #fff;
@@ -238,52 +239,12 @@
     font-size: 13px;
 }
 
-@media (max-width: 768px) {
-    .riwayat-card {
-        border-radius: 9px;
-    }
-}
-
-/* ---------- header (disamakan dengan halaman penghuni lain) ---------- */
-.tagihan-layout .navbar {
-    padding: 0 27px;
-}
-
-.tagihan-layout .navbar .navbar-container {
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    padding: 0;
-}
-
-.tagihan-layout .ikon-notif {
-    width: 19px;
-    height: 19px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.tagihan-layout .header-divider {
-    width: 1px;
-    height: 28px;
-    background: var(--border-color);
-}
-
 @media (max-width: 680px) {
-    .tagihan-layout .navbar {
-        padding: 0 15px;
-    }
-}
-
-@media (max-width: 768px) {
-    .riwayat-content {
-        padding: 22px 15px;
+    .main-area {
+        margin-left: 0;
     }
 
-    .riwayat-heading h1 {
+    .riwayat-heading {
         font-size: 21px;
     }
 }

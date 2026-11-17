@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const PERSEN_DP = 50;
   const $ = (id) => document.getElementById(id);
 
-  // ---------- util ----------
   const ambilJSON = (kunci) => {
     try {
       return JSON.parse(localStorage.getItem(kunci) || "null");
@@ -42,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return `${w.toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}, ${jam}`;
   };
 
-  // sama dengan dashboard.js, agar periode yang tampil konsisten
   const tambahBulan = (tanggal, jumlah) => {
     const hasil = new Date(tanggal);
     const hariAsli = hasil.getDate();
@@ -60,14 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const LABEL_SKEMA = { dp: `DP (Down Payment) ${PERSEN_DP}%`, lunas: "Lunas" };
   const LABEL_METODE = { transfer: "Transfer", cash: "Cash" };
 
-  // ---------- header & keluar (sama di kedua halaman) ----------
   const profil = ambilJSON("sipenkosDemoUser") || {};
   const namaDepan = (profil.nama || "Penghuni").trim().split(/\s+/)[0];
   if ($("headerName")) $("headerName").textContent = namaDepan;
   if ($("headerAvatar")) $("headerAvatar").textContent = namaDepan.charAt(0).toUpperCase();
 
-
-  // ---------- data sewa saat ini ----------
   const ambilSewaSaatIni = () => {
     const pembayaran = ambilJSON("paymentData") || {};
     const sewa = pembayaran.reservasi || ambilJSON("draftSewa");
@@ -89,15 +84,11 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   };
 
-  // =======================================================
-  // HALAMAN FORM
-  // =======================================================
   const form = $("formPerpanjangan");
   if (form) {
     const params = new URLSearchParams(window.location.search);
     const pengajuanLama = ambilJSON(KUNCI);
 
-    // Satu penghuni hanya punya satu pengajuan aktif: arahkan ke halaman status
     if (pengajuanLama && pengajuanLama.status !== "ditolak" && !params.has("baru")) {
       window.location.replace("status-perpanjangan-sewa.php");
       return;
@@ -111,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const dataKamar = (window.SIPENKOS && window.SIPENKOS.dataKamar) || [];
 
-    // info sewa saat ini
     const labelKamar = sewa.nomorKamar
       ? `Kamar ${sewa.nomorKamar} · ${sewa.judul}`
       : sewa.judul;
@@ -119,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
     $("infoPeriode").textContent =
       `Masa sewa saat ini ${formatTanggal(sewa.mulai)} – ${formatTanggal(sewa.akhir)}`;
 
-    // pilihan tipe kamar dari kamar-data.js
     const wadahTipe = $("pilihanTipe");
     dataKamar.forEach((kamar) => {
       const kamarSaatIni = kamar.id === sewa.idTipe;
@@ -202,9 +191,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // =======================================================
-  // HALAMAN STATUS
-  // =======================================================
   const konten = $("kontenStatus");
   if (!konten) return;
 

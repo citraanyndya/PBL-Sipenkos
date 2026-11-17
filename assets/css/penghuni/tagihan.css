@@ -1,25 +1,17 @@
-
-.tagihan-content {
-    padding: 25px 24px;
-    width: 100%;
-}
-
 .tagihan-heading {
     margin-bottom: 24px;
 }
 
 .tagihan-heading h1 {
+    margin-bottom: 5px;
     font-size: 24px;
     font-weight: 700;
     letter-spacing: -0.7px;
-    color: var(--text-dark);
-    margin: 0 0 5px;
 }
 
 .tagihan-heading p {
-    font-size: 12px;
     color: var(--text-muted);
-    margin: 0;
+    font-size: 12px;
 }
 
 .tagihan-table-wrapper {
@@ -61,12 +53,6 @@
 
 .tagihan-table tbody tr:hover {
     background: #fafcff;
-}
-
-.nominal-tagihan {
-    color: #0866dc !important;
-    font-weight: 600;
-    white-space: nowrap;
 }
 
 .status-tagihan {
@@ -243,16 +229,6 @@
     background: #1057bb;
 }
 
-@media (max-width: 768px) {
-    .tagihan-content {
-        padding: 22px 15px;
-    }
-
-    .tagihan-heading h1 {
-        font-size: 20px;
-    }
-}
-
 .status-sebagian {
     color: #92400e;
     background: #fef3c7;
@@ -292,36 +268,12 @@
     border-color: var(--primary-blue);
 }
 
-/* ---------- header (disamakan dengan halaman penghuni lain) ---------- */
-.tagihan-layout .navbar {
-    padding: 0 27px;
-}
-
-.tagihan-layout .navbar .navbar-container {
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    padding: 0;
-}
-
-.tagihan-layout .ikon-notif {
-    width: 19px;
-    height: 19px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.tagihan-layout .header-divider {
-    width: 1px;
-    height: 28px;
-    background: var(--border-color);
-}
-
 @media (max-width: 680px) {
-    .tagihan-layout .navbar {
-        padding: 0 15px;
+    .main-area {
+        margin-left: 0;
+    }
+    
+    .tagihan-heading {
+        font-size: 21px;
     }
 }

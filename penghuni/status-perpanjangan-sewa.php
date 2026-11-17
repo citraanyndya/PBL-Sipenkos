@@ -37,28 +37,27 @@
             <span class="logo-divider">|</span>
             <span class="logo-pendukung">Kos Bu Nining</span>
           </a>
+        </div>
 
-          <div class="user-profile">
-            <button class="btn-icon-notif" type="button" title="Notifikasi" aria-label="Notifikasi">
-              <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-              <span class="badge-dot"></span>
-            </button>
-            <span class="header-divider" aria-hidden="true"></span>
-            <div class="user-info">
-              <div class="user-avatar" id="headerAvatar">P</div>
-              <span class="user-name" id="headerName">Penghuni</span>
-            </div>
+        <div class="user-profile" id="userProfile" style="display: none;">
+          <a class="btn-icon-notif" href="notifikasi.php" title="Notifikasi" aria-label="Notifikasi">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+              <span class="badge-dot" id="notificationDot" hidden></span>
+          </a>
+          <span class="header-divider" aria-hidden="true"></span>
+          <div class="account">
+            <span class="user-avatar" id="headerAvatar"></span>
+            <span class="user-name" id="headerName"></span>
           </div>
         </div>
       </header>
 
       <section class="container">
-        <div class="page-heading">
+        <div class="perpanjangan-heading">
           <h1>Status Perpanjangan Sewa</h1>
           <p>Pantau pengajuan perpanjangan sewa kamu</p>
         </div>
 
-        <!-- Ditampilkan bila belum ada pengajuan -->
         <div class="card-box empty-state" id="emptyState" hidden>
           <h2>Belum ada pengajuan perpanjangan</h2>
           <p>Ajukan perpanjangan untuk melanjutkan masa sewa kamu.</p>
@@ -66,7 +65,6 @@
         </div>
 
         <div id="kontenStatus" hidden>
-          <!-- Banner status: kelas status-banner--menunggu / --disetujui / --ditolak -->
           <div class="status-banner status-banner--menunggu" id="statusBanner" role="status">
             <span class="status-pill" id="statusPill">Menunggu Verifikasi</span>
             <p id="statusPesan">Pengajuan perpanjangan sedang diperiksa pemilik kos.</p>
@@ -74,7 +72,6 @@
           </div>
 
           <div class="status-grid">
-            <!-- Detail pengajuan -->
             <article class="card-box detail-card">
               <h2 class="judul-card">Detail Pengajuan</h2>
 
@@ -89,9 +86,7 @@
                 <div class="baris-rapat"><dt>Sisa Tagihan</dt><dd id="detailSisa">-</dd></div>
               </dl>
 
-              <!-- Tombol aksi: muncul saat disetujui (bayar) atau ditolak (ajukan ulang) -->
               <div class="aksi-detail" id="aksiDetail" hidden>
-                <!-- TODO backend: arahkan tombol bayar ke halaman pembayaran tagihan perpanjangan -->
                 <a href="#" class="btn-utama" id="tombolAksi">Bayar DP Sekarang</a>
               </div>
 
@@ -104,7 +99,6 @@
               </div>
             </article>
 
-            <!-- Proses perpanjangan -->
             <article class="card-box">
               <h2 class="judul-card">Proses Perpanjangan</h2>
               <ol class="timeline" id="timeline"></ol>
@@ -115,6 +109,8 @@
     </main>
   </div>
 
+  <script src="../assets/js/penghuni/common.js"></script>
   <script src="../assets/js/penghuni/perpanjangan-sewa.js"></script>
+  <script src="../assets/js/calon-penghuni/kamar-data.js"></script>
 </body>
 </html>

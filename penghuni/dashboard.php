@@ -47,14 +47,8 @@
             </a>
             <span class="header-divider" aria-hidden="true"></span>
             <div class="account">
-              <button class="account-toggle" id="accountToggle" type="button" aria-haspopup="true" aria-expanded="false">
                 <span class="user-avatar" id="headerAvatar"></span>
                 <span class="user-name" id="headerName"></span>
-                <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-              </button>
-              <div class="account-menu" id="accountMenu" hidden>
-                <button type="button" data-logout><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>Keluar</button>
-              </div>
             </div>
           </div>
     </header>
