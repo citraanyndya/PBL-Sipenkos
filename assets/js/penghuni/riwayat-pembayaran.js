@@ -1,325 +1,135 @@
+// Riwayat pembayaran penghuni: daftar transaksi, filter bulan, dan lihat bukti transfer.
+document.addEventListener("DOMContentLoaded", async () => {
+  const S = window.SIPENKOS;
+  const profil = await S.sesiPenghuni;
+  if (!profil) return;
 
-document.addEventListener("DOMContentLoaded", () => {
+  const tbody = document.getElementById("daftarRiwayat");
+  const dlg = document.getElementById("dialogBukti");
+  const isi = document.getElementById("isiBukti");
+  const filter = document.getElementById("filterBulan");
+  const reset = document.getElementById("resetFilter");
+  const info = document.getElementById("infoFilter");
+  let urlAktif = null; // URL blob yang sedang ditampilkan (dilepas saat dialog ditutup)
 
-    if (localStorage.getItem("isLoggedIn") !== "true") {
-        window.location.href = "../calon-penghuni/login.php";
-        return;
+  const NAMA_BULAN = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+  // ---------- util ----------
+  const tanggalDari = (v) => { const d = new Date(String(v || "").replace(" ", "T")); return isNaN(d) ? null : d; };
+  const kunciBulan = (v) => { const d = tanggalDari(v); return d ? d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") : ""; };
+  const labelBulan = (k) => { const [y, m] = k.split("-"); return NAMA_BULAN[Number(m) - 1] + " " + y; };
+
+  const barisPesan = (teks, kelas) => {
+    const tr = S.el("tr");
+    const td = S.el("td", kelas || "riwayat-kosong", teks);
+    td.colSpan = 7;
+    tr.appendChild(td);
+    tbody.replaceChildren(tr);
+  };
+
+  // Status ditulis jelas: bukti yang belum dicek tidak boleh terbaca seperti sudah dibayar.
+  function infoStatus(b) {
+    const s = String(b.status_bayar || "").toLowerCase();
+    if (s.includes("tolak")) return { teks: "Ditolak", kelas: "status-ditolak" };
+    if (s.includes("menunggu") || s.includes("pending") || s.includes("kirim")) return { teks: "Menunggu verifikasi", kelas: "status-menunggu" };
+    if (s) return { teks: "Terverifikasi", kelas: "status-diterima" };
+    return { teks: "-", kelas: "status-menunggu" };
+  }
+
+  // Alamat bukti dari server bisa relatif; pastikan diawali "/" agar tidak salah path.
+  const alamatBukti = (b) => {
+    const u = b.bukti_transfer_url || b.bukti_url || "";
+    if (!u) return "";
+    return /^(https?:)?\/\//.test(u) || u.startsWith("/") ? u : "/" + u;
+  };
+
+  function tutupDialog() {
+    if (urlAktif) { URL.revokeObjectURL(urlAktif); urlAktif = null; }
+    dlg.close();
+  }
+  document.getElementById("tutupBukti").addEventListener("click", tutupDialog);
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) tutupDialog(); });
+  dlg.addEventListener("close", () => { if (urlAktif) { URL.revokeObjectURL(urlAktif); urlAktif = null; } });
+
+  async function bukaBukti(b) {
+    isi.replaceChildren(S.el("p", "bukti-tidak-tersedia", "Memuat bukti..."));
+    if (!dlg.open) dlg.showModal();
+    const url = alamatBukti(b);
+    if (!url) { isi.replaceChildren(S.el("p", "bukti-tidak-tersedia", "Bukti pembayaran tidak tersedia untuk transaksi ini.")); return; }
+    try {
+      const f = await S.blobUrl(url);
+      urlAktif = f.url;
+      if (f.tipe.startsWith("image/")) {
+        const img = document.createElement("img");
+        img.src = f.url;
+        img.alt = "Bukti pembayaran " + S.formatRupiah(b.jml_bayar);
+        isi.replaceChildren(img);
+      } else {
+        const a = S.el("a", "btn-lihat-bukti", "Buka berkas bukti (PDF)");
+        a.href = f.url; a.target = "_blank"; a.rel = "noopener";
+        isi.replaceChildren(a);
+      }
+    } catch (e) {
+      isi.replaceChildren(S.el("p", "bukti-tidak-tersedia", e.message || "Bukti pembayaran tidak dapat dibuka."));
     }
+  }
 
-    const daftarRiwayat = document.getElementById("daftarRiwayat");
-    const dialogBukti = document.getElementById("dialogBukti");
-    const isiBukti = document.getElementById("isiBukti");
-    const tutupBukti = document.getElementById("tutupBukti");
+  // ---------- data ----------
+  let daftar = [];
+  try { daftar = await S.api("/penghuni/pembayaran"); } catch (e) { barisPesan(S.pesanGalat(e), "loading-riwayat"); return; }
+  if (!daftar.length) { barisPesan("Belum ada pembayaran."); return; }
 
-    function ambilJSON(key, fallback) {
-        try {
-            return JSON.parse(localStorage.getItem(key)) || fallback;
-        } catch (error) {
-            return fallback;
-        }
+  // Urut terbaru di atas
+  daftar.sort((a, b) => (tanggalDari(b.tgl_bayar) || 0) - (tanggalDari(a.tgl_bayar) || 0));
+
+  // Opsi filter hanya berisi bulan yang memang ada transaksinya
+  const bulanAda = [...new Set(daftar.map((b) => kunciBulan(b.tgl_bayar)).filter(Boolean))].sort().reverse();
+  bulanAda.forEach((k) => { const o = S.el("option", "", labelBulan(k)); o.value = k; filter.appendChild(o); });
+  filter.disabled = false;
+
+  function barisRiwayat(b) {
+    const tr = S.el("tr");
+    const st = infoStatus(b);
+    const p = b.pemesanan || {};
+    const jenis = b.jml_bayar >= p.total_tagihan ? "Pelunasan" : "DP / cicilan";
+
+    [S.formatWaktu(b.tgl_bayar), "Kamar " + (b.kamar ? b.kamar.nomor_kamar : "-"), jenis, S.formatRupiah(b.jml_bayar), "Transfer"]
+      .forEach((v, i) => tr.appendChild(S.el("td", i === 3 ? "jumlah-pembayaran" : "", v)));
+
+    // Status + keterangan
+    const tdStatus = S.el("td");
+    tdStatus.appendChild(S.el("span", "status-badge " + st.kelas, st.teks));
+    if (st.kelas === "status-ditolak" && b.alasan_penolakan) {
+      tdStatus.appendChild(S.el("span", "alasan-tolak", "Alasan: " + b.alasan_penolakan));
+    } else if (st.kelas === "status-diterima") {
+      tdStatus.appendChild(S.el("span", "keterangan-bayar", p.status_pelunasan === "lunas" ? "Tagihan lunas" : "Sisa " + S.formatRupiah(p.sisa_tagihan)));
+    } else if (st.kelas === "status-menunggu") {
+      tdStatus.appendChild(S.el("span", "keterangan-bayar", "Menunggu dicek pemilik kos"));
     }
-
-    function formatRupiah(angka) {
-        return "Rp " + Number(angka || 0).toLocaleString("id-ID");
-    }
-
-    function formatTanggal(nilai) {
-        if (!nilai) return "-";
-
-        const tanggal = new Date(nilai);
-
-        if (isNaN(tanggal)) return "-";
-
-        return tanggal.toLocaleDateString("id-ID", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric"
-        });
-    }
-
-    function buatPeriode(tglMulai, durasi) {
-        if (!tglMulai || !durasi) return "-";
-
-        const mulai = new Date(tglMulai + "T00:00:00");
-
-        if (isNaN(mulai)) return "-";
-
-        const akhir = new Date(mulai);
-        akhir.setMonth(akhir.getMonth() + Number(durasi) - 1);
-
-        const format = (tanggal) => {
-            return tanggal.toLocaleDateString("id-ID", {
-                day: "2-digit",
-                month: "long",
-                year: "numeric"
-            });
-        };
-
-        return `${format(mulai)} - ${format(akhir)}`;
-    }
-
-    // Ambil riwayat yang sudah tersimpan
-    let riwayat = ambilJSON("riwayatPembayaran", []);
-
-    if (!Array.isArray(riwayat)) {
-        riwayat = [];
-    }
-
-    // Sinkronisasi pembayaran DP dari halaman reservasi
-    const pembayaran = ambilJSON("paymentData", null);
-
-    if (
-        pembayaran &&
-        pembayaran.statusPembayaran === "diterima"
-    ) {
-        const sudahAda = riwayat.some(
-            item => item.paymentId === pembayaran.paymentId
-        );
-
-        if (!sudahAda) {
-            const reservasi = pembayaran.reservasi || {};
-
-            const transaksiDP = {
-                paymentId: pembayaran.paymentId,
-                tanggalBayar:
-                    pembayaran.tanggalVerifikasi ||
-                    pembayaran.tanggalUpload,
-
-                periode: buatPeriode(
-                    reservasi.tglMulai,
-                    reservasi.durasi
-                ),
-
-                jenis:
-                    pembayaran.tipePembayaran === "dp"
-                        ? "DP 50%"
-                        : "Pembayaran Penuh",
-
-                jumlah: Number(pembayaran.pembayaranSekarang) || 0,
-
-                metode:
-                    pembayaran.metodePembayaran === "tunai"
-                        ? "Tunai"
-                        : "Transfer",
-
-                status: "lunas",
-
-                namaFile: pembayaran.namaFile || "-",
-
-                bukti: localStorage.getItem("buktiPratinjau"),
-
-                tipeFile: pembayaran.tipeFile || ""
-            };
-
-            riwayat.push(transaksiDP);
-
-            localStorage.setItem(
-                "riwayatPembayaran",
-                JSON.stringify(riwayat)
-            );
-        }
-    }
-
-    // Gabungkan tagihan yang sudah lunas (dari halaman Tagihan)
-    const daftarTagihan = ambilJSON("tagihanPembayaran", []);
-
-    if (Array.isArray(daftarTagihan)) {
-        daftarTagihan.forEach((t, i) => {
-            if (!String(t.status || "").toLowerCase().includes("lunas")) return;
-
-            const idTrx = `tagihan-${t.id || i}`;
-            if (riwayat.some((r) => r.paymentId === idTrx)) return;
-
-            const bukti = t.buktiPembayaran || {};
-
-            riwayat.push({
-                paymentId: idTrx,
-                tanggalBayar: t.tanggalLunas || bukti.tanggalUpload || t.tanggalJatuhTempo,
-                periode: t.periode || t.bulan || "-",
-                jenis: t.jenis || "Sewa",
-                jumlah: Number(t.nominal ?? t.jumlah) || 0,
-                metode: "Transfer",
-                status: "lunas",
-                namaFile: bukti.nama || "-",
-                tipeFile: bukti.tipe || "",
-                idBukti: bukti.id || ""
-            });
-        });
-    }
-
-    // Urutkan transaksi terbaru di atas
-    riwayat.sort((a, b) => {
-        return new Date(b.tanggalBayar) -
-               new Date(a.tanggalBayar);
-    });
-
-    function tampilkanRiwayat() {
-
-        daftarRiwayat.replaceChildren();
-
-        if (riwayat.length === 0) {
-            const baris = document.createElement("tr");
-            const kolom = document.createElement("td");
-
-            kolom.colSpan = 7;
-            kolom.className = "riwayat-kosong";
-            kolom.textContent =
-                "Belum ada pembayaran yang berhasil diverifikasi.";
-
-            baris.appendChild(kolom);
-            daftarRiwayat.appendChild(baris);
-
-            return;
-        }
-
-        riwayat.forEach((transaksi, index) => {
-
-            const baris = document.createElement("tr");
-
-            const data = [
-                formatTanggal(transaksi.tanggalBayar),
-                transaksi.periode || "-",
-                transaksi.jenis || "-",
-                formatRupiah(transaksi.jumlah),
-                transaksi.metode || "-",
-            ];
-
-            data.forEach((nilai, i) => {
-                const kolom = document.createElement("td");
-                kolom.textContent = nilai;
-
-                if (i === 1) {
-                    kolom.className = "periode-text";
-                }
-
-                if (i === 3) {
-                    kolom.className = "jumlah-pembayaran";
-                }
-
-                baris.appendChild(kolom);
-            });
-
-            // Status
-            const kolomStatus = document.createElement("td");
-            const badge = document.createElement("span");
-
-            badge.className = "status-lunas";
-            badge.textContent = "● Lunas";
-
-            kolomStatus.appendChild(badge);
-            baris.appendChild(kolomStatus);
-
-            // Tombol bukti
-            const kolomBukti = document.createElement("td");
-            const tombol = document.createElement("button");
-
-            tombol.type = "button";
-            tombol.className = "btn-lihat-bukti";
-            tombol.textContent = "◎ Lihat";
-
-            tombol.addEventListener("click", () => {
-                bukaBukti(transaksi);
-            });
-
-            kolomBukti.appendChild(tombol);
-            baris.appendChild(kolomBukti);
-
-            daftarRiwayat.appendChild(baris);
-        });
-    }
-
-    // Ambil file bukti yang disimpan di IndexedDB (diupload dari halaman Tagihan)
-    function ambilBuktiDB(id) {
-        return new Promise((resolve) => {
-            if (!id || !window.indexedDB) return resolve(null);
-
-            const request = indexedDB.open("SIPENKOS_BuktiPembayaran", 1);
-
-            request.onupgradeneeded = (event) => {
-                const db = event.target.result;
-                if (!db.objectStoreNames.contains("bukti")) {
-                    db.createObjectStore("bukti", { keyPath: "id" });
-                }
-            };
-
-            request.onerror = () => resolve(null);
-
-            request.onsuccess = () => {
-                const db = request.result;
-                const get = db.transaction("bukti", "readonly")
-                    .objectStore("bukti")
-                    .get(id);
-
-                get.onsuccess = () => {
-                    db.close();
-                    resolve(get.result || null);
-                };
-
-                get.onerror = () => {
-                    db.close();
-                    resolve(null);
-                };
-            };
-        });
-    }
-
-    async function bukaBukti(transaksi) {
-
-        isiBukti.replaceChildren();
-
-        let sumber = transaksi.bukti || "";
-        let tipe = transaksi.tipeFile || "";
-
-        if (!sumber && transaksi.idBukti) {
-            const rekaman = await ambilBuktiDB(transaksi.idBukti);
-
-            if (rekaman && rekaman.file) {
-                sumber = URL.createObjectURL(rekaman.file);
-                tipe = rekaman.tipe || tipe;
-            }
-        }
-
-        if (sumber && tipe.startsWith("image/")) {
-            const gambar = document.createElement("img");
-
-            gambar.src = sumber;
-            gambar.alt = "Bukti pembayaran";
-
-            isiBukti.appendChild(gambar);
-
-        } else if (sumber && tipe === "application/pdf") {
-            const tautan = document.createElement("a");
-
-            tautan.href = sumber;
-            tautan.target = "_blank";
-            tautan.rel = "noopener";
-            tautan.textContent = `Buka file PDF: ${transaksi.namaFile || "bukti"}`;
-
-            isiBukti.appendChild(tautan);
-
-        } else {
-            const pesan = document.createElement("p");
-
-            pesan.className = "bukti-tidak-tersedia";
-            pesan.textContent =
-                `File: ${transaksi.namaFile || "-"}. Pratinjau file belum tersedia.`;
-
-            isiBukti.appendChild(pesan);
-        }
-
-        dialogBukti.showModal();
-    }
-
-    tutupBukti.addEventListener("click", () => {
-        dialogBukti.close();
-    });
-
-    dialogBukti.addEventListener("click", (event) => {
-        if (event.target === dialogBukti) {
-            dialogBukti.close();
-        }
-    });
-
-    tampilkanRiwayat();
-
+    tr.appendChild(tdStatus);
+
+    // Bukti
+    const td = S.el("td");
+    if (alamatBukti(b)) {
+      const tombol = S.el("button", "btn-lihat-bukti", "Lihat");
+      tombol.type = "button";
+      tombol.addEventListener("click", () => bukaBukti(b));
+      td.appendChild(tombol);
+    } else td.textContent = "-";
+    tr.appendChild(td);
+    return tr;
+  }
+
+  function tampilkan() {
+    const k = filter.value;
+    const hasil = k ? daftar.filter((b) => kunciBulan(b.tgl_bayar) === k) : daftar;
+    reset.hidden = !k;
+    info.textContent = k ? hasil.length + " transaksi pada " + labelBulan(k) : daftar.length + " transaksi";
+    if (!hasil.length) { barisPesan("Tidak ada pembayaran pada bulan ini."); return; }
+    tbody.replaceChildren(...hasil.map(barisRiwayat));
+  }
+
+  filter.addEventListener("change", tampilkan);
+  reset.addEventListener("click", () => { filter.value = ""; tampilkan(); });
+  tampilkan();
 });
