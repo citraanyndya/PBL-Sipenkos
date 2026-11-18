@@ -142,3 +142,21 @@ body {
 .link-auth-sm:hover {
   text-decoration: underline;
 }
+
+/* Tautan ke login pengelola (versi B) */
+.auth-footer-alt {
+  margin-top: -4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-color);
+}
+
+.link-auth-muted {
+  color: var(--text-muted);
+  font-size: 0.775rem;
+  text-decoration: none;
+}
+
+.link-auth-muted:hover {
+  color: var(--primary-blue);
+  text-decoration: underline;
+}

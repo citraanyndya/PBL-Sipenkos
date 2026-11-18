@@ -207,14 +207,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  document.getElementById("logoutButton").addEventListener("click", () => {
-    if (!confirm("Yakin ingin keluar dari akun SIPENKOS?")) return;
-
-    localStorage.removeItem("isLoggedIn");
-
-    window.location.href = "beranda.php";
-  });
-
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("sidebarOverlay");
 

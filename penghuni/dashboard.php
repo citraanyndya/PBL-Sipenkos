@@ -41,14 +41,16 @@
         </div>
 
           <div class="user-profile" id="userProfile" style="display: none;">
-          <button class="btn-icon-notif" title="Notifikasi">
-            🔔<span class="badge-dot"></span>
-          </button>
-          <div class="user-info">
-            <div class="user-avatar" id="headerAvatar"></div>
-            <span class="user-name" id="headerName"></span>
+            <a class="btn-icon-notif" href="notifikasi.php" title="Notifikasi" aria-label="Notifikasi">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+              <span class="badge-dot" id="notificationDot" hidden></span>
+            </a>
+            <span class="header-divider" aria-hidden="true"></span>
+            <div class="account">
+                <span class="user-avatar" id="headerAvatar"></span>
+                <span class="user-name" id="headerName"></span>
+            </div>
           </div>
-        </div>
     </header>
 
       <section class="container">
@@ -98,6 +100,7 @@
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
   <div class="toast-message" id="toastMessage" role="status" aria-live="polite"></div>
 
+  <script src="../assets/js/penghuni/common.js"></script>
   <script src="../assets/js/penghuni/dashboard.js"></script>
 </body>
 </html>

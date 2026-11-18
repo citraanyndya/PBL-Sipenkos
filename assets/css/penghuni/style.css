@@ -71,47 +71,12 @@ img {
     position: fixed;
     inset: 0 auto 0 0;
     z-index: 20;
-
     display: flex;
     flex-direction: column;
-
     width: 208px;
     padding: 0 9px;
-
     background: var(--bg-white);
     border-right: 1px solid var(--border-color);
-}
-
-.sidebar-brand {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-
-    height: 65px;
-    padding: 0 12px;
-
-    border-bottom: 1px solid var(--border-color);
-    white-space: nowrap;
-}
-
-.brand-name,
-.logo-judul {
-    color: var(--bg-footer);
-    font-size: 19px;
-    font-weight: 700;
-    letter-spacing: -0.8px;
-}
-
-.brand-name span,
-.logo-judul span {
-    font-size: 15px;
-}
-
-.brand-subtitle {
-    padding-left: 9px;
-    color: var(--text-muted);
-    font-size: 11px;
-    border-left: 1px solid var(--border-color);
 }
 
 .sidebar-nav {
@@ -126,14 +91,11 @@ img {
     display: flex;
     align-items: center;
     gap: 11px;
-
     min-height: 41px;
     padding: 0 12px;
-
-    color: #4c5565;
     font-size: 13px;
+    font-weight: 500;
     border-radius: 8px;
-
     transition: 0.18s;
 }
 
@@ -157,16 +119,19 @@ img {
 
 .sidebar-bottom {
     margin-top: auto;
-    padding: 17px 0 20px;
     border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 11px;
+    min-height: 41px;
+    padding: 6px;
+    margin-right: 2px;
+    font-size: 13px;
+    transition: 0.18s;
 }
 
 .logout-button {
     width: 100%;
     color: var(--badge-red-text);
-    font: inherit;
-    font-size: 13px;
-    text-align: left;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -185,9 +150,6 @@ img {
 }
 
 .navbar-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     gap: 15px;
     margin-top: 19px;
 }
@@ -204,7 +166,10 @@ img {
 }
 
 .logo-judul {
-    font-size: 28px;
+    color: var(--bg-footer);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
 }
 
 .logo-pendukung {
@@ -212,29 +177,24 @@ img {
     font-size: 11px;
 }
 
-.navbar-actions,
+.account {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 25px 0 5px;
+}
+
 .user-profile {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-
-    color: var(--text-dark);
-    font-size: 12px;
-}
-
 .user-avatar {
     display: grid;
     place-items: center;
-
     width: 27px;
     height: 27px;
-
     color: white;
     font-weight: 600;
     background: var(--primary-blue);
@@ -247,16 +207,12 @@ img {
 
 .btn-icon-notif {
     position: relative;
-
     display: grid;
     place-items: center;
-
     width: 32px;
     height: 32px;
-
     color: var(--text-dark);
     font-size: 19px;
-
     background: transparent;
     border: none;
     cursor: pointer;
@@ -266,36 +222,11 @@ img {
     position: absolute;
     top: 4px;
     right: 4px;
-
     width: 7px;
     height: 7px;
-
     background: var(--badge-red-text);
     border: 1px solid white;
     border-radius: 50%;
-}
-
-.btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 11px 21px;
-
-    color: white;
-    background: var(--primary-blue);
-
-    font-size: 12px;
-    font-weight: 600;
-
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.btn-primary:hover {
-    background: var(--primary-hover);
 }
 
 .badge-success {
@@ -390,4 +321,192 @@ img {
     .user-name {
         display: none;
     }
+}
+
+/* ===== Header bersama: lonceng, menu akun ===== */
+.btn-icon-notif {
+    text-decoration: none;
+}
+
+.btn-icon-notif svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.badge-dot[hidden] {
+    display: none;
+}
+
+.header-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--border-color);
+}
+
+.account {
+    position: relative;
+}
+
+.account-toggle {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 4px 6px;
+    color: var(--text-dark);
+    font-size: 12px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.account-toggle:hover {
+    background: var(--bg-light);
+}
+
+.account-toggle .chevron {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: var(--text-muted);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.account-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 30;
+    min-width: 160px;
+    padding: 6px;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px #17243a1f;
+}
+
+.account-menu[hidden] {
+    display: none;
+}
+
+.account-menu button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 10px;
+    color: var(--badge-red-text);
+    font-size: 13px;
+    text-align: left;
+    background: transparent;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.account-menu button:hover {
+    background: var(--badge-red-bg);
+}
+
+.account-menu svg,
+.logout-button .nav-icon svg,
+.nav-link .nav-icon svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ===== Dialog konfirmasi keluar ===== */
+.dialog-keluar {
+    width: min(360px, calc(100vw - 32px));
+    margin: auto;
+    padding: 28px 24px 22px;
+    color: var(--text-dark);
+    text-align: center;
+    background: var(--bg-white);
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px #17243a40;
+}
+
+.dialog-keluar::backdrop {
+    background: #17243a66;
+}
+
+.dialog-keluar-ikon {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 14px;
+    color: var(--badge-red-text);
+    background: var(--badge-red-bg);
+    border-radius: 50%;
+}
+
+.dialog-keluar-ikon svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.dialog-keluar h2 {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.dialog-keluar p {
+    margin-top: 6px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.dialog-keluar-aksi {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.dialog-keluar-aksi button {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-batal {
+    color: var(--text-dark);
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+}
+
+.btn-batal:hover {
+    background: var(--bg-light);
+}
+
+.btn-keluar {
+    color: #fff;
+    background: #dc2626;
+    border: 1px solid #dc2626;
+}
+
+.btn-keluar:hover {
+    background: #b91c1c;
 }

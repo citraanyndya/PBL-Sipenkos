@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("sipenkosDemoUser", JSON.stringify(profile));
         localStorage.setItem("userName", profile.nama);
         localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("sipenkosRole", "calon_penghuni");
       } catch (error) {
         showMessage("Akun kamu tidak dapat disimpan di browser ini.");
         return;
@@ -70,6 +71,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const email = document.getElementById("email").value.trim().toLowerCase();
+
+      // DEMO: akun penghuni aktif (hapus saat memakai backend)
+      const demoPenghuni = window.SIPENKOS_SESI && window.SIPENKOS_SESI.masukDemo("penghuni", email, document.getElementById("password").value);
+      if (demoPenghuni) {
+        window.location.href = "../penghuni/dashboard.php";
+        return;
+      }
+
       if (!profile || profile.email !== email) {
         showMessage("Akun dengan email tersebut belum ditemukan. Silakan daftar terlebih dahulu.");
         return;
@@ -77,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       localStorage.setItem("userName", profile.nama);
       localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("sipenkosRole", "calon_penghuni");
       lanjutkan();
     });
   }

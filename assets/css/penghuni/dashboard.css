@@ -1,18 +1,3 @@
-.dashboard-layout {
-    min-height: 100vh;
-}
-
-.dashboard-content {
-    width: 100%;
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 27px 27px 50px;
-}
-
-.navbar-container {
-    max-width: none;
-}
-
 .welcome-heading {
     margin-bottom: 20px;
 }
@@ -34,11 +19,9 @@
     align-items: center;
     justify-content: space-between;
     gap: 18px;
-
     min-height: 64px;
     margin-bottom: 19px;
     padding: 12px 20px;
-
     color: var(--badge-yellow-text);
     background: var(--badge-yellow-bg);
     border: 1px solid #fcd34d;
@@ -59,14 +42,11 @@
 .primary-button {
     display: inline-block;
     padding: 11px 21px;
-
     color: white;
     background: var(--primary-blue);
-
     font-size: 12px;
     font-weight: 600;
     white-space: nowrap;
-
     border-radius: 8px;
     transition: 0.2s;
 }
@@ -135,14 +115,11 @@
 
 .status-pill {
     padding: 5px 9px;
-
     color: var(--badge-green-text);
     background: var(--badge-green-bg);
-
     font-size: 10px;
     font-weight: 600;
     white-space: nowrap;
-
     border-radius: 20px;
 }
 
@@ -229,14 +206,11 @@
     bottom: 22px;
     left: 50%;
     z-index: 50;
-
     padding: 11px 16px;
-
     color: white;
     font-size: 12px;
     background: var(--text-dark);
     border-radius: 8px;
-
     opacity: 0;
     pointer-events: none;
     transform: translate(-50%, 15px);
@@ -248,24 +222,9 @@
     transform: translate(-50%, 0);
 }
 
-.mobile-menu {
-    display: none;
-
-    color: var(--text-dark);
-    font-size: 21px;
-
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
 @media (max-width: 680px) {
     .main-area {
         margin-left: 0;
-    }
-
-    .dashboard-content {
-        padding: 23px 15px 35px;
     }
 
     .welcome-heading h1 {

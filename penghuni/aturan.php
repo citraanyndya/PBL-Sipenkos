@@ -33,25 +33,27 @@
     <main class="main-area">
       <header class="navbar">
         <div class="container navbar-container">
-          <a href="beranda.php" class="logo">
+          <a href="dashboard.php" class="logo">
             <span class="logo-judul">SIPENKOS</span>
             <span class="logo-divider">|</span>
             <span class="logo-pendukung">Kos Bu Nining</span>
           </a>
+        </div>
 
-          <div class="user-profile" id="userProfile" style="display: none;">
-          <button class="btn-icon-notif" title="Notifikasi">
-            🔔<span class="badge-dot"></span>
-          </button>
-          <div class="user-info">
-            <div class="user-avatar" id="headerAvatar"></div>
-            <span class="user-name" id="headerName"></span>
+        <div class="user-profile" id="userProfile" style="display: none;">
+          <a class="btn-icon-notif" href="notifikasi.php" title="Notifikasi" aria-label="Notifikasi">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            <span class="badge-dot" id="notificationDot" hidden></span>
+          </a>
+          <span class="header-divider" aria-hidden="true"></span>
+          <div class="account">
+              <span class="user-avatar" id="headerAvatar"></span>
+              <span class="user-name" id="headerName"></span>
           </div>
         </div>
-    </header>
+      </header>
 
-      <section class="section-halaman">
-        <div class="container">
+      <section class="container">
             <div class="section-header">
                 <h1 class="judul-section">Aturan Kos Bu Nining</h1>
                 <p class="deskripsi">Hunian kos yang tenang, aman, dan nyaman di Malang. Dikelola langsung dengan sepenuh hati oleh Bu Nining untuk mendukung kelancaran studi dan aktivitasmu.</p>
@@ -66,13 +68,14 @@
                 <div class="aturan-list" id="aturanList">
                     <p class="pesan-memuat">Memuat aturan kos...</p>
                 </div>
-            </div>
-        </div>
-      </section>
-    </main>
-  </div>
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
-  <div class="toast-message" id="toastMessage" role="status" aria-live="polite"></div>
+              </div>
+          </section>
+        </main>
+      </div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="toast-message" id="toastMessage" role="status" aria-live="polite"></div>
+    
+    <script src="../assets/js/penghuni/common.js"></script>
     <script src="../assets/js/calon-penghuni/aturan.js"></script>
 </body>
 </html>

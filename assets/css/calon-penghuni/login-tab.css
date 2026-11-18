@@ -1,0 +1,55 @@
+/* Halaman login satu pintu dengan tab Penghuni | Pengelola (versi C) */
+[hidden] { display: none !important; }
+
+.login-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background-color: #f1f5f9;
+  border-radius: 10px;
+}
+
+.login-tab {
+  flex: 1;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.login-tab:hover { color: var(--text-dark); }
+
+.login-tab.is-active {
+  background-color: #ffffff;
+  color: var(--primary-blue);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+}
+
+.login-tab:focus-visible {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+
+.login-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-form-pengelola {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-galat {
+  margin: -4px 0 0;
+  font-size: 0.8rem;
+  color: #b91c1c;
+}

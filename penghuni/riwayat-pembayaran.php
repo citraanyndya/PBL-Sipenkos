@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perpanjangan Sewa - SIPENKOS</title>
+    <title>Riwayat Pembayaran - SIPENKOS</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../assets/css/penghuni/riwayat-pembayaran.css">
 </head>
 <body>
-    <div class="tagihan-layout">
+    <div class="riwayat-layout">
         <aside class="sidebar" id="sidebar">
             <nav class="sidebar-nav" aria-label="Navigasi utama">
               <a class="nav-link" href="dashboard.php"><span class="nav-icon">▦</span>Dashboard</a>
@@ -29,26 +29,79 @@
         </aside>
 
         <main class="main-area">
-        <header class="navbar">
-          <div class="container navbar-container">
-            <a href="dashboard-penghuni.php" class="logo">
-              <span class="logo-judul">SIPENKOS</span>
-              <span class="logo-divider">|</span>
-              <span class="logo-pendukung">Kos Bu Nining</span>
-            </a>
-          </div>
-            <div class="user-profile" id="userProfile" style="display: none;">
-            <button class="btn-icon-notif" title="Notifikasi">
-              🔔<span class="badge-dot"></span>
-            </button>
-            <div class="user-info">
-              <div class="user-avatar" id="headerAvatar"></div>
-              <span class="user-name" id="headerName"></span>
+            <header class="navbar">
+                <div class="container navbar-container">
+                  <a href="dashboard.php" class="logo">
+                    <span class="logo-judul">SIPENKOS</span>
+                    <span class="logo-divider">|</span>
+                    <span class="logo-pendukung">Kos Bu Nining</span>
+                  </a>
+                </div>
+
+                  <div class="user-profile" id="userProfile" style="display: none;">
+                    <a class="btn-icon-notif" href="notifikasi.php" title="Notifikasi" aria-label="Notifikasi">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                      <span class="badge-dot" id="notificationDot" hidden></span>
+                    </a>
+                    <span class="header-divider" aria-hidden="true"></span>
+                    <div class="account">
+                        <span class="user-avatar" id="headerAvatar"></span>
+                        <span class="user-name" id="headerName"></span>
+                    </div>
+                  </div>
+            </header>
+       
+        <section class="container">
+            <div class="riwayat-heading">
+                <h1>Riwayat Pembayaran</h1>
+                <p>Daftar transaksi pembayaran sewa kamu</p>
             </div>
-          </div>
-        </header>
 
+            <div class="riwayat-filter">
+                <label for="filterBulan">Bulan</label>
+                <select id="filterBulan" class="filter-bulan" disabled>
+                    <option value="">Semua bulan</option>
+                </select>
+                <button type="button" id="resetFilter" class="btn-reset-filter" hidden>Reset</button>
+                <span class="filter-info" id="infoFilter"></span>
+            </div>
 
+            <div class="riwayat-card">
+                <div class="table-responsive">
+                    <table class="tabel-riwayat">
+                        <thead>
+                            <tr>
+                                <th>Tanggal Bayar</th>
+                                <th>Kamar</th>
+                                <th>Jenis</th>
+                                <th>Jumlah</th>
+                                <th>Metode</th>
+                                <th>Status</th>
+                                <th>Bukti</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="daftarRiwayat">
+                            <tr>
+                                <td colspan="7" class="loading-riwayat">Memuat riwayat pembayaran...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <dialog id="dialogBukti" class="dialog-bukti">
+            <div class="dialog-header">
+                <h2>Bukti Pembayaran</h2>
+                <button type="button" id="tutupBukti" class="btn-tutup">✕</button>
+            </div>
+
+            <div id="isiBukti" class="isi-bukti"></div>
+        </dialog>
+        
     </div>
+    <script src="../assets/js/penghuni/common.js"></script>
+    <script src="../assets/js/penghuni/riwayat-pembayaran.js"></script>
 </body>
 </html>
