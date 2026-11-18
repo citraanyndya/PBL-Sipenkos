@@ -37,17 +37,17 @@
             <span class="logo-divider">|</span>
             <span class="logo-pendukung">Kos Bu Nining</span>
           </a>
+        </div>
 
-          <div class="user-profile">
-            <button class="btn-icon-notif" type="button" title="Notifikasi" aria-label="Notifikasi">
-              <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-              <span class="badge-dot"></span>
-            </button>
-            <span class="header-divider" aria-hidden="true"></span>
-            <div class="user-info">
-              <div class="user-avatar" id="headerAvatar">P</div>
-              <span class="user-name" id="headerName">Penghuni</span>
-            </div>
+        <div class="user-profile" id="userProfile" style="display: none;">
+          <a class="btn-icon-notif" href="notifikasi.php" title="Notifikasi" aria-label="Notifikasi">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            <span class="badge-dot" id="notificationDot" hidden></span>
+          </a>
+          <span class="header-divider" aria-hidden="true"></span>
+          <div class="account">
+            <span class="user-avatar" id="headerAvatar"></span>
+            <span class="user-name" id="headerName"></span>
           </div>
         </div>
       </header>
@@ -118,11 +118,28 @@
               </div>
             </article>
           </div>
+
+          <!-- SIMULASI PENANGANAN (KHUSUS DEVELOPMENT, hapus saat backend siap) -->
+          <section class="simulasi-verifikasi" id="simulasiPenanganan" hidden>
+            <div class="simulasi-header">
+              <h3>Simulasi Penanganan Pemilik Kos</h3>
+              <p>Ubah status laporan untuk menguji alur. Bagian ini hanya digunakan selama pengembangan.</p>
+            </div>
+            <label class="simulasi-catatan">
+              <span>Catatan pengelola (opsional)</span>
+              <input type="text" id="simulasiCatatan" placeholder="Contoh: Tukang dijadwalkan datang besok pagi">
+            </label>
+            <div class="simulasi-actions">
+              <button type="button" id="btnProsesLaporan" class="btn-simulasi btn-proses" hidden>Terima &amp; Proses Laporan</button>
+              <button type="button" id="btnSelesaiLaporan" class="btn-simulasi btn-terima" hidden>✓ Tandai Selesai</button>
+            </div>
+          </section>
         </div>
       </section>
     </main>
   </div>
 
+  <script src="../assets/js/penghuni/common.js"></script>
   <script src="../assets/js/penghuni/laporan-kerusakan.js"></script>
 </body>
 </html>

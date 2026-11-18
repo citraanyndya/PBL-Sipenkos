@@ -76,17 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const kelasStatus = (status = "Baru") => `badge-status badge-status--${String(status).toLowerCase()}`;
 
-  // ---------- header & keluar ----------
+  // header, cek login, & tombol keluar diatur common.js
   const profil = ambilJSON("sipenkosDemoUser") || {};
   const namaDepan = (profil.nama || "Penghuni").trim().split(/\s+/)[0];
-  $("headerName").textContent = namaDepan;
-  $("headerAvatar").textContent = namaDepan.charAt(0).toUpperCase();
-
-  $("logoutButton")?.addEventListener("click", () => {
-    if (!confirm("Yakin ingin keluar dari akun SIPENKOS?")) return;
-    localStorage.removeItem("isLoggedIn");
-    window.location.href = "../calon-penghuni/beranda.php";
-  });
 
   // lokasi = kamar penghuni (dari data sewa)
   const ambilLokasi = () => {
@@ -416,5 +408,34 @@ document.addEventListener("DOMContentLoaded", () => {
         return li;
       })
     );
+
+    // --- SIMULASI (khusus development): pemilik kos memproses laporan ---
+    const simulasi = $("simulasiPenanganan");
+    if (simulasi && !sudahSelesai) {
+      const ubahStatus = (statusBaru) => {
+        const daftar = ambilLaporan();
+        const i = daftar.findIndex((l) => l.id === laporan.id);
+        if (i === -1) return;
+        const sekarang = new Date().toISOString();
+        const catatan = $("simulasiCatatan").value.trim();
+        daftar[i] = {
+          ...daftar[i],
+          status: statusBaru,
+          diterimaPada: daftar[i].diterimaPada || sekarang,
+          selesaiPada: statusBaru === "Selesai" ? sekarang : daftar[i].selesaiPada || null,
+          catatan: catatan || daftar[i].catatan || null
+        };
+        if (!simpanJSON(KUNCI, daftar)) {
+          alert("Status tidak bisa disimpan di browser ini.");
+          return;
+        }
+        window.location.reload();
+      };
+      $("btnProsesLaporan").hidden = status !== "Baru";
+      $("btnSelesaiLaporan").hidden = status !== "Diproses";
+      $("btnProsesLaporan").addEventListener("click", () => ubahStatus("Diproses"));
+      $("btnSelesaiLaporan").addEventListener("click", () => ubahStatus("Selesai"));
+      simulasi.hidden = false;
+    }
   }
 });

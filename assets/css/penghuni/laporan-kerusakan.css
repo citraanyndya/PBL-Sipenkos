@@ -7,19 +7,6 @@
    Variabel warna & font diambil dari style.css (milik bersama).
    ========================================================= */
 
-.laporan-layout {
-    min-height: 100vh;
-    background: linear-gradient(180deg, #ffffff 0%, #e8f2fd 100%);
-}
-
-.laporan-layout .main-area {
-    background: transparent;
-}
-
-.navbar-container {
-    max-width: none;
-}
-
 .ikon {
     width: 18px;
     height: 18px;
@@ -31,34 +18,21 @@
     stroke-linejoin: round;
 }
 
-/* ---------- header: lonceng + pemisah ---------- */
-.btn-icon-notif .ikon {
-    width: 19px;
-    height: 19px;
-}
-
-.header-divider {
-    width: 1px;
-    height: 28px;
-    background: var(--border-color);
-}
-
 /* ---------- judul halaman ---------- */
-.page-heading {
-    margin-bottom: 18px;
+.laporan-heading {
+    margin-bottom: 24px;
 }
 
-.page-heading h1 {
-    margin-bottom: 4px;
-    color: var(--text-dark);
-    font-size: 26px;
+.laporan-heading h1 {
+    margin-bottom: 5px;
+    font-size: 24px;
     font-weight: 700;
-    letter-spacing: -0.6px;
+    letter-spacing: -0.7px;
 }
 
-.page-heading p {
+.laporan-heading p {
     color: var(--text-muted);
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .judul-baris {
@@ -873,4 +847,77 @@
     .tombol-batal {
         text-align: center;
     }
+}
+
+/* ---------- simulasi penanganan (khusus development) ---------- */
+.simulasi-verifikasi {
+    margin-top: 24px;
+    padding: 18px 22px;
+    background: var(--bg-white);
+    border: 1px dashed #94a3b8;
+    border-radius: 14px;
+}
+
+.simulasi-header h3 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.simulasi-header p {
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.simulasi-catatan {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 520px;
+    margin-top: 14px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.simulasi-catatan input {
+    min-height: 40px;
+    padding: 0 12px;
+    font: inherit;
+    font-weight: 400;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.simulasi-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.btn-simulasi {
+    min-height: 40px;
+    padding: 0 18px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-simulasi[hidden] {
+    display: none;
+}
+
+.btn-simulasi.btn-proses {
+    color: var(--badge-yellow-text);
+    background: var(--badge-yellow-bg);
+    border-color: #fde68a;
+}
+
+.btn-simulasi.btn-terima {
+    color: var(--badge-green-text);
+    background: var(--badge-green-bg);
+    border-color: #86efac;
 }
