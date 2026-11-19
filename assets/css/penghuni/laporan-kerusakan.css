@@ -287,7 +287,7 @@
 
 .kosong p {
     max-width: 420px;
-    margin-bottom: 18px;
+    margin-bottom: 0;
     color: var(--text-muted);
     font-size: 13px;
 }

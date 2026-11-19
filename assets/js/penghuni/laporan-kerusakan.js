@@ -150,7 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
         $("kosongPesan").textContent = belumAda
           ? "Ada fasilitas kamar yang rusak? Buat laporan agar pemilik kos bisa segera menindaklanjuti."
           : "Coba pilih filter status yang lain.";
-        $("kosongTombol").hidden = !belumAda;
       }
     };
 

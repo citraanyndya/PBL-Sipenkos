@@ -82,7 +82,6 @@
           </div>
           <h2 id="kosongJudul">Belum ada laporan</h2>
           <p id="kosongPesan">Ada fasilitas kamar yang rusak? Buat laporan agar pemilik kos bisa segera menindaklanjuti.</p>
-          <a href="buat-laporan-kerusakan.php" class="btn-outline" id="kosongTombol">Buat Laporan</a>
         </div>
       </section>
     </main>
