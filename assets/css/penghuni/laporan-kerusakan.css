@@ -1,0 +1,923 @@
+/* =========================================================
+   Fitur Laporan Kerusakan (penghuni)
+   Dipakai oleh: laporan-kerusakan.php (daftar),
+                 buat-laporan-kerusakan.php (form),
+                 detail-laporan-kerusakan.php (detail)
+   Mengikuti desain Figma frame 20, 21, dan 22.
+   Variabel warna & font diambil dari style.css (milik bersama).
+   ========================================================= */
+
+.ikon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ---------- judul halaman ---------- */
+.laporan-heading {
+    margin-bottom: 24px;
+}
+
+.laporan-heading h1 {
+    margin-bottom: 5px;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+}
+
+.laporan-heading p {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.judul-baris {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* ---------- kartu & tombol ---------- */
+.card-box {
+    padding: 26px 32px;
+    background: var(--bg-white);
+    border: 1px solid #edf1f6;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #15233b0a;
+}
+
+.btn-utama,
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 44px;
+    padding: 0 20px;
+
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-utama {
+    color: #ffffff;
+    background: var(--primary-blue);
+    border: none;
+}
+
+.btn-utama:hover {
+    background: var(--primary-hover);
+}
+
+.btn-outline {
+    color: var(--text-dark);
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+}
+
+.btn-outline:hover {
+    background: var(--bg-light);
+}
+
+.btn-utama:focus-visible,
+.btn-outline:focus-visible,
+.filter-pill:focus-visible,
+.link-detail:focus-visible,
+.link-kembali:focus-visible,
+.tombol-batal:focus-visible,
+.tombol-teks:focus-visible {
+    outline: 3px solid #2563eb40;
+    outline-offset: 2px;
+}
+
+/* ---------- badge status ---------- */
+.badge-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    border-radius: 20px;
+}
+
+.badge-status::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.badge-status--baru {
+    color: var(--primary-blue);
+    background: #e8f1ff;
+}
+
+.badge-status--diproses {
+    color: #c2410c;
+    background: var(--badge-yellow-bg);
+}
+
+.badge-status--selesai {
+    color: var(--badge-green-text);
+    background: var(--badge-green-bg);
+}
+
+/* =========================================================
+   DAFTAR LAPORAN (frame 20)
+   ========================================================= */
+.filter-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.filter-pill {
+    min-height: 40px;
+    padding: 0 18px;
+
+    color: #475569;
+    font: inherit;
+    font-size: 14px;
+
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.18s;
+}
+
+.filter-pill:hover {
+    border-color: #c7dbfb;
+}
+
+.filter-pill.aktif {
+    color: var(--primary-blue);
+    font-weight: 500;
+    background: #e8f1ff;
+    border-color: var(--primary-blue);
+}
+
+.daftar-laporan {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    list-style: none;
+}
+
+.item-laporan {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.thumb {
+    display: grid;
+    place-items: center;
+    width: 96px;
+    height: 96px;
+    overflow: hidden;
+
+    color: #94a3b8;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+}
+
+.thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumb .ikon {
+    width: 30px;
+    height: 30px;
+    stroke-width: 1.6;
+}
+
+.item-judul {
+    margin-bottom: 6px;
+    color: var(--text-dark);
+    font-size: 17px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.item-meta {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.item-kanan {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 14px;
+}
+
+.link-detail {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--primary-blue);
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.link-detail:hover {
+    text-decoration: underline;
+}
+
+.link-detail .ikon {
+    width: 16px;
+    height: 16px;
+}
+
+/* keadaan kosong */
+.kosong {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 44px 32px;
+    text-align: center;
+}
+
+.kosong-ikon {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 14px;
+    color: var(--primary-blue);
+    background: #e8f1ff;
+    border-radius: 50%;
+}
+
+.kosong-ikon .ikon {
+    width: 24px;
+    height: 24px;
+}
+
+.kosong h2 {
+    margin-bottom: 6px;
+    color: var(--text-dark);
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.kosong p {
+    max-width: 420px;
+    margin-bottom: 0;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* =========================================================
+   FORM BUAT LAPORAN (frame 21)
+   ========================================================= */
+.link-kembali {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 30px 0 26px;
+    color: #334155;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.link-kembali--biru {
+    color: var(--primary-blue);
+}
+
+.link-kembali:hover {
+    text-decoration: underline;
+}
+
+.link-kembali .ikon {
+    width: 17px;
+    height: 17px;
+}
+
+.form-laporan {
+    max-width: 800px;
+    margin-top: 26px;
+}
+
+.field {
+    margin-bottom: 22px;
+}
+
+.field > label:not(.unggah),
+.field .label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.field input[type="text"],
+.field select,
+.field textarea {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 16px;
+
+    color: var(--text-dark);
+    font: inherit;
+    font-size: 15px;
+
+    background: var(--bg-white);
+    border: 1px solid #d9e0ea;
+    border-radius: 6px;
+    transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.field textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+    color: #94a3b8;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+    box-shadow: 0 0 0 3px #2563eb26;
+}
+
+.field .salah {
+    border-color: var(--badge-red-text);
+}
+
+.pesan-error {
+    margin-top: 6px;
+    color: var(--badge-red-text);
+    font-size: 12px;
+}
+
+/* lokasi terkunci */
+.input-kunci,
+.input-select {
+    position: relative;
+}
+
+.input-kunci input {
+    padding-right: 44px;
+    color: #475569;
+    background: #f5f7fa;
+    cursor: not-allowed;
+}
+
+.input-kunci .ikon,
+.input-select .ikon {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    color: #475569;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.input-select select {
+    padding-right: 44px;
+    appearance: none;
+    cursor: pointer;
+}
+
+.input-select select:invalid {
+    color: var(--text-dark);
+}
+
+/* area unggah */
+.unggah {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 26px 20px;
+
+    text-align: center;
+    border: 2px dashed #d9e0ea;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.18s;
+}
+
+.unggah:hover,
+.unggah.seret {
+    background: #f5f9ff;
+    border-color: var(--primary-blue);
+}
+
+.unggah:has(input:focus-visible) {
+    outline: 3px solid #2563eb40;
+    outline-offset: 2px;
+}
+
+.unggah input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.unggah-ikon {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+    color: #334155;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 50%;
+}
+
+.unggah-teks {
+    color: var(--text-dark);
+    font-size: 15px;
+}
+
+.unggah-format {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.pratinjau {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+.pratinjau img {
+    width: 96px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.pratinjau-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 0;
+    color: var(--text-dark);
+    font-size: 14px;
+}
+
+.pratinjau-info span {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tombol-teks {
+    padding: 0;
+    color: var(--badge-red-text);
+    font: inherit;
+    font-size: 13px;
+    background: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.aksi-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.tombol-batal {
+    padding: 10px 20px;
+    color: #475569;
+    font-size: 15px;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.tombol-batal:hover {
+    background: var(--bg-light);
+}
+
+/* =========================================================
+   DETAIL LAPORAN (frame 22)
+   ========================================================= */
+.judul-detail {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 20px;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+}
+
+.judul-detail-kiri {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.judul-detail h1 {
+    color: var(--text-dark);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.6px;
+    overflow-wrap: anywhere;
+}
+
+.id-tiket {
+    color: #475569;
+    font-size: 13px;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 26px;
+}
+
+.detail-grid .card-box {
+    padding: 24px;
+}
+
+.info-laporan {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    padding: 16px;
+    margin-bottom: 24px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+.info-laporan dt {
+    margin-bottom: 4px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.info-laporan dd {
+    color: var(--text-dark);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.sub-judul {
+    margin-bottom: 8px;
+    color: var(--text-dark);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.deskripsi-laporan {
+    margin-bottom: 24px;
+    color: #334155;
+    font-size: 15px;
+    line-height: 1.6;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+.foto-laporan {
+    display: block;
+    width: 100%;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.catatan-pelapor {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 28px;
+    color: #475569;
+    font-size: 13px;
+}
+
+.catatan-pelapor .ikon {
+    width: 15px;
+    height: 15px;
+}
+
+.judul-card {
+    margin-bottom: 26px;
+    color: var(--text-dark);
+    font-size: 17px;
+    font-weight: 600;
+}
+
+/* timeline riwayat penanganan */
+.timeline {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+}
+
+.timeline-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 16px;
+    padding-bottom: 26px;
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+/* garis penghubung antar titik */
+.timeline-item:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: 34px;
+    bottom: 2px;
+    left: 15px;
+    width: 2px;
+    background: var(--border-color);
+}
+
+.timeline-item.selesai:not(:last-child)::before {
+    background: #4ade80;
+}
+
+.timeline-item.berjalan:not(:last-child)::before {
+    background: #bfd5f7;
+}
+
+.timeline-dot {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.timeline-dot .ikon {
+    width: 16px;
+    height: 16px;
+}
+
+.timeline-item.selesai .timeline-dot {
+    color: var(--badge-green-text);
+    background: var(--badge-green-bg);
+}
+
+.timeline-item.berjalan .timeline-dot {
+    color: var(--primary-blue);
+    background: #e8f1ff;
+}
+
+.timeline-item.menunggu .timeline-dot {
+    color: #94a3b8;
+    background: #eef2f7;
+}
+
+.timeline-judul {
+    margin-top: 5px;
+    color: var(--text-dark);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.timeline-item.berjalan .timeline-judul {
+    color: var(--primary-blue);
+}
+
+.timeline-item.menunggu .timeline-judul {
+    color: #475569;
+    font-weight: 500;
+}
+
+.timeline-ket {
+    margin-top: 3px;
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.catatan-pengelola {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+    padding: 16px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+.catatan-pengelola > .ikon {
+    margin-top: 1px;
+    color: var(--primary-blue);
+}
+
+.catatan-pengelola #catatanIsi {
+    color: var(--text-dark);
+    font-size: 15px;
+    line-height: 1.55;
+}
+
+.label-kecil {
+    margin-bottom: 4px;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* ---------- responsif ---------- */
+@media (max-width: 1024px) {
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 680px) {
+    .main-area {
+        margin-left: 0;
+    }
+
+    .header-divider {
+        display: none;
+    }
+
+    .card-box {
+        padding: 20px;
+    }
+
+    .judul-baris {
+        margin-bottom: 16px;
+    }
+
+    .filter-status {
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+    }
+
+    .filter-pill {
+        flex-shrink: 0;
+        padding: 0 14px;
+        font-size: 13px;
+    }
+
+    .item-laporan {
+        grid-template-columns: 72px minmax(0, 1fr);
+        gap: 14px;
+        padding: 16px;
+    }
+
+    .thumb {
+        width: 72px;
+        height: 72px;
+    }
+
+    .item-kanan {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .item-judul {
+        font-size: 15px;
+    }
+
+    .item-meta {
+        font-size: 13px;
+    }
+
+    .info-laporan {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .aksi-form {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .aksi-form .btn-utama {
+        width: 100%;
+    }
+
+    .tombol-batal {
+        text-align: center;
+    }
+}
+
+/* ---------- simulasi penanganan (khusus development) ---------- */
+.simulasi-verifikasi {
+    margin-top: 24px;
+    padding: 18px 22px;
+    background: var(--bg-white);
+    border: 1px dashed #94a3b8;
+    border-radius: 14px;
+}
+
+.simulasi-header h3 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.simulasi-header p {
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.simulasi-catatan {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 520px;
+    margin-top: 14px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.simulasi-catatan input {
+    min-height: 40px;
+    padding: 0 12px;
+    font: inherit;
+    font-weight: 400;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.simulasi-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.btn-simulasi {
+    min-height: 40px;
+    padding: 0 18px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-simulasi[hidden] {
+    display: none;
+}
+
+.btn-simulasi.btn-proses {
+    color: var(--badge-yellow-text);
+    background: var(--badge-yellow-bg);
+    border-color: #fde68a;
+}
+
+.btn-simulasi.btn-terima {
+    color: var(--badge-green-text);
+    background: var(--badge-green-bg);
+    border-color: #86efac;
+}
