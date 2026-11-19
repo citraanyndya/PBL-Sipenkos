@@ -64,6 +64,11 @@
           <a href="dashboard.php" class="btn-outline">Kembali ke Dashboard</a>
         </div>
 
+        <div class="info-pengajuan" id="infoPengajuan" role="status" hidden>
+          <p id="infoPengajuanPesan">-</p>
+          <a href="status-perpanjangan-sewa.php" class="btn-outline">Lihat Status Pengajuan</a>
+        </div>
+
         <form class="card-box form-perpanjangan" id="formPerpanjangan" hidden novalidate>
           <div class="info-sewa">
             <p class="label-kecil">Informasi Kamar &amp; Sewa Saat Ini</p>

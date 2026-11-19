@@ -86,12 +86,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const form = $("formPerpanjangan");
   if (form) {
-    const params = new URLSearchParams(window.location.search);
+    // Form selalu ditampilkan. Pengajuan lama hanya diberi info + tautan ke status.
     const pengajuanLama = ambilJSON(KUNCI);
+    const masihMenunggu = Boolean(pengajuanLama && pengajuanLama.status === "menunggu_verifikasi");
 
-    if (pengajuanLama && pengajuanLama.status !== "ditolak" && !params.has("baru")) {
-      window.location.replace("status-perpanjangan-sewa.php");
-      return;
+    if (pengajuanLama) {
+      const PESAN_INFO = {
+        menunggu_verifikasi: "Kamu masih punya pengajuan perpanjangan yang menunggu verifikasi pemilik kos. Pengajuan baru bisa dibuat setelah pengajuan ini diputuskan.",
+        disetujui: "Pengajuan perpanjangan terakhir kamu sudah disetujui pemilik kos.",
+        ditolak: "Pengajuan perpanjangan terakhir kamu ditolak. Kamu bisa mengajukan ulang lewat formulir di bawah."
+      };
+      $("infoPengajuanPesan").textContent = PESAN_INFO[pengajuanLama.status] || PESAN_INFO.menunggu_verifikasi;
+      $("infoPengajuan").className = `info-pengajuan info-pengajuan--${pengajuanLama.status || "menunggu_verifikasi"}`;
+      $("infoPengajuan").hidden = false;
     }
 
     const sewa = ambilSewaSaatIni();
@@ -154,6 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
+      if (masihMenunggu) return;
       const h = hitung();
       if (!h.tipe) {
         alert("Pilih tipe kamar terlebih dahulu.");
@@ -185,6 +193,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       window.location.href = "status-perpanjangan-sewa.php";
     });
+
+    if (masihMenunggu) {
+      const tombolKirim = form.querySelector('button[type="submit"]');
+      tombolKirim.disabled = true;
+      tombolKirim.title = "Masih ada pengajuan yang menunggu verifikasi";
+    }
 
     form.hidden = false;
     perbaruiRingkasan();
@@ -253,7 +267,23 @@ document.addEventListener("DOMContentLoaded", () => {
   } else if (status === "ditolak") {
     $("aksiDetail").hidden = false;
     tombol.textContent = "Ajukan Ulang";
-    tombol.setAttribute("href", "perpanjangan-sewa.php?baru=1");
+    tombol.setAttribute("href", "perpanjangan-sewa.php");
+  }
+
+  // SIMULASI (khusus development): pemilik kos menyetujui / menolak
+  const simulasi = $("simulasiVerifikasi");
+  if (simulasi && status === "menunggu_verifikasi") {
+    const putuskan = (hasil) => {
+      const diperbarui = { ...pengajuan, status: hasil, diputuskanPada: new Date().toISOString() };
+      if (!simpanJSON(KUNCI, diperbarui)) {
+        alert("Status tidak bisa disimpan di browser ini.");
+        return;
+      }
+      window.location.href = "status-perpanjangan-sewa.php";
+    };
+    $("btnSetujuiPerpanjangan")?.addEventListener("click", () => putuskan("disetujui"));
+    $("btnTolakPerpanjangan")?.addEventListener("click", () => putuskan("ditolak"));
+    simulasi.hidden = false;
   }
 
   // timeline proses

@@ -104,6 +104,18 @@
               <ol class="timeline" id="timeline"></ol>
             </article>
           </div>
+
+          <!-- SIMULASI VERIFIKASI (KHUSUS DEVELOPMENT, hapus saat backend siap) -->
+          <section class="simulasi-verifikasi" id="simulasiVerifikasi" hidden>
+            <div class="simulasi-header">
+              <h3>Simulasi Verifikasi Pemilik Kos</h3>
+              <p>Pilih hasil pemeriksaan untuk menguji alur perpanjangan. Bagian ini hanya digunakan selama pengembangan.</p>
+            </div>
+            <div class="simulasi-actions">
+              <button type="button" id="btnSetujuiPerpanjangan" class="btn-simulasi btn-terima">✓ Setujui Perpanjangan</button>
+              <button type="button" id="btnTolakPerpanjangan" class="btn-simulasi btn-tolak">✕ Tolak Perpanjangan</button>
+            </div>
+          </section>
         </div>
       </section>
     </main>
