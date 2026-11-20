@@ -313,7 +313,7 @@
             var label = chip.getAttribute('data-label');
             var n = counts[f] || 0;
             if (label && chip.hasAttribute('data-count')) { chip.textContent = label + ' (' + n + ')'; }
-            if ((hideEmpty || chip.hasAttribute('data-hide-empty')) && f !== 'all') { chip.hidden = n === 0 && !chip.classList.contains('is-active'); }
+            if (hideEmpty && f !== 'all') { chip.hidden = n === 0 && !chip.classList.contains('is-active'); }
         });
         var empty = $('[data-empty]', this.root);
         if (empty) { empty.hidden = visible.length > 0; }
@@ -328,7 +328,7 @@
         reservasi: { menunggu: ['Menunggu', 'warning'], diterima: ['Diterima', 'success'], ditolak: ['Ditolak', 'danger'] },
         penghuni: { aktif: ['Aktif', 'success'], calon: ['Calon', 'info'] },
         pembayaran: { menunggu: ['Menunggu', 'warning'], terverifikasi: ['Terverifikasi', 'success'], ditolak: ['Ditolak', 'danger'] },
-        tagihan: { belum: ['Belum Bayar', 'danger'], lunas: ['Sudah Lunas', 'success'] },
+        tagihan: { belum: ['Belum Dibayar', 'danger'], menunggu: ['Menunggu', 'warning'], lunas: ['Lunas', 'success'] },
         kerusakan: { belum: ['Belum Dikerjakan', 'danger'], diproses: ['Diproses', 'info'], selesai: ['Selesai', 'success'] }
     };
     function badgeHtml(group, status, labelOverride) {
@@ -383,39 +383,22 @@
     var Pages = {};
 
     /* --- 26 · Data Reservasi ------------------------------------------- */
-    /** Kartu KTP contoh (dirender dari data reservasi) */
-    function ktpCardHtml(r) {
-        var k = r.ktp || {};
-        return '<div class="idcard"><div class="idcard-head"><span>PROVINSI DKI JAKARTA</span><span>KOTA JAKARTA SELATAN</span></div>' +
-            '<div class="idcard-nik">NIK : ' + esc(k.nik || '-') + '</div>' +
-            '<div class="idcard-body"><dl>' +
-            '<dt>Nama</dt><dd>' + esc(r.name.toUpperCase()) + '</dd>' +
-            '<dt>Tempat/Tgl Lahir</dt><dd>' + esc((k.birth || '-').toUpperCase()) + '</dd>' +
-            '<dt>Jenis Kelamin</dt><dd>' + esc(k.gender || '-') + '</dd>' +
-            '<dt>Alamat</dt><dd>' + esc(k.address || '-') + '</dd>' +
-            '<dt>Pekerjaan</dt><dd>' + esc(k.job || '-') + '</dd></dl>' +
-            '<div class="idcard-photo"><span>' + esc(initials(r.name)) + '</span></div></div>' +
-            '<span class="idcard-mark">CONTOH</span></div>';
-    }
-
     Pages.reservasi = function () {
         var rows = DATA.reservations || [];
-        var m = $('#modal-ktp');
         function find(id) { return rows.filter(function (r) { return r.id === id; })[0]; }
         function rowEl(id) { return $('[data-item][data-id="' + id + '"]'); }
 
         document.addEventListener('click', function (e) {
-            var ktpBtn = e.target.closest('[data-res-ktp]');
-            if (ktpBtn) { openKtp(find(ktpBtn.getAttribute('data-res-ktp'))); return; }
             var btn = e.target.closest('[data-res-action]');
             if (!btn) { return; }
-            decide(find(btn.closest('[data-id]').getAttribute('data-id')), btn.getAttribute('data-res-action'));
+            var id = btn.closest('[data-id]').getAttribute('data-id');
+            var r = find(id);
+            var action = btn.getAttribute('data-res-action');
+            if (action === 'detail') { openDetail(r); return; }
+            decide(r, action);
         });
 
-        /* Tombol Terima/Tolak ada di kolom Status. Setelah dipilih, data status
-           diperbarui dan kedua tombol diganti label status (tidak muncul lagi). */
         function decide(r, action) {
-            if (!r || r.status !== 'menunggu') { return; }
             var accept = action === 'terima';
             App.confirm({
                 title: accept ? 'Terima Reservasi?' : 'Tolak Reservasi?',
@@ -423,22 +406,38 @@
                 okLabel: accept ? 'Terima' : 'Tolak',
                 tone: accept ? 'primary' : 'danger'
             }).then(function (ok) {
-                if (!ok || r.status !== 'menunggu') { return; }
+                if (!ok) { return; }
                 r.status = accept ? 'diterima' : 'ditolak';
                 setRowStatus(rowEl(r.id), r.status);
+                App.Modal.close('modal-reservasi');
                 toast(accept ? 'Reservasi ' + r.name + ' diterima' : 'Reservasi ' + r.name + ' ditolak', accept ? '' : 'danger');
             });
         }
 
-        function openKtp(r) {
-            $('[data-f="subtitle"]', m).textContent = r.name + ' · Diajukan ' + r.date;
+        function openDetail(r) {
+            var m = $('#modal-reservasi');
+            $('[data-f="subtitle"]', m).textContent = r.id + ' · Diajukan ' + r.date;
+            $('[data-f="avatar"]', m).textContent = initials(r.name);
             $('[data-f="name"]', m).textContent = r.name;
-            $('[data-f="nik"]', m).textContent = (r.ktp && r.ktp.nik) || '-';
-            $('[data-f="phone"]', m).textContent = r.phone;
-            $('[data-f="type"]', m).textContent = r.type;
+            $('[data-f="contact"]', m).textContent = r.phone + ' · ' + r.email;
             $('[data-f="status"]', m).innerHTML = badgeHtml('reservasi', r.status);
-            $('[data-f="media"]', m).innerHTML = ktpCardHtml(r);
+            $('[data-f="type"]', m).textContent = r.type;
+            $('[data-f="duration"]', m).textContent = r.duration;
+            $('[data-f="start"]', m).textContent = r.start;
+            $('[data-f="pay"]', m).innerHTML = r.pay === 'dp' ? '<span class="pill pill-dp">Down Payment</span>' : '<span class="pill pill-full">Lunas (Full)</span>';
+            $('[data-f="amount"]', m).textContent = rupiah(r.amount);
+            var pending = r.status === 'menunggu';
+            $('[data-f="actions-pending"]', m).hidden = !pending;
+            $('[data-f="actions-done"]', m).hidden = pending;
+            m.setAttribute('data-current', r.id);
             App.Modal.open(m);
+        }
+        var modal = $('#modal-reservasi');
+        if (modal) {
+            modal.addEventListener('click', function (e) {
+                var b = e.target.closest('[data-modal-decide]');
+                if (b) { decide(find(modal.getAttribute('data-current')), b.getAttribute('data-modal-decide')); }
+            });
         }
     };
 
@@ -461,11 +460,11 @@
             var media = $('[data-f="media"]', m);
             var dl = $('[data-f="download"]', m);
             if (r.ktp) {
-                media.innerHTML = '<img src="../assets/images/' + esc(r.ktp) + '" alt="Foto KTP ' + esc(r.name) + '">';
-                media.setAttribute('data-zoom', '../assets/images/' + r.ktp);
+                media.innerHTML = '<img src="../assets/images/admin/' + esc(r.ktp) + '" alt="Foto KTP ' + esc(r.name) + '">';
+                media.setAttribute('data-zoom', '../assets/images/admin/' + r.ktp);
                 media.classList.add('media-zoom');
                 $('[data-f="status"]', m).innerHTML = '<span class="badge badge-success"><span class="badge-dot"></span>Terverifikasi</span>';
-                dl.setAttribute('href', '../assets/images/' + r.ktp);
+                dl.setAttribute('href', '../assets/images/admin/' + r.ktp);
                 dl.setAttribute('download', 'KTP-' + r.name.replace(/\s+/g, '-') + '.jpg');
                 dl.classList.remove('is-disabled');
             } else {
@@ -570,70 +569,46 @@
         load(Number(m.getAttribute('data-initial') || 3));
     };
 
-    /* --- Detail pembayaran (dipakai Verifikasi Pembayaran & Tagihan) ----- */
-    function receiptHtml(p) {
-        return '<div class="receipt"><div class="receipt-brand"><span>m-BCA</span></div>' +
-            '<div class="receipt-status">TRANSFER BERHASIL</div>' +
-            '<dl><dt>Tanggal &amp; Waktu</dt><dd>' + esc(String(p.time).replace(' · ', ' ').toUpperCase()) + ' WIB</dd>' +
-            '<dt>Jenis Transaksi</dt><dd>TRANSFER ANTAR REKENING</dd>' +
-            '<dt>Nama Pengirim</dt><dd>' + esc(p.name.toUpperCase()) + '</dd>' +
-            '<dt>Rekening Tujuan / Penerima</dt><dd>PENGELOLA KOST - BU NINING</dd>' +
-            '<dt>Jumlah / Nominal Transfer</dt><dd>' + esc(rupiah(p.amount)) + ',00</dd>' +
-            '<dt>Nomor Referensi</dt><dd>' + esc(p.ref) + '</dd></dl></div>';
-    }
-    function payTypeHtml(pay) {
-        return pay === 'dp' ? '<span class="pill pill-dp">Down Payment</span>' : '<span class="pill pill-full">Lunas (Full)</span>';
-    }
-    /** Isi & buka modal #modal-bukti dengan data pembayaran p */
-    function openPaymentDetail(m, p) {
-        $('[data-f="subtitle"]', m).textContent = p.name + ' · Kamar ' + p.room + ' · ' + p.period;
-        $('[data-f="period"]', m).textContent = p.period;
-        $('[data-f="bill"]', m).textContent = rupiah(p.bill || p.amount);
-        $('[data-f="paid"]', m).textContent = rupiah(p.amount);
-        $('[data-f="paytype"]', m).innerHTML = payTypeHtml(p.pay);
-        $('[data-f="method"]', m).textContent = p.method;
-        $('[data-f="time"]', m).textContent = p.time;
-        var st = $('[data-f="status"]', m);
-        if (p.status === 'menunggu') { st.innerHTML = badgeHtml('pembayaran', 'menunggu'); }
-        else if (p.status === 'ditolak') { st.innerHTML = badgeHtml('pembayaran', 'ditolak'); }
-        else { st.innerHTML = '<span class="badge badge-success"><span class="badge-dot"></span>Selesai</span>'; }
-        var media = $('[data-f="media"]', m);
-        if (p.proof) {
-            media.innerHTML = '<img src="../assets/images/' + esc(p.proof) + '" alt="Bukti transfer ' + esc(p.name) + '">';
-            media.setAttribute('data-zoom', '../assets/images/' + p.proof);
-        } else {
-            media.innerHTML = receiptHtml(p);
-            media.removeAttribute('data-zoom');
-        }
-        // Alasan penolakan tampil kembali di detail bila pembayaran ditolak
-        var rejected = p.status === 'ditolak';
-        $('[data-f="match"]', m).hidden = rejected;
-        $('[data-f="reason-box"]', m).hidden = !rejected;
-        if (rejected) {
-            $('[data-f="reason"]', m).textContent = p.reason || '-';
-            $('[data-f="reason-meta"]', m).textContent = p.rejectedAt ? 'Ditolak ' + p.rejectedAt + ' · Alasan ini ditampilkan kepada penghuni' : 'Alasan ini ditampilkan kepada penghuni';
-        }
-        var actions = $('[data-f="actions"]', m);
-        if (actions) { actions.hidden = p.status !== 'menunggu'; }
-        m.setAttribute('data-current', p.id || '');
-        App.Modal.open(m);
-    }
-    function nowLabel() {
-        var d = new Date();
-        return ('0' + d.getDate()).slice(-2) + ' ' + BULAN[d.getMonth()] + ' ' + d.getFullYear() + ' · ' +
-            ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
-    }
-
     /* --- 31–33B · Verifikasi Pembayaran -------------------------------- */
     Pages.verifikasi = function () {
         var rows = DATA.payments || [];
         var m = $('#modal-bukti');
-        var mt = $('#modal-tolak');
-        var form = $('#form-tolak');
-        var reason = $('#tolak-alasan');
-        var err = $('#tolak-error');
         function find(id) { return rows.filter(function (r) { return r.id === id; })[0]; }
-        function open(p) { openPaymentDetail(m, p); }
+
+        function receiptHtml(p) {
+            return '<div class="receipt"><div class="receipt-brand"><span>m-BCA</span></div>' +
+                '<div class="receipt-status">TRANSFER BERHASIL</div>' +
+                '<dl><dt>Tanggal &amp; Waktu</dt><dd>' + esc(p.time.replace(' · ', ' ').toUpperCase()) + ' WIB</dd>' +
+                '<dt>Jenis Transaksi</dt><dd>TRANSFER ANTAR REKENING</dd>' +
+                '<dt>Nama Pengirim</dt><dd>' + esc(p.name.toUpperCase()) + '</dd>' +
+                '<dt>Rekening Tujuan / Penerima</dt><dd>PENGELOLA KOST - BU NINING</dd>' +
+                '<dt>Jumlah / Nominal Transfer</dt><dd>' + esc(rupiah(p.amount)) + ',00</dd>' +
+                '<dt>Nomor Referensi</dt><dd>' + esc(p.ref) + '</dd></dl></div>';
+        }
+
+        function open(p) {
+            $('[data-f="subtitle"]', m).textContent = p.name + ' · Kamar ' + p.room + ' · ' + p.period;
+            $('[data-f="period"]', m).textContent = p.period;
+            $('[data-f="bill"]', m).textContent = rupiah(p.amount);
+            $('[data-f="paid"]', m).textContent = rupiah(p.amount);
+            $('[data-f="method"]', m).textContent = p.method;
+            $('[data-f="time"]', m).textContent = p.time;
+            var st = $('[data-f="status"]', m);
+            if (p.status === 'menunggu') { st.innerHTML = badgeHtml('pembayaran', 'menunggu'); }
+            else if (p.status === 'ditolak') { st.innerHTML = badgeHtml('pembayaran', 'ditolak'); }
+            else { st.innerHTML = '<span class="badge badge-success"><span class="badge-dot"></span>Selesai</span>'; }
+            var media = $('[data-f="media"]', m);
+            if (p.proof) {
+                media.innerHTML = '<img src="../assets/images/admin/' + esc(p.proof) + '" alt="Bukti transfer ' + esc(p.name) + '">';
+                media.setAttribute('data-zoom', '../assets/images/admin/' + p.proof);
+            } else {
+                media.innerHTML = receiptHtml(p);
+                media.removeAttribute('data-zoom');
+            }
+            $('[data-f="actions"]', m).hidden = p.status !== 'menunggu';
+            m.setAttribute('data-current', p.id);
+            App.Modal.open(m);
+        }
 
         document.addEventListener('click', function (e) {
             var b = e.target.closest('[data-proof]');
@@ -648,54 +623,17 @@
             showBanner($('[data-banner-slot]'), 'success', 'Pembayaran ' + p.name + ' untuk ' + p.period + ' berhasil dikonfirmasi');
             toast('Pembayaran terkonfirmasi');
         });
-
-        /* Tolak => wajib isi alasan di modal "Alasan Penolakan Pembayaran" */
-        function setError(show) {
-            err.hidden = !show;
-            reason.classList.toggle('is-invalid', show);
-            reason.setAttribute('aria-invalid', show ? 'true' : 'false');
-        }
         $('[data-f="reject"]', m).addEventListener('click', function () {
             var p = find(m.getAttribute('data-current'));
-            mt.setAttribute('data-current', p.id);
-            $('[data-f="subtitle"]', mt).textContent = p.name + ' · Kamar ' + p.room + ' · ' + p.period;
-            reason.value = '';
-            setError(false);
-            $$('.reason-option', mt).forEach(function (o) { o.classList.remove('is-active'); });
-            App.Modal.open(mt);
-            setTimeout(function () { reason.focus(); }, 60);
+            App.confirm({ title: 'Tolak Pembayaran?', text: 'Bukti transfer ' + p.name + ' akan ditolak dan penghuni diminta mengunggah ulang.', okLabel: 'Tolak', tone: 'danger' })
+                .then(function (ok) {
+                    if (!ok) { return; }
+                    p.status = 'ditolak';
+                    App.Modal.close(m);
+                    setRowStatus($('[data-item][data-id="' + p.id + '"]'), 'ditolak');
+                    showBanner($('[data-banner-slot]'), 'danger', 'Pembayaran ' + p.name + ' untuk ' + p.period + ' ditolak. Penghuni akan diminta mengunggah ulang bukti transfer.');
+                });
         });
-        $$('[data-reason]', mt).forEach(function (o) {
-            o.addEventListener('click', function () {
-                $$('.reason-option', mt).forEach(function (x) { x.classList.toggle('is-active', x === o); });
-                reason.value = o.textContent.trim();
-                setError(false);
-                reason.focus();
-            });
-        });
-        reason.addEventListener('input', function () {
-            if (reason.value.trim()) { setError(false); }
-            $$('.reason-option', mt).forEach(function (x) { x.classList.toggle('is-active', x.textContent.trim() === reason.value.trim()); });
-        });
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            var text = reason.value.trim();
-            if (!text) {
-                setError(true);
-                reason.focus();
-                return;
-            }
-            var p = find(mt.getAttribute('data-current'));
-            p.status = 'ditolak';
-            p.reason = text;
-            p.rejectedAt = nowLabel();
-            App.Modal.close(mt);
-            App.Modal.close(m);
-            setRowStatus($('[data-item][data-id="' + p.id + '"]'), 'ditolak');
-            showBanner($('[data-banner-slot]'), 'danger', 'Pembayaran ' + p.name + ' untuk ' + p.period + ' ditolak. Alasan: ' + text);
-            toast('Pembayaran ditolak, alasan dikirim ke penghuni', 'danger');
-        });
-
         var auto = m.getAttribute('data-open-id');
         if (auto) { open(find(auto)); }
     };
@@ -769,19 +707,14 @@
             var det = e.target.closest('[data-bill-detail]');
             if (det) {
                 var rw = det.closest('[data-item]');
-                openPaymentDetail($('#modal-bukti'), {
-                    id: '',
-                    name: rw.getAttribute('data-name'),
-                    room: rw.getAttribute('data-room'),
-                    period: rw.getAttribute('data-period-label'),
-                    amount: Number(rw.getAttribute('data-amount-value')),
-                    pay: rw.getAttribute('data-pay'),
-                    method: rw.getAttribute('data-method') || 'Transfer Bank BCA',
-                    time: rw.getAttribute('data-time'),
-                    ref: rw.getAttribute('data-ref'),
-                    proof: rw.getAttribute('data-proof-img') || '',
-                    status: 'terverifikasi'
-                });
+                var m = $('#modal-tagihan');
+                $('[data-f="subtitle"]', m).textContent = rw.getAttribute('data-name') + ' · Kamar ' + rw.getAttribute('data-room') + ' · ' + rw.getAttribute('data-period-label');
+                $('[data-f="type"]', m).textContent = rw.getAttribute('data-type');
+                $('[data-f="amount"]', m).textContent = rw.getAttribute('data-amount');
+                $('[data-f="due"]', m).textContent = rw.getAttribute('data-due');
+                $('[data-f="paid"]', m).textContent = rw.getAttribute('data-paid') || '-';
+                $('[data-f="status"]', m).innerHTML = badgeHtml('tagihan', rw.getAttribute('data-status'));
+                App.Modal.open(m);
             }
         });
         // Klik nama penghuni => tampilkan riwayat penghuni tsb (halaman 36)
@@ -804,7 +737,7 @@
         var chosen = null;
         function find(id) { return rows.filter(function (r) { return r.id === id; })[0]; }
         function mediaHtml(r) {
-            return r.photo ? '<img src="../assets/images/' + esc(r.photo) + '" alt="Foto ' + esc(r.title) + '">' :
+            return r.photo ? '<img src="../assets/images/admin/' + esc(r.photo) + '" alt="Foto ' + esc(r.title) + '">' :
                 '<div class="media-placeholder">' + svg('image') + '<span>Penghuni tidak melampirkan foto</span></div>';
         }
         function fillCommon(m, r) {
@@ -813,7 +746,7 @@
             $('[data-f="desc"]', m).textContent = r.desc;
             var media = $('[data-f="media"]', m);
             media.innerHTML = mediaHtml(r);
-            if (r.photo) { media.setAttribute('data-zoom', '../assets/images/' + r.photo); media.classList.add('media-zoom'); }
+            if (r.photo) { media.setAttribute('data-zoom', '../assets/images/admin/' + r.photo); media.classList.add('media-zoom'); }
             else { media.removeAttribute('data-zoom'); media.classList.remove('media-zoom'); }
         }
         function setSegment(val) {
@@ -891,24 +824,13 @@
         var CAT = { rutin: ['Operasional Rutin', 'neutral'], perbaikan: ['Perbaikan Fasilitas', 'amber'] };
 
         function cur() { return D.periods[periodKey]; }
-        function pad(n) { return ('0' + n).slice(-2); }
-        /** Waktu pencatatan sekarang (format lokal YYYY-MM-DDTHH:MM:SS agar bisa diurutkan) */
-        function isoNow() {
-            var d = new Date();
-            return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
-        }
-        function createdLabel(c) {
-            var parts = String(c || '').split('T');
-            return tglIndo(parts[0]) + ', ' + (parts[1] || '').slice(0, 5);
-        }
         function render() {
             var p = cur();
-            // Urutkan berdasarkan waktu pencatatan: yang terakhir dimasukkan tampil paling atas
-            p.expenses.sort(function (a, b) { return a.created < b.created ? 1 : (a.created > b.created ? -1 : 0); });
+            p.expenses.sort(function (a, b) { return a.date < b.date ? -1 : (a.date > b.date ? 1 : 0); });
             var total = p.expenses.reduce(function (s, x) { return s + Number(x.amount); }, 0);
             tbody.innerHTML = p.expenses.length ? p.expenses.map(function (x) {
                 var c = CAT[x.category] || CAT.rutin;
-                return '<tr' + (x.isNew ? ' class="is-highlight"' : '') + '><td class="nowrap"><p class="cell-main">' + tglIndo(x.date) + '</p><p class="cell-sub">Dicatat ' + createdLabel(x.created) + '</p></td>' +
+                return '<tr' + (x.isNew ? ' class="is-highlight"' : '') + '><td class="nowrap">' + tglIndo(x.date) + '</td>' +
                     '<td><span class="badge badge-' + c[1] + '"><span class="badge-dot"></span>' + c[0] + '</span></td>' +
                     '<td>' + esc(x.desc) + '</td><td class="ta-right nowrap">' + rupiah(x.amount) + '</td></tr>';
             }).join('') : '<tr class="table-empty"><td colspan="4">Belum ada pengeluaran pada periode ini.</td></tr>';
@@ -968,7 +890,7 @@
                 toast('Periode ' + tglIndo(date).slice(3) + ' belum tersedia di laporan', 'danger');
                 return;
             }
-            var item = { date: date, category: $('#exp-category', form).value, desc: $('#exp-desc', form).value.trim(), amount: Number(amount.value.replace(/\D/g, '')), created: isoNow(), isNew: true };
+            var item = { date: date, category: $('#exp-category', form).value, desc: $('#exp-desc', form).value.trim(), amount: Number(amount.value.replace(/\D/g, '')), isNew: true };
             D.periods[key].expenses.push(item);
             if (key !== periodKey) {
                 var opt = $('[data-period-select] [data-value="' + key + '"]');

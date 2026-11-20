@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Kebijakan &amp; Aturan Kos · SIPENKOS Admin</title>
-    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="icon" href="../assets/images/admin/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../assets/css/admin/style.css">
+    <link rel="stylesheet" href="../assets/css/admin/responsive.css">
 </head>
 <body data-page="edit-aturan-kos" data-module="kebijakan">
 <div class="app">
-    <?php $activeMenu = 'kebijakan'; include __DIR__ . '/../includes/sidebar.php'; ?>
+    <?php $activeMenu = 'kebijakan'; include __DIR__ . '/includes/sidebar.php'; ?>
     <div class="sidebar-backdrop" data-sidebar-close></div>
     <div class="app-body">
-        <?php include __DIR__ . '/../includes/navbar.php'; ?>
+        <?php include __DIR__ . '/includes/navbar.php'; ?>
         <main class="main" id="main">
 <div class="page-header">
     <div>
@@ -75,12 +75,13 @@
         <p class="result-text">Kamu akan keluar dari panel admin Kos Bu Nining.</p>
         <div class="modal-actions modal-actions-split">
             <button type="button" class="btn btn-secondary btn-lg" data-modal-close>Batal</button>
-            <a href="../index.php?keluar=1" class="btn btn-danger btn-lg">Keluar</a>
+            <a href="index.php?keluar=1" class="btn btn-danger btn-lg">Keluar</a>
         </div>
     </div>
 </div>
 <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
 <script>window.APP_DATA = {"rules":[{"title":"Jam Bertamu","text":"Bertamu maksimal hingga pukul 22.00 WIB di area ruang tamu bersama."},{"title":"Keamanan \u0026 Kunci","text":"Pintu pagar utama wajib dikunci kembali setelah pukul 23.00 WIB."},{"title":"Pembayaran Sewa","text":"Pembayaran sewa dilakukan paling lambat tanggal 27 setiap bulannya."},{"title":"Kebersihan \u0026 Ketertiban","text":"Dilarang membuat kegaduhan di atas pukul 22.00 WIB dan wajib menjaga kebersihan area bersama."},{"title":"Penggunaan Fasilitas","text":"Penggunaan fasilitas umum (dapur\/mesin cuci) harap dirapikan kembali setelah digunakan."}],"ruleDraft":{"title":"Hewan Peliharaan","text":"Dilarang membawa atau memelihara hewan peliharaan di area kos tanpa izin dari pengelola."},"rulesUpdated":"10 Okt 2026"};</script>
-<script src="../js/script.js"></script>
+<script src="../assets/js/admin/script.js"></script>
+<script src="../assets/js/common/sesi.js"></script>
 </body>
 </html>

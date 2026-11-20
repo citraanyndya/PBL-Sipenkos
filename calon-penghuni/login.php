@@ -34,13 +34,13 @@
       <section id="panel-penghuni" role="tabpanel" aria-labelledby="tab-penghuni" class="login-panel">
         <div class="auth-header">
           <h1 class="judul-box">Masuk ke SIPENKOS</h1>
-          <p class="deskripsi">Masukkan email dan kata sandi kamu untuk melanjutkan.</p>
+          <p class="deskripsi">Masukkan username dan kata sandi kamu untuk melanjutkan.</p>
         </div>
 
         <form class="auth-form" action="#" method="POST">
           <div class="form-group">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" name="email" class="form-input" placeholder="nama@email.com" required>
+            <label for="username" class="form-label">Username</label>
+            <input type="text" id="username" name="username" class="form-input" placeholder="Masukkan username" autocomplete="username" required>
           </div>
 
           <div class="form-group">
@@ -92,7 +92,7 @@
         <!-- DEMO: hapus saat login memakai backend (POST /api/auth/admin/login) -->
         <div class="informasi">
           <span class="icon">ℹ️</span>
-          <span>Contoh · username <strong>admin</strong>, kata sandi <strong>admin12345</strong></span>
+          <span>Akun demo · username <strong>admin</strong>, kata sandi <strong>admin12345</strong></span>
         </div>
       </section>
     </div>

@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
       (user.value.trim() ? sandi : user).focus();
       return;
     }
-    var akun = window.SIPENKOS_SESI && window.SIPENKOS_SESI.masukDemo("pengelola", user.value, sandi.value);
+    var akun = window.SIPENKOS_SESI && window.SIPENKOS_SESI.masuk("pengelola", user.value, sandi.value);
     if (!akun) {
       galat.textContent = "Username atau kata sandi salah.";
       galat.hidden = false;

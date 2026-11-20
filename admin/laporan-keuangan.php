@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Keuangan · SIPENKOS Admin</title>
-    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="icon" href="../assets/images/admin/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../assets/css/admin/style.css">
+    <link rel="stylesheet" href="../assets/css/admin/responsive.css">
 </head>
 <body data-page="laporan-keuangan" data-module="keuangan">
 <div class="app">
-    <?php $activeMenu = 'keuangan'; include __DIR__ . '/../includes/sidebar.php'; ?>
+    <?php $activeMenu = 'keuangan'; include __DIR__ . '/includes/sidebar.php'; ?>
     <div class="sidebar-backdrop" data-sidebar-close></div>
     <div class="app-body">
-        <?php include __DIR__ . '/../includes/navbar.php'; ?>
+        <?php include __DIR__ . '/includes/navbar.php'; ?>
         <main class="main" id="main">
 <div class="page-header">
     <div>
@@ -144,12 +144,13 @@
         <p class="result-text">Kamu akan keluar dari panel admin Kos Bu Nining.</p>
         <div class="modal-actions modal-actions-split">
             <button type="button" class="btn btn-secondary btn-lg" data-modal-close>Batal</button>
-            <a href="../index.php?keluar=1" class="btn btn-danger btn-lg">Keluar</a>
+            <a href="index.php?keluar=1" class="btn btn-danger btn-lg">Keluar</a>
         </div>
     </div>
 </div>
 <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
-<script>window.APP_DATA = {"finance": {"periods": {"2026-10": {"label": "Oktober 2026", "gross": 10050000, "filled": 14, "expenses": [{"date": "2026-10-01", "category": "rutin", "desc": "Biaya listrik induk kos", "amount": 1200000, "created": "2026-10-01T08:05:00"}, {"date": "2026-10-01", "category": "rutin", "desc": "Biaya Wi-Fi induk kos", "amount": 500000, "created": "2026-10-01T08:20:00"}, {"date": "2026-10-01", "category": "rutin", "desc": "Biaya kebersihan dan penjaga kos", "amount": 1000000, "created": "2026-10-01T08:40:00"}, {"date": "2026-10-05", "category": "perbaikan", "desc": "Servis AC Kamar 01 (laporan Siti Nurhaliza)", "amount": 300000, "created": "2026-10-05T14:10:00"}]}, "2026-09": {"label": "September 2026", "gross": 9200000, "filled": 13, "expenses": [{"date": "2026-09-01", "category": "rutin", "desc": "Biaya listrik induk kos", "amount": 1150000, "created": "2026-09-01T08:05:00"}, {"date": "2026-09-01", "category": "rutin", "desc": "Biaya Wi-Fi induk kos", "amount": 500000, "created": "2026-09-01T08:20:00"}, {"date": "2026-09-01", "category": "rutin", "desc": "Biaya kebersihan dan penjaga kos", "amount": 1000000, "created": "2026-09-01T08:40:00"}, {"date": "2026-09-22", "category": "perbaikan", "desc": "Perbaikan keran wastafel Kamar 03", "amount": 150000, "created": "2026-09-22T15:25:00"}]}}}};</script>
-<script src="../js/script.js"></script>
+<script>window.APP_DATA = {"finance":{"periods":{"2026-10":{"label":"Oktober 2026","gross":10050000,"filled":14,"expenses":[{"date":"2026-10-01","category":"rutin","desc":"Biaya listrik induk kos","amount":1200000},{"date":"2026-10-01","category":"rutin","desc":"Biaya Wi-Fi induk kos","amount":500000},{"date":"2026-10-01","category":"rutin","desc":"Biaya kebersihan dan penjaga kos","amount":1000000},{"date":"2026-10-05","category":"perbaikan","desc":"Servis AC Kamar 01 (laporan Siti Nurhaliza)","amount":300000}]},"2026-09":{"label":"September 2026","gross":9200000,"filled":13,"expenses":[{"date":"2026-09-01","category":"rutin","desc":"Biaya listrik induk kos","amount":1150000},{"date":"2026-09-01","category":"rutin","desc":"Biaya Wi-Fi induk kos","amount":500000},{"date":"2026-09-01","category":"rutin","desc":"Biaya kebersihan dan penjaga kos","amount":1000000},{"date":"2026-09-22","category":"perbaikan","desc":"Perbaikan keran wastafel Kamar 03","amount":150000}]}}}};</script>
+<script src="../assets/js/admin/script.js"></script>
+<script src="../assets/js/common/sesi.js"></script>
 </body>
 </html>

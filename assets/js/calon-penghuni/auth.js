@@ -1,8 +1,8 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.querySelector(".auth-form");
+document.addEventListener("DOMContentLoaded", function () {
+  var form = document.querySelector(".auth-form");
   if (!form) return;
 
-  let message = form.querySelector(".auth-feedback");
+  var message = form.querySelector(".auth-feedback");
   if (!message) {
     message = document.createElement("p");
     message.className = "auth-feedback";
@@ -11,24 +11,24 @@ document.addEventListener("DOMContentLoaded", () => {
     form.appendChild(message);
   }
 
-  const showMessage = (text, isError = true) => {
+  function showMessage(text, isError) {
     message.textContent = text;
-    message.style.color = isError ? "#b91c1c" : "#166534";
-  };
+    message.style.color = isError === false ? "#166534" : "#b91c1c";
+  }
 
-  const lanjutkan = () => {
-    const adaPilihanKamar = Boolean(localStorage.getItem("kamarTerpilih"));
+  function lanjutkan() {
+    var adaPilihanKamar = Boolean(localStorage.getItem("kamarTerpilih"));
     window.location.href = adaPilihanKamar ? "form-sewa.php" : "beranda.php";
-  };
+  }
 
-  if (window.location.pathname.endsWith("registrasi.php")) {
-    const password = document.getElementById("password");
-    const konfirmasi = document.getElementById("konfirmasi_password");
-
-    form.addEventListener("submit", (event) => {
+  var isRegistrasi = window.location.pathname.endsWith("registrasi.php");
+  if (isRegistrasi) {
+    form.addEventListener("submit", function (event) {
       event.preventDefault();
       if (!form.reportValidity()) return;
 
+      var password = document.getElementById("password");
+      var konfirmasi = document.getElementById("konfirmasi_password");
       if (password.value.length < 8) {
         showMessage("Kata sandi minimal 8 karakter.");
         password.focus();
@@ -40,54 +40,34 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const profile = {
-        nama: document.getElementById("nama").value.trim(),
-        nohp: document.getElementById("nohp").value.trim(),
-        email: document.getElementById("email").value.trim().toLowerCase()
-      };
+      var hasil = window.SIPENKOS_SESI && window.SIPENKOS_SESI.daftarPenghuni({
+        nama: document.getElementById("nama").value,
+        nohp: document.getElementById("nohp").value,
+        username: document.getElementById("username").value,
+        email: document.getElementById("email").value,
+        password: password.value
+      });
 
-      try {
-        localStorage.setItem("sipenkosDemoUser", JSON.stringify(profile));
-        localStorage.setItem("userName", profile.nama);
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("sipenkosRole", "calon_penghuni");
-      } catch (error) {
-        showMessage("Akun kamu tidak dapat disimpan di browser ini.");
+      if (!hasil || !hasil.ok) {
+        showMessage(hasil ? hasil.pesan : "Modul penyimpanan belum siap. Muat ulang halaman.");
         return;
       }
-
+      window.SIPENKOS_SESI.masuk("penghuni", hasil.akun.username, password.value);
       lanjutkan();
     });
   } else {
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", function (event) {
       event.preventDefault();
       if (!form.reportValidity()) return;
 
-      let profile = null;
-      try {
-        profile = JSON.parse(localStorage.getItem("sipenkosDemoUser") || "null");
-      } catch (error) {
-        profile = null;
-      }
-
-      const email = document.getElementById("email").value.trim().toLowerCase();
-
-      // DEMO: akun penghuni aktif (hapus saat memakai backend)
-      const demoPenghuni = window.SIPENKOS_SESI && window.SIPENKOS_SESI.masukDemo("penghuni", email, document.getElementById("password").value);
-      if (demoPenghuni) {
-        window.location.href = "../penghuni/dashboard.php";
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      var sesi = window.SIPENKOS_SESI && window.SIPENKOS_SESI.masuk("penghuni", username, password);
+      if (!sesi) {
+        showMessage("Username atau kata sandi salah. Periksa kembali atau daftar akun terlebih dahulu.");
         return;
       }
-
-      if (!profile || profile.email !== email) {
-        showMessage("Akun dengan email tersebut belum ditemukan. Silakan daftar terlebih dahulu.");
-        return;
-      }
-
-      localStorage.setItem("userName", profile.nama);
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("sipenkosRole", "calon_penghuni");
-      lanjutkan();
+      window.location.href = "../penghuni/dashboard.php";
     });
   }
 });

@@ -10,10 +10,10 @@
    ========================================================================== */
 
 /* 1. Font & token ======================================================== */
-@font-face { font-family: "Poppins"; font-weight: 400; font-style: normal; font-display: swap; src: url("../assets/fonts/poppins-400.woff2") format("woff2"); }
-@font-face { font-family: "Poppins"; font-weight: 500; font-style: normal; font-display: swap; src: url("../assets/fonts/poppins-500.woff2") format("woff2"); }
-@font-face { font-family: "Poppins"; font-weight: 600; font-style: normal; font-display: swap; src: url("../assets/fonts/poppins-600.woff2") format("woff2"); }
-@font-face { font-family: "Poppins"; font-weight: 700; font-style: normal; font-display: swap; src: url("../assets/fonts/poppins-700.woff2") format("woff2"); }
+@font-face { font-family: "Poppins"; font-weight: 400; font-style: normal; font-display: swap; src: url("../../fonts/poppins-400.woff2") format("woff2"); }
+@font-face { font-family: "Poppins"; font-weight: 500; font-style: normal; font-display: swap; src: url("../../fonts/poppins-500.woff2") format("woff2"); }
+@font-face { font-family: "Poppins"; font-weight: 600; font-style: normal; font-display: swap; src: url("../../fonts/poppins-600.woff2") format("woff2"); }
+@font-face { font-family: "Poppins"; font-weight: 700; font-style: normal; font-display: swap; src: url("../../fonts/poppins-700.woff2") format("woff2"); }
 
 :root {
     --font: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -90,35 +90,35 @@ img { display: block; max-width: 100%; }
 }
 svg.icon { background: none; -webkit-mask: none; mask: none; }
 /* Ikon Lucide (assets/icons) – warna mengikuti currentColor */
-.icon-bed-double { --icon: url("../assets/icons/bed-double.svg"); }
-.icon-bell { --icon: url("../assets/icons/bell.svg"); }
-.icon-book-open { --icon: url("../assets/icons/book-open.svg"); }
-.icon-calendar { --icon: url("../assets/icons/calendar.svg"); }
-.icon-calendar-check { --icon: url("../assets/icons/calendar-check.svg"); }
-.icon-chart-column { --icon: url("../assets/icons/chart-column.svg"); }
-.icon-check { --icon: url("../assets/icons/check.svg"); }
-.icon-chevron-down { --icon: url("../assets/icons/chevron-down.svg"); }
-.icon-circle-check { --icon: url("../assets/icons/circle-check.svg"); }
-.icon-clock { --icon: url("../assets/icons/clock.svg"); }
-.icon-credit-card { --icon: url("../assets/icons/credit-card.svg"); }
-.icon-door-open { --icon: url("../assets/icons/door-open.svg"); }
-.icon-file-text { --icon: url("../assets/icons/file-text.svg"); }
-.icon-info { --icon: url("../assets/icons/info.svg"); }
-.icon-layout-grid { --icon: url("../assets/icons/layout-grid.svg"); }
-.icon-log-out { --icon: url("../assets/icons/log-out.svg"); }
-.icon-menu { --icon: url("../assets/icons/menu.svg"); }
-.icon-minus { --icon: url("../assets/icons/minus.svg"); }
-.icon-pencil { --icon: url("../assets/icons/pencil.svg"); }
-.icon-plus { --icon: url("../assets/icons/plus.svg"); }
-.icon-receipt-text { --icon: url("../assets/icons/receipt-text.svg"); }
-.icon-search { --icon: url("../assets/icons/search.svg"); }
-.icon-trending-down { --icon: url("../assets/icons/trending-down.svg"); }
-.icon-trending-up { --icon: url("../assets/icons/trending-up.svg"); }
-.icon-triangle-alert { --icon: url("../assets/icons/triangle-alert.svg"); }
-.icon-users { --icon: url("../assets/icons/users.svg"); }
-.icon-wallet { --icon: url("../assets/icons/wallet.svg"); }
-.icon-wrench { --icon: url("../assets/icons/wrench.svg"); }
-.icon-x { --icon: url("../assets/icons/x.svg"); }
+.icon-bed-double { --icon: url("../../icons/bed-double.svg"); }
+.icon-bell { --icon: url("../../icons/bell.svg"); }
+.icon-book-open { --icon: url("../../icons/book-open.svg"); }
+.icon-calendar { --icon: url("../../icons/calendar.svg"); }
+.icon-calendar-check { --icon: url("../../icons/calendar-check.svg"); }
+.icon-chart-column { --icon: url("../../icons/chart-column.svg"); }
+.icon-check { --icon: url("../../icons/check.svg"); }
+.icon-chevron-down { --icon: url("../../icons/chevron-down.svg"); }
+.icon-circle-check { --icon: url("../../icons/circle-check.svg"); }
+.icon-clock { --icon: url("../../icons/clock.svg"); }
+.icon-credit-card { --icon: url("../../icons/credit-card.svg"); }
+.icon-door-open { --icon: url("../../icons/door-open.svg"); }
+.icon-file-text { --icon: url("../../icons/file-text.svg"); }
+.icon-info { --icon: url("../../icons/info.svg"); }
+.icon-layout-grid { --icon: url("../../icons/layout-grid.svg"); }
+.icon-log-out { --icon: url("../../icons/log-out.svg"); }
+.icon-menu { --icon: url("../../icons/menu.svg"); }
+.icon-minus { --icon: url("../../icons/minus.svg"); }
+.icon-pencil { --icon: url("../../icons/pencil.svg"); }
+.icon-plus { --icon: url("../../icons/plus.svg"); }
+.icon-receipt-text { --icon: url("../../icons/receipt-text.svg"); }
+.icon-search { --icon: url("../../icons/search.svg"); }
+.icon-trending-down { --icon: url("../../icons/trending-down.svg"); }
+.icon-trending-up { --icon: url("../../icons/trending-up.svg"); }
+.icon-triangle-alert { --icon: url("../../icons/triangle-alert.svg"); }
+.icon-users { --icon: url("../../icons/users.svg"); }
+.icon-wallet { --icon: url("../../icons/wallet.svg"); }
+.icon-wrench { --icon: url("../../icons/wrench.svg"); }
+.icon-x { --icon: url("../../icons/x.svg"); }
 
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
@@ -960,10 +960,10 @@ body.modal-open { overflow: hidden; }
 .table-kamar th:first-child { width: 32%; }
 .table-kamar.has-actions th:first-child { width: 26%; }
 .table-kamar .col-type-wide { min-width: 180px; }
-
-
-
-
+.table-verifikasi th:nth-child(2) { width: 18%; }
+.table-verifikasi td:nth-child(n+2), .table-verifikasi th:nth-child(n+2) { padding-left: 14px; padding-right: 14px; }
+.table-verifikasi td:last-child, .table-verifikasi th:last-child { padding-right: 20px; }
+.table-verifikasi.no-paytype td:nth-child(n+2), .table-verifikasi.no-paytype th:nth-child(n+2) { padding-left: 24px; padding-right: 24px; }
 .table-tagihan th:nth-child(1) { width: 21%; }
 .table-tagihan th:nth-child(2) { width: 16%; }
 .table-kerusakan th:nth-child(1) { width: 15%; }
@@ -985,89 +985,3 @@ body.modal-open { overflow: hidden; }
 .detail-row { min-height: 40px; padding: 10px 0; }
 [data-banner-slot]:empty { display: none; }
 .search-md { width: 240px; }
-
-/* 16. Revisi: reservasi, verifikasi, tagihan, keuangan ================== */
-/* Tombol keputusan di kolom Status (Data Reservasi) */
-.status-actions { display: flex; align-items: center; gap: 6px; }
-.link-icon { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
-.link-icon .icon { width: 16px; height: 16px; }
-
-/* Kartu KTP contoh (bukti KTP reservasi) */
-.idcard {
-    position: relative;
-    height: 100%;
-    padding: 10px 12px;
-    background: linear-gradient(135deg, #cfe6fb 0%, #a9d2f5 55%, #c4e2fa 100%);
-    color: #0f172a;
-    font-family: Arial, Helvetica, sans-serif;
-    overflow: hidden;
-}
-.idcard-head { display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: 700; line-height: 13px; }
-.idcard-nik { margin-top: 6px; font-size: 11.5px; font-weight: 700; }
-.idcard-body { display: flex; gap: 10px; margin-top: 4px; }
-.idcard dl { flex: 1; display: grid; grid-template-columns: 78px 1fr; gap: 2px 4px; margin: 0; font-size: 8.5px; line-height: 11px; }
-.idcard dt { color: #1e293b; }
-.idcard dd { margin: 0; font-weight: 700; }
-.idcard dd::before { content: ": "; font-weight: 400; }
-.idcard-photo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 58px;
-    height: 72px;
-    background: #e11d48;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 2px;
-    flex-shrink: 0;
-}
-.idcard-mark {
-    position: absolute;
-    left: 50%;
-    top: 58%;
-    transform: translate(-50%, -50%) rotate(-18deg);
-    font-size: 30px;
-    font-weight: 800;
-    letter-spacing: 4px;
-    color: rgba(15, 23, 42, .14);
-    pointer-events: none;
-}
-
-/* Verifikasi Pembayaran: tabel 4 kolom */
-.table-verifikasi th:nth-child(1) { width: 20%; }
-.table-verifikasi th:nth-child(2) { width: 38%; }
-.table-verifikasi th:nth-child(3) { width: 24%; }
-
-/* Alasan penolakan pada detail pembayaran */
-.reason-box {
-    margin-top: 20px;
-    padding: 12px 15px;
-    background: var(--danger-soft);
-    border: 1px solid var(--danger-border);
-    border-radius: var(--radius-sm);
-}
-.reason-title { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--danger); }
-.reason-title .icon { width: 16px; height: 16px; }
-.reason-text { margin-top: 6px; font-size: 14px; line-height: 20px; color: var(--text); }
-.reason-meta { margin-top: 6px; font-size: 12px; color: var(--muted); }
-
-/* Modal alasan penolakan */
-.reason-options { display: flex; flex-wrap: wrap; gap: 8px; }
-.reason-option {
-    padding: 6px 12px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 9999px;
-    font-size: 13px;
-    color: var(--text-2);
-    text-align: left;
-    transition: background-color .15s, border-color .15s, color .15s;
-}
-.reason-option:hover { border-color: #cbd5e1; background: var(--surface-2); }
-.reason-option.is-active { background: var(--danger-soft); border-color: var(--danger-border); color: var(--danger); font-weight: 500; }
-.field-required { color: var(--danger-strong); }
-#form-tolak .textarea { min-height: 104px; }
-#form-tolak .modal-actions { margin-top: 4px; }
-.icon-id-card { --icon: url("../assets/icons/id-card.svg"); }
-.detail-label { white-space: nowrap; }

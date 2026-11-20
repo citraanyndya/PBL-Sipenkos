@@ -32,3 +32,4 @@ $menu = [
         </button>
     </div>
 </aside>
+<script src="../assets/js/common/sesi.js"></script>

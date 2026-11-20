@@ -5,7 +5,7 @@
  * - ?keluar=1      : tampilan setelah admin menekan tombol Keluar.
  */
 if (!isset($_GET['keluar'])) {
-    header('Location: pages/dashboard.php');
+    header('Location: ../calon-penghuni/login.php#pengelola');
     exit;
 }
 ?>
@@ -15,9 +15,9 @@ if (!isset($_GET['keluar'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keluar · SIPENKOS Admin</title>
-    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="icon" href="../assets/images/admin/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../assets/css/admin/style.css">
+    <link rel="stylesheet" href="../assets/css/admin/responsive.css">
 </head>
 <body>
 <div class="auth-screen">
@@ -27,8 +27,9 @@ if (!isset($_GET['keluar'])) {
         </span>
         <h1 class="result-title">Kamu sudah keluar</h1>
         <p class="result-text">Sesi admin Kos Bu Nining telah diakhiri. Masuk kembali untuk mengelola kos.</p>
-        <div class="modal-actions"><a href="pages/dashboard.php" class="btn btn-primary btn-lg btn-block">Masuk Kembali</a></div>
+        <div class="modal-actions"><a href="../calon-penghuni/login.php#pengelola" class="btn btn-primary btn-lg btn-block">Masuk Kembali</a></div>
     </div>
 </div>
+<script src="../assets/js/common/sesi.js"></script>
 </body>
 </html>

@@ -24,3 +24,5 @@
         </div>
     </div>
 </header>
+
+<script src="../assets/js/common/sesi.js"></script>

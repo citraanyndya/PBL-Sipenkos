@@ -1,0 +1,32 @@
+{
+  "versi": 1,
+  "keterangan": "Template struktur data akun SIPENKOS. Data aktual versi demo disimpan di localStorage browser pada key sipenkosDatabase.",
+  "pengguna": [
+    {
+      "id": "penghuni-demo",
+      "username": "penghuni",
+      "password": "penghuni123",
+      "nama": "Penghuni",
+      "email": "penghuni@gmail.com",
+      "nohp": "085799812567",
+      "role": "penghuni",
+      "status": "aktif",
+      "dibuatPada": "2026-11-18T00:00:00.000Z",
+      "akunDemo": true
+    }
+  ],
+  "pengelola": [
+    {
+      "id": "pengelola-demo",
+      "username": "admin",
+      "password": "admin12345",
+      "nama": "Admin Kos Bu Nining",
+      "email": "admin@gmail.com",
+      "role": "pengelola",
+      "status": "aktif",
+      "dibuatPada": "2026-11-18T00:00:00.000Z",
+      "akunDemo": true
+    }
+  ],
+  "diperbaruiPada": null
+}

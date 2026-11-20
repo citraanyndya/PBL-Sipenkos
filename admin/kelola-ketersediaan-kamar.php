@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Ketersediaan Kamar · SIPENKOS Admin</title>
-    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="icon" href="../assets/images/admin/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../assets/css/admin/style.css">
+    <link rel="stylesheet" href="../assets/css/admin/responsive.css">
 </head>
 <body data-page="kelola-ketersediaan-kamar" data-module="kamar">
 <div class="app">
-    <?php $activeMenu = 'kamar'; include __DIR__ . '/../includes/sidebar.php'; ?>
+    <?php $activeMenu = 'kamar'; include __DIR__ . '/includes/sidebar.php'; ?>
     <div class="sidebar-backdrop" data-sidebar-close></div>
     <div class="app-body">
-        <?php include __DIR__ . '/../includes/navbar.php'; ?>
+        <?php include __DIR__ . '/includes/navbar.php'; ?>
         <main class="main" id="main">
 <div class="page-header">
     <div>
@@ -151,12 +151,13 @@
         <p class="result-text">Kamu akan keluar dari panel admin Kos Bu Nining.</p>
         <div class="modal-actions modal-actions-split">
             <button type="button" class="btn btn-secondary btn-lg" data-modal-close>Batal</button>
-            <a href="../index.php?keluar=1" class="btn btn-danger btn-lg">Keluar</a>
+            <a href="index.php?keluar=1" class="btn btn-danger btn-lg">Keluar</a>
         </div>
     </div>
 </div>
 <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
 <script>window.APP_DATA = {"roomTypes":[{"id":1,"name":"Tipe 1 Non-AC, Kamar Mandi Luar","short":"Tipe 1 Non-AC, KM Luar","price":500000,"total":7,"filled":6},{"id":2,"name":"Tipe 2 Non-AC, Kamar Mandi Dalam","short":"Tipe 2 Non-AC, KM Dalam","price":650000,"total":5,"filled":3},{"id":3,"name":"Tipe 3 AC, Kamar Mandi Luar","short":"Tipe 3 AC, KM Luar","price":800000,"total":3,"filled":3},{"id":4,"name":"Tipe 4 AC, Kamar Mandi Dalam","short":"Tipe 4 AC, KM Dalam","price":950000,"total":5,"filled":2}]};</script>
-<script src="../js/script.js"></script>
+<script src="../assets/js/admin/script.js"></script>
+<script src="../assets/js/common/sesi.js"></script>
 </body>
 </html>
