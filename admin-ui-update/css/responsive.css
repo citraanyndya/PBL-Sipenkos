@@ -1,0 +1,123 @@
+/* ==========================================================================
+   SIPENKOS · Admin UI – Responsive
+   Desktop (≥1280) mengikuti Figma; laptop, tablet, dan mobile menyesuaikan.
+   ========================================================================== */
+
+/* Laptop kecil */
+@media (max-width: 1279px) {
+    .main { padding: 28px 24px 40px; }
+    .topbar { padding: 0 24px; }
+    .stats-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .search, .search-sm, .search-md, .search-xs { width: 240px; }
+}
+
+/* Tablet: sidebar menjadi off-canvas */
+@media (max-width: 1023px) {
+    :root { --sidebar-w: 260px; }
+    .app-body { padding-left: 0; }
+    .topbar { left: 0; }
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform .25s ease;
+        box-shadow: 0 0 40px rgba(18, 28, 42, .18);
+    }
+    body.sidebar-open .sidebar { transform: none; }
+    body.sidebar-open .sidebar-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 35;
+        background: var(--overlay);
+        animation: fade-in .2s ease-out;
+    }
+    body.sidebar-open { overflow: hidden; }
+    .sidebar-toggle { display: inline-flex; }
+
+    .grid-2 { grid-template-columns: 1fr; }
+    .stats-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .stat-money .stat-value { font-size: 20px; }
+
+    .toolbar { align-items: stretch; }
+    .toolbar-right { flex-wrap: wrap; }
+    .page-header { flex-wrap: wrap; align-items: flex-start; }
+
+    .doc-layout, .report-layout { grid-template-columns: 1fr; }
+    .doc-layout .media, .report-layout .media { width: 100%; height: auto; aspect-ratio: 280 / 180; }
+    .report-layout .media { aspect-ratio: 300 / 190; }
+    .proof-layout { grid-template-columns: 180px 1fr; }
+    .proof-layout .media { width: 180px; height: 342px; }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    body { font-size: 14px; }
+    .topbar { padding: 0 12px; height: 60px; }
+    :root { --header-h: 60px; }
+    .topbar-divider-sm, .topbar-kos, .profile-name, .profile-chevron { display: none; }
+    .topbar-right { gap: 8px; }
+    .logo { font-size: 20px; }
+
+    .main { padding: 20px 16px 32px; gap: 18px; }
+    .list-section { gap: 18px; }
+    .page-title { font-size: 23px; }
+    .page-subtitle { font-size: 14px; }
+    .page-actions { width: 100%; flex-wrap: wrap; }
+    .page-actions .btn, .page-actions .dropdown { flex: 1 1 auto; }
+    .page-actions .select-btn { width: 100%; justify-content: center; }
+
+    .banner { flex-direction: column; align-items: flex-start; padding: 12px 14px; }
+    .banner-body { font-size: 14px; align-items: flex-start; }
+    .banner .btn { width: 100%; }
+
+    .stats, .stats-3, .stats-4 { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .stats-3 .stat-money:last-child { grid-column: 1 / -1; }
+    .stat { padding: 16px; gap: 10px; }
+    .stat-row { flex-direction: column; align-items: flex-start; }
+    .stat-value { font-size: 22px; }
+    .stat-label { font-size: 14px; }
+
+    .toolbar { flex-direction: column; gap: 12px; }
+    .chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+    .chips::-webkit-scrollbar { display: none; }
+    .toolbar-right { flex-direction: column; align-items: stretch; width: 100%; }
+    .search, .search-sm, .search-md, .search-xs { width: 100%; }
+    .dropdown-select .select-btn { width: 100%; }
+
+    .card-head-bar { padding: 16px; flex-wrap: wrap; }
+    .card-pad, .dashboard-card-pad, .rules-card { padding: 16px; }
+    .card-title { font-size: 16px; }
+    .table th, .table td { padding-left: 16px; padding-right: 16px; }
+    .table td { height: 60px; font-size: 14px; }
+    .table-wrap { overflow-x: auto; }
+    .table { min-width: 720px; }
+
+    .task-item { flex-wrap: wrap; }
+    .task-item .btn { margin-left: 50px; }
+
+    .modal { padding: 12px; align-items: flex-end; }
+    .modal-dialog, .modal-form { padding: 20px 18px; border-radius: 16px; }
+    .modal-title { font-size: 18px; }
+    .modal-actions { flex-direction: column-reverse; align-items: stretch; }
+    .modal-actions .btn { width: 100%; }
+    .modal-actions-split { flex-direction: row; }
+    .form-grid-2 { grid-template-columns: 1fr; }
+    .proof-layout { grid-template-columns: 1fr; }
+    .proof-layout .media { width: 100%; max-width: 240px; height: auto; aspect-ratio: 200 / 380; margin: 0 auto; }
+    .detail-row { font-size: 13px; }
+    .modal-actions-form .btn-text { margin-right: 0; }
+
+    .notif-item { flex-wrap: wrap; padding: 14px 16px; gap: 12px; }
+    .notif-body { flex-basis: calc(100% - 80px); }
+    .notif-item .badge { margin-left: 50px; }
+    .notif-text { font-size: 14px; }
+
+    .rule-edit { flex-wrap: wrap; }
+    .rule-edit .rule-fields { flex-basis: calc(100% - 100px); }
+    .toast-stack { left: 12px; right: 12px; bottom: 12px; }
+    .toast { max-width: none; }
+}
+
+@media (max-width: 359px) {
+    .stats, .stats-3, .stats-4 { grid-template-columns: 1fr; }
+    .stats-3 .stat-money:last-child { grid-column: auto; }
+}
