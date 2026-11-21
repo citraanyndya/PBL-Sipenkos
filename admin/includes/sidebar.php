@@ -1,8 +1,5 @@
 <?php
-/**
- * Sidebar admin (komponen Admin/Sidebar di Figma).
- * Halaman mengatur menu aktif lewat variabel $activeMenu sebelum include.
- */
+
 $activeMenu = $activeMenu ?? '';
 $menu = [
     'dashboard'  => ['Dashboard', 'layout-grid', 'dashboard.php'],

@@ -53,10 +53,6 @@
       </header>
 
       <section class="container">
-        <a href="laporan-kerusakan.php" class="link-kembali link-kembali--biru">
-          <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          Kembali ke Laporan Kerusakan
-        </a>
 
         <div class="laporan-heading">
           <h1>Buat Laporan Baru</h1>

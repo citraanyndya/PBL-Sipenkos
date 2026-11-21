@@ -138,7 +138,6 @@
               </div>
             </div>
 
-            <div id="installmentPreview" class="informasi" hidden></div>
           </div>
           
           <div class="card-box upload-pembayaran-box">

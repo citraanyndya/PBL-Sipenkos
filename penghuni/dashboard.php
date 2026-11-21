@@ -72,13 +72,13 @@
           </article>
           <article class="summary-card">
             <p class="card-label">Laporan Kerusakan</p>
-            <h2 id="damageStatus">Belum ada laporan</h2>
-            <a href="laporan-kerusakan.php" data-coming-soon>Lihat <span>→</span></a>
+            <h2 id="damageStatus">-</h2>
+            <a href="laporan-kerusakan.php">Lihat <span>→</span></a>
           </article>
           <article class="summary-card">
             <p class="card-label">Pembayaran Terakhir</p>
             <div class="last-payment-line"><h2 id="lastPaymentMonth">-</h2><span class="status-pill" id="paymentStatus">Lunas</span></div>
-            <a href="riwayat-pembayaran.php" data-coming-soon>Riwayat <span>→</span></a>
+            <a href="riwayat-pembayaran.php">Riwayat <span>→</span></a>
           </article>
         </section>
 
@@ -102,5 +102,6 @@
 
   <script src="../assets/js/penghuni/common.js"></script>
   <script src="../assets/js/penghuni/dashboard.js"></script>
+  <script src="../assets/js/penghuni/laporan-kerusakan.js"></script>
 </body>
 </html>

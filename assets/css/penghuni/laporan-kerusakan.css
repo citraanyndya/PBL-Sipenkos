@@ -1,12 +1,3 @@
-/* =========================================================
-   Fitur Laporan Kerusakan (penghuni)
-   Dipakai oleh: laporan-kerusakan.php (daftar),
-                 buat-laporan-kerusakan.php (form),
-                 detail-laporan-kerusakan.php (detail)
-   Mengikuti desain Figma frame 20, 21, dan 22.
-   Variabel warna & font diambil dari style.css (milik bersama).
-   ========================================================= */
-
 .ikon {
     width: 18px;
     height: 18px;
@@ -18,7 +9,6 @@
     stroke-linejoin: round;
 }
 
-/* ---------- judul halaman ---------- */
 .laporan-heading {
     margin-bottom: 24px;
 }
@@ -43,7 +33,6 @@
     flex-wrap: wrap;
 }
 
-/* ---------- kartu & tombol ---------- */
 .card-box {
     padding: 26px 32px;
     background: var(--bg-white);
@@ -103,7 +92,6 @@
     outline-offset: 2px;
 }
 
-/* ---------- badge status ---------- */
 .badge-status {
     display: inline-flex;
     align-items: center;
@@ -138,9 +126,6 @@
     background: var(--badge-green-bg);
 }
 
-/* =========================================================
-   DAFTAR LAPORAN (frame 20)
-   ========================================================= */
 .filter-status {
     display: flex;
     flex-wrap: wrap;
@@ -292,15 +277,11 @@
     font-size: 13px;
 }
 
-/* =========================================================
-   FORM BUAT LAPORAN (frame 21)
-   ========================================================= */
 .link-kembali {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin: 30px 0 26px;
-    color: #334155;
+    color:  var(--primary-blue);
     font-size: 14px;
     text-decoration: none;
     border-radius: 4px;
