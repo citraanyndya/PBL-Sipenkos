@@ -1,5 +1,4 @@
 <?php
-
 $activeMenu = $activeMenu ?? '';
 $menu = [
     'dashboard'  => ['Dashboard', 'layout-grid', 'dashboard.php'],
@@ -15,12 +14,12 @@ $menu = [
 ?>
 <aside class="sidebar" id="sidebar" aria-label="Navigasi admin">
     <nav class="sidebar-nav">
-        <?php foreach ($menu as $key => [$label, $icon, $href]): ?>
-            <a href="<?= $href ?>" class="nav-link<?= $key === $activeMenu ? ' is-active' : '' ?>"<?= $key === $activeMenu ? ' aria-current="page"' : '' ?>>
-                <i class="icon icon-<?= $icon ?>" aria-hidden="true"></i>
-                <span><?= $label ?></span>
+        <?php foreach ($menu as $key => $item) { ?>
+            <a href="<?php echo $item[2]; ?>" class="nav-link<?php if ($key == $activeMenu) { echo ' is-active'; } ?>"<?php if ($key == $activeMenu) { echo ' aria-current="page"'; } ?>>
+                <i class="icon icon-<?php echo $item[1]; ?>" aria-hidden="true"></i>
+                <span><?php echo $item[0]; ?></span>
             </a>
-        <?php endforeach; ?>
+        <?php } ?>
     </nav>
     <div class="sidebar-footer">
         <button type="button" class="nav-link nav-link-danger" data-modal-open="modal-logout">
@@ -29,4 +28,3 @@ $menu = [
         </button>
     </div>
 </aside>
-<script src="../assets/js/common/sesi.js"></script>
