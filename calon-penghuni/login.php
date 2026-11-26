@@ -1,20 +1,20 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masuk - SIPENKOS</title>
+<?php
+$base = '../';
+require_once __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/../includes/koneksi.php';
+require_once __DIR__ . '/../includes/fe.php';
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+// Sudah masuk: langsung ke area sesuai role (tidak perlu login ulang).
+if (!empty($_SESSION['user_id'])) {
+    redirect($_SESSION['role'] === 'pengelola' ? '../admin/index.php' : '../penghuni/index.php');
+}
 
-    <link rel="stylesheet" href="../assets/css/calon-penghuni/style.css">
-    <link rel="stylesheet" href="../assets/css/calon-penghuni/auth.css">
-    <link rel="stylesheet" href="../assets/css/calon-penghuni/login-tab.css">
-    <script src="../assets/js/common/sesi.js" data-izin="tamu"></script>
-</head>
-<body>
+$old = $_SESSION['old'] ?? [];
+unset($_SESSION['old']);
+
+fe_awal_auth('Masuk', ['auth', 'login-tab']);
+?>
+
   <div class="auth-container">
     <div class="card-box auth-card">
       <div class="auth-logo">
@@ -25,38 +25,72 @@
         </a>
       </div>
 
+      <?php fe_flash(); ?>
+
       <div class="login-tabs" role="tablist" aria-label="Jenis akun">
-        <button type="button" role="tab" id="tab-penghuni" class="login-tab is-active" aria-selected="true" aria-controls="panel-penghuni">Penghuni</button>
-        <button type="button" role="tab" id="tab-pengelola" class="login-tab" aria-selected="false" aria-controls="panel-pengelola" tabindex="-1">Pengelola</button>
+        <button
+          type="button"
+          role="tab"
+          id="tab-penghuni"
+          class="login-tab is-active"
+          aria-selected="true"
+          aria-controls="panel-penghuni"
+        >
+          Penghuni
+        </button>
+        <button
+          type="button"
+          role="tab"
+          id="tab-pengelola"
+          class="login-tab"
+          aria-selected="false"
+          aria-controls="panel-pengelola"
+          tabindex="-1"
+        >
+          Pengelola
+        </button>
       </div>
 
-      <!-- ===== Panel Penghuni (ditangani auth.js: form .auth-form pertama) ===== -->
+      <!-- Panel Login Penghuni -->
       <section id="panel-penghuni" role="tabpanel" aria-labelledby="tab-penghuni" class="login-panel">
         <div class="auth-header">
           <h1 class="judul-box">Masuk ke SIPENKOS</h1>
           <p class="deskripsi">Masukkan username dan kata sandi kamu untuk melanjutkan.</p>
         </div>
 
-        <form class="auth-form" action="#" method="POST">
+        <form class="auth-form" action="../auth/proses_login.php" method="post">
+          <?= csrf_field() ?>
+          <input type="hidden" name="tipe" value="penghuni">
+
           <div class="form-group">
             <label for="username" class="form-label">Username</label>
-            <input type="text" id="username" name="username" class="form-input" placeholder="Masukkan username" autocomplete="username" required>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-input"
+              placeholder="Masukkan username"
+              autocomplete="username"
+              value="<?= e($old['username'] ?? '') ?>"
+              required
+            >
           </div>
 
           <div class="form-group">
             <label for="password" class="form-label">Kata Sandi</label>
             <div class="input-password-wrapper">
-              <input type="password" id="password" name="password" class="form-input" placeholder="Masukkan kata sandi kamu" required>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-input"
+                placeholder="Masukkan kata sandi kamu"
+                autocomplete="current-password"
+                required
+              >
             </div>
           </div>
 
-          <div class="auth-options">
-            <div class="form-checkbox">
-              <input type="checkbox" id="ingat_saya" name="ingat_saya">
-              <label for="ingat_saya">Ingat saya</label>
-            </div>
-            <a href="#" class="link-auth-sm">Lupa kata sandi?</a>
-          </div>
           <button type="submit" class="btn btn-primary btn-full">Masuk</button>
         </form>
 
@@ -65,40 +99,53 @@
         </div>
       </section>
 
-      <!-- ===== Panel Pengelola (ditangani login-tab.js) ===== -->
+      <!-- Panel Login Pengelola -->
       <section id="panel-pengelola" role="tabpanel" aria-labelledby="tab-pengelola" class="login-panel" hidden>
         <div class="auth-header">
           <h1 class="judul-box">Masuk Pengelola</h1>
           <p class="deskripsi">Khusus pengelola kos untuk mengelola reservasi, pembayaran, dan laporan.</p>
         </div>
 
-        <form class="auth-form-pengelola" id="form-pengelola" novalidate>
+        <form class="auth-form" action="../auth/proses_login.php" method="post">
+          <?= csrf_field() ?>
+          <input type="hidden" name="tipe" value="pengelola">
+
           <div class="form-group">
             <label for="pengelola-username" class="form-label">Username</label>
-            <input type="text" id="pengelola-username" class="form-input" placeholder="Masukkan username" autocomplete="username">
+            <input
+              type="text"
+              id="pengelola-username"
+              name="username"
+              class="form-input"
+              placeholder="Masukkan username"
+              autocomplete="username"
+              required
+            >
           </div>
 
           <div class="form-group">
             <label for="pengelola-sandi" class="form-label">Kata Sandi</label>
             <div class="input-password-wrapper">
-              <input type="password" id="pengelola-sandi" class="form-input" placeholder="Masukkan kata sandi" autocomplete="current-password">
+              <input
+                type="password"
+                id="pengelola-sandi"
+                name="password"
+                class="form-input"
+                placeholder="Masukkan kata sandi"
+                autocomplete="current-password"
+                required
+              >
             </div>
           </div>
 
-          <p class="login-galat" id="pengelola-galat" role="alert" hidden></p>
           <button type="submit" class="btn btn-primary btn-full">Masuk</button>
         </form>
-
-        <!-- DEMO: hapus saat login memakai backend (POST /api/auth/admin/login) -->
-        <div class="informasi">
-          <span class="icon">ℹ️</span>
-          <span>Akun demo · username <strong>admin</strong>, kata sandi <strong>admin12345</strong></span>
-        </div>
       </section>
     </div>
+
     <a href="daftar-kamar.php" class="back-link back-link-center">← Kembali ke Daftar Kamar</a>
   </div>
-  <script src="../assets/js/calon-penghuni/auth.js"></script>
+
   <script src="../assets/js/calon-penghuni/login-tab.js"></script>
 </body>
 </html>
