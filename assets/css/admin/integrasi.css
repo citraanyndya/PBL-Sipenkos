@@ -1,0 +1,163 @@
+/* Penambahan untuk menyambungkan tampilan admin tim ke halaman server-side(form, tautan sebagai tombol, filter GET). */
+
+/* Links & Buttons */
+a.btn,
+a.chip,
+a.link {
+    text-decoration: none;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.notif-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.notif-link:hover {
+    color: var(--primary);
+}
+
+/* Forms & Filters */
+.inline-form,
+.row-actions form,
+.page-header form {
+    margin: 0;
+}
+
+.inline-form,
+.row-actions form {
+    display: inline-flex;
+}
+
+.row-actions {
+    flex-wrap: wrap;
+}
+
+.search-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.search-form .field {
+    min-width: 240px;
+}
+
+.form-card {
+    max-width: 680px;
+}
+
+.form-card .modal-actions {
+    margin-top: 8px;
+}
+
+.field-hint {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* Checkbox Grid */
+.check-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px 16px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+}
+
+.check-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.check-item small {
+    color: var(--muted);
+}
+
+/* Cards, Sections & Grids */
+.card-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.detail-card .detail-row {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.decision-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    align-items: start;
+}
+
+/* Images & Media */
+.photo-detail {
+    width: 100%;
+    max-width: 560px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.photo-small {
+    display: block;
+    max-width: 160px;
+    margin-bottom: 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+}
+
+/* Tables & Utilities */
+.table .col-sub {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.table tr.row-total th,
+.table tr.row-total td {
+    height: 52px;
+    padding: 8px 24px;
+    font-weight: 600;
+    text-align: left;
+    background: var(--surface-2);
+    border-top: 1px solid var(--border);
+}
+
+.table-note {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.text-negative {
+    color: var(--danger-strong) !important;
+}
