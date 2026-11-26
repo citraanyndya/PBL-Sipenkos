@@ -1,155 +1,92 @@
-<!doctype html>
-<html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Detail kamar - SIPENKOS</title>
+<?php
+$base = '../';
+require_once __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/../includes/koneksi.php';
+require_once __DIR__ . '/../includes/fe.php';
+require_once __DIR__ . '/../includes/fe_data.php';
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-    <link rel="stylesheet" href="../assets/css/calon-penghuni/style.css" />
-    <link rel="stylesheet" href="../assets/css/calon-penghuni/detail-kamar.css" />
-  </head>
-  <body>
-    <header class="navbar">
-      <div class="container navbar-container">
-        <a href="beranda.php" class="logo">
-          <span class="logo-judul">SIPENKOS</span>
-          <span class="logo-divider">|</span>
-          <span class="logo-pendukung">Kos Bu Nining</span>
-        </a>
-
-        <nav class="menu">
-          <a href="beranda.php" class="nav">Beranda</a>
-          <a href="daftar-kamar.php" class="nav active">Kamar</a>
-          <a href="tentang.php" class="nav">Tentang</a>
-        </nav>
-
-        <div class="nav-actions-wrapper">
-          <div class="nav-actions" id="guestActions">
-            <a href="registrasi.php" class="btn btn-outline">Daftar</a>
-            <a href="login.php" class="btn btn-primary">Masuk</a>
+$kelas = input_str($_GET, 'kelas', 50);
+if ($kelas === '' && ($n = input_int($_GET, 'tipe'))) {   // tautan lama ?tipe=N
+    $c = $pdo->prepare("SELECT kelas_kamar FROM kamar WHERE kelas_kamar LIKE :p LIMIT 1");
+    $c->execute(['p' => "Tipe $n %"]);
+    $kelas = (string) $c->fetchColumn();
+}
+$st = $pdo->prepare("SELECT kelas_kamar, COALESCE(MIN(harga_sewa) FILTER (WHERE status_kamar = 'tersedia'), MIN(harga_sewa)) AS harga, COUNT(*) AS total, COUNT(*) FILTER (WHERE status_kamar = 'tersedia') AS sisa, MAX(foto_kamar) AS foto
+                       FROM kamar WHERE kelas_kamar = :k GROUP BY kelas_kamar");
+$st->execute(['k' => $kelas]);
+$t = $st->fetch();
+if (!$t) {
+    set_flash('error', 'Tipe kamar tidak ditemukan.');
+    redirect('daftar-kamar.php');
+}
+$f = $pdo->prepare("SELECT DISTINCT f.nama_fasilitas, f.kategori_fasilitas FROM kamar k JOIN kamar_fasilitas kf ON kf.id_kamar = k.id_kamar
+                      JOIN fasilitas f ON f.id_fasilitas = kf.id_fasilitas WHERE k.kelas_kamar = :k ORDER BY f.kategori_fasilitas, f.nama_fasilitas");
+$f->execute(['k' => $kelas]);
+$fas = ['Kamar' => [], 'Umum' => []];
+foreach ($f->fetchAll() as $r) { $fas[$r['kategori_fasilitas']][] = $r['nama_fasilitas']; }
+$no = preg_match('/^Tipe (\d)/', $kelas, $m) ? (int) $m[1] : 0;
+$info = FE_TIPE[$no] ?? ['deskripsi' => 'Kamar nyaman di Kos Bu Nining.', 'galeri' => []];
+$penuh = (int) $t['sisa'] < 1;
+$role = $_SESSION['role'] ?? '';
+$urlForm = 'form-sewa.php?kelas=' . urlencode($kelas);
+if (!$role) { $_SESSION['setelah_login'] = $_SERVER['REQUEST_URI']; }   // setelah login kembali ke halaman ini
+fe_awal_calon($pdo, $kelas, ['detail-kamar'], 'kamar');
+?>
+  <section class="section-halaman">
+    <div class="container">
+      <?php fe_flash(); ?>
+      <a href="daftar-kamar.php" class="back-link">← Kembali ke Daftar Kamar</a>
+      <div class="detail-header">
+        <h1 class="tipe-kamar"><?= e($kelas) ?></h1>
+        <div class="lokasi-tag"><span class="icon">📍</span> Jl. Pisang Agung III No. 29, Malang</div>
+      </div>
+      <div class="detail-grid" data-kelas="<?= e($kelas) ?>" id="detailKamar" data-api="../kamar/ketersediaan.php">
+        <div class="galeri-detail">
+          <div class="card-galeri"><img src="<?= e(fe_foto_kamar($t['foto'], $kelas)) ?>" alt="Foto utama <?= e($kelas) ?>" class="foto-utama" /></div>
+          <div class="galeri-tambahan" aria-label="Foto tambahan kamar">
+            <?php foreach ($info['galeri'] as [$src, $label]): ?>
+              <figure class="foto-pendukung"><img src="../assets/images/<?= e($src) ?>" alt="<?= e($label) ?> pada <?= e($kelas) ?>" loading="lazy"><figcaption><?= e($label) ?></figcaption></figure>
+            <?php endforeach; ?>
           </div>
-
-          <div class="user-profile" id="userProfile" style="display: none">
-            <button class="btn-icon-notif" title="Notifikasi">
-              🔔<span class="badge-dot"></span>
-            </button>
-            <div class="user-info">
-              <div class="user-avatar" id="headerAvatar"></div>
-              <span class="user-name" id="headerName"></span>
+        </div>
+        <div class="card-box reservasi-box">
+          <div class="status-group"><span class="label">Status Ketersediaan</span><span id="statusSisa"><?= fe_badge_sisa((int) $t['sisa']) ?></span></div>
+          <div class="harga-container">
+            <span class="label">Biaya Sewa</span>
+            <div class="harga"><span class="nominal"><?= e(rupiah($t['harga'])) ?></span> / bulan</div>
+            <div class="total-durasi-box" aria-live="polite" hidden>
+              <span class="total-durasi-caption">Total biaya untuk <strong id="durasiTerpilih"></strong> bulan</span>
+              <strong class="total-durasi-nominal" id="totalHargaDurasi">Rp -</strong>
             </div>
           </div>
+          <div class="durasi-container">
+            <span class="label">Pilihan Durasi Sewa</span>
+            <div class="durasi-group" data-harga="<?= (int) $t['harga'] ?>" data-awal="6">
+              <?php foreach (DURASI_SEWA as $n => $lbl): ?>
+                <button type="button" class="btn btn-outline btn-durasi" data-durasi="<?= $n ?>" aria-pressed="false"><?= e($lbl) ?></button>
+              <?php endforeach; ?>
+            </div>
+          </div>
+          <?php if ($penuh): ?>
+            <span class="btn btn-outline btn-full btn-reservasi btn-disabled" id="btnReservasi">Kamar Penuh</span>
+          <?php elseif ($role === 'penghuni'): ?>
+            <a href="<?= e($urlForm) ?>&amp;durasi=6" data-dasar="<?= e($urlForm) ?>" class="btn btn-primary btn-full btn-reservasi" id="btnReservasi">Reservasi Sekarang</a>
+          <?php elseif ($role === 'pengelola'): ?>
+            <span class="btn btn-outline btn-full btn-reservasi btn-disabled">Akun pengelola tidak dapat memesan</span>
+          <?php else: ?>
+            <a href="login.php" class="btn btn-primary btn-full btn-reservasi">Reservasi Sekarang</a>
+            <p class="catatan-reservasi">Kamu perlu masuk atau <a href="registrasi.php">daftar akun</a> untuk reservasi</p>
+          <?php endif; ?>
         </div>
       </div>
-    </header>
-
-    <section class="section-halaman">
-      <div class="container">
-        <a href="daftar-kamar.php" class="back-link">← Kembali ke Daftar Kamar</a>
-
-        <div class="detail-header">
-          <h1 class="tipe-kamar">Memuat Detail Kamar...</h1>
-          <div class="lokasi-tag">
-            <span class="icon">📍</span> Jl. Pisang Agung III No. 29, Malang
-          </div>
-        </div>
-
-        <div class="detail-grid">
-          <div class="galeri-detail">
-            <div class="card-galeri">
-              <img src="" alt="Foto Utama Kamar" class="foto-utama" />
-            </div>
-            <div class="galeri-tambahan" aria-label="Foto tambahan kamar"></div>
-          </div>
-
-          <div class="card-box reservasi-box">
-            <div class="status-group">
-              <span class="label">Status Ketersediaan</span>
-              <span class="tersedia">Tersedia</span>
-            </div>
-
-            <div class="harga-container">
-              <span class="label">Biaya Sewa</span>
-              <div class="harga"><span class="nominal">Rp -</span> / bulan</div>
-              <div class="total-durasi-box" aria-live="polite" hidden>
-                <span class="total-durasi-caption">Total biaya untuk <strong id="durasiTerpilih"></strong> bulan</span>
-                <strong class="total-durasi-nominal" id="totalHargaDurasi">Rp -</strong>
-              </div>
-            </div>
-
-            <div class="durasi-container">
-              <span class="label">Pilihan Durasi Sewa</span>
-              <div class="durasi-group">
-                <button type="button" class="btn btn-outline btn-durasi" data-durasi="1" aria-pressed="false">
-                  1 Bulan
-                </button>
-                <button type="button" class="btn btn-outline btn-durasi" data-durasi="6" aria-pressed="false">
-                  6 Bulan
-                </button>
-                <button type="button" class="btn btn-outline btn-durasi" data-durasi="12" aria-pressed="false">
-                  12 Bulan
-                </button>
-              </div>
-            </div>
-
-            <a href="registrasi.php" class="btn btn-primary btn-full btn-reservasi">Reservasi Sekarang</a>
-            <p class="catatan-reservasi">Kamu perlu masuk atau daftar akun untuk reservasi
-            </p>
-          </div>
-        </div>
-
-        <div class="card-box deskripsi-box">
-          <h2 class="judul-box">Deskripsi Kamar</h2>
-          <p class="deskripsi-kamar">Memuat deskripsi...</p>
-
-          <div class="fasilitas-wrapper">
-            <h3 class="subjudul-box">Fasilitas Kamar</h3>
-            <ul class="fasilitas"></ul>
-          </div>
-
-          <div class="fasilitas-wrapper">
-            <h3 class="subjudul-box">Fasilitas Bersama & Umum</h3>
-            <ul class="fasilitas">
-              <li class="item-fasilitas">
-                <span class="icon">📶</span> <span>Wi-Fi</span>
-              </li>
-              <li class="item-fasilitas">
-                <span class="icon">🍳</span> <span>Dapur Bersama</span>
-              </li>
-              <li class="item-fasilitas">
-                <span class="icon">⚡</span> <span>Listrik Token</span>
-              </li>
-              <li class="item-fasilitas">
-                <span class="icon">🛵</span> <span>Parkir Motor</span>
-              </li>
-              <li class="item-fasilitas">
-                <span class="icon">📹</span> <span>CCTV 24 Jam</span>
-              </li>
-            </ul>
-          </div>
-        </div>
+      <div class="card-box deskripsi-box">
+        <h2 class="judul-box">Deskripsi Kamar</h2>
+        <p class="deskripsi-kamar"><?= e($info['deskripsi']) ?></p>
+        <div class="fasilitas-wrapper"><h3 class="subjudul-box">Fasilitas Kamar</h3>
+          <ul class="fasilitas"><?php foreach ($fas['Kamar'] as $n): ?><li class="item-fasilitas"><span class="icon"><?= FE_IKON_FASILITAS[$n] ?? '✔️' ?></span> <span><?= e($n) ?></span></li><?php endforeach; ?></ul></div>
+        <div class="fasilitas-wrapper"><h3 class="subjudul-box">Fasilitas Bersama &amp; Umum</h3>
+          <ul class="fasilitas"><?php foreach ($fas['Umum'] as $n): ?><li class="item-fasilitas"><span class="icon"><?= FE_IKON_FASILITAS[$n] ?? '✔️' ?></span> <span><?= e($n) ?></span></li><?php endforeach; ?></ul></div>
       </div>
-    </section>
-    <footer class="footer">
-      <div class="logo-judul text-white">SIPENKOS</div>
-      <p class="footer-tagline">
-        🛡️ Hunian terpercaya & dikelola langsung oleh pemilik
-      </p>
-      <p class="footer-location">Kos Bu Nining · Malang, Jawa Timur</p>
-
-      <div class="kontak">
-        <span>📍 Jl. Pisang Agung III No. 29</span>
-        <span>💬 WhatsApp 0854-4421-1076</span>
-        <span>⏰ Jam bertamu 07.00 - 22.00 WIB</span>
-      </div>
-
-      <div class="copyright">© 2026 SIPENKOS - Kos Bu Nining Malang</div>
-    </footer>
-    <script src="../assets/js/calon-penghuni/main.js"></script>
-    <script src="../assets/js/calon-penghuni/kamar-data.js"></script>
-    <script src="../assets/js/calon-penghuni/detail-kamar.js"></script>
-  </body>
-</html>
+    </div>
+  </section>
+<?php fe_akhir_calon(['calon-penghuni/ketersediaan']); ?>

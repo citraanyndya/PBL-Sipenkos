@@ -1,145 +1,40 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Kamar - SIPENKOS</title>
+<?php
+$base = '../';
+require_once __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/../includes/koneksi.php';
+require_once __DIR__ . '/../includes/fe.php';
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="../assets/css/calon-penghuni/style.css">
-    <link rel="stylesheet" href="../assets/css/calon-penghuni/kamar.css">
-</head>
-<body>
-    <header class="navbar">
-    <div class="container navbar-container">
-      <a href="beranda.php" class="logo">
-        <span class="logo-judul">SIPENKOS</span>
-        <span class="logo-divider">|</span>
-        <span class="logo-pendukung">Kos Bu Nining</span>
-      </a>
-      
-      <nav class="menu">
-        <a href="beranda.php" class="nav">Beranda</a>
-        <a href="daftar-kamar.php" class="nav active">Kamar</a>
-        <a href="tentang.php" class="nav">Tentang</a>
-      </nav>
-
-      <div class="nav-actions-wrapper">
-        <div class="nav-actions" id="guestActions">
-          <a href="registrasi.php" class="btn btn-outline">Daftar</a>
-          <a href="login.php" class="btn btn-primary">Masuk</a>
-        </div>
-      
-        <div class="user-profile" id="userProfile" style="display: none;">
-          <button class="btn-icon-notif" title="Notifikasi">
-            🔔<span class="badge-dot"></span>
-          </button>
-          <div class="user-info">
-            <div class="user-avatar" id="headerAvatar"></div>
-            <span class="user-name" id="headerName"></span>
-          </div>
-        </div>
-    </div>
-  </header>
-
+$filter = input_str($_GET, 'jenis', 10);
+$boleh = ['', 'ac', 'non-ac', 'km-dalam', 'km-luar'];
+if (!in_array($filter, $boleh, true)) { $filter = ''; }
+$q = input_str($_GET, 'q', 60);
+$tipe = fe_daftar_tipe($pdo, $filter, $q);
+$tab = ['' => 'Semua', 'ac' => 'AC', 'non-ac' => 'Non-AC', 'km-dalam' => 'Kamar Mandi Dalam', 'km-luar' => 'Kamar Mandi Luar'];
+fe_awal_calon($pdo, 'Daftar Kamar', ['kamar'], 'kamar');
+?>
   <section class="section-halaman">
     <div class="container">
+      <?php fe_flash(); ?>
       <div class="section-header">
         <h1 class="judul-section">Daftar Kamar Kos</h1>
         <p class="deskripsi">Pilih tipe kamar yang sesuai kebutuhan kamu</p>
       </div>
-
-      <div class="kamar-grid">
-        <article class="card-kamar">
-          <div class="card">
-            <img src="../assets/images//kamar-tipe1.jpeg" alt="Tipe 1 Non-AC Kos Bu Nining">
-            <span class="tersedia">Tersedia - sisa 1</span>
-          </div>
-          <div class="card-body">
-            <h3 class="tipe-kamar">Tipe 1 Non-AC, Kamar Mandi Luar</h3>
-            <p class="deskripsi-kamar">Tempat tidur nyaman, lemari pakaian, dan kamar mandi luar bersama yang bersih.</p>
-            <div class="harga-container">
-              <span class="label">Biaya sewa</span>
-              <div class="harga"><span class="nominal">Rp 500.000</span> / bulan</div>
-            </div>
-            <a href="detail-kamar.php?tipe=1" class="btn btn-outline btn-full">Lihat Detail</a>
-          </div>
-        </article>
-
-        <article class="card-kamar">
-          <div class="card">
-            <img src="../assets/images//kamar-tipe2.jpeg" alt="Tipe 2 Non-AC Kos Bu Nining">
-            <span class="tersedia">Tersedia - sisa 2</span>
-          </div>
-          <div class="card-body">
-            <h3 class="tipe-kamar">Tipe 2 Non-AC, Kamar Mandi Dalam</h3>
-            <p class="deskripsi-kamar">Tempat tidur, lemari, meja belajar, serta fasilitas kamar mandi pribadi di dalam kamar.</p>
-            <div class="harga-container">
-              <span class="label">Biaya sewa</span>
-              <div class="harga"><span class="nominal">Rp 650.000</span> / bulan</div>
-            </div>
-            <a href="detail-kamar.php?tipe=2" class="btn btn-outline btn-full">Lihat Detail</a>
-          </div>
-        </article>
-
-        <article class="card-kamar">
-          <div class="card">
-            <img src="../assets/images//kamar-tipe3.jpeg" alt="Tipe 3 AC Kos Bu Nining">
-            <span class="penuh">Penuh</span>
-          </div>
-          <div class="card-body">
-            <h3 class="tipe-kamar">Tipe 3 AC, Kamar Mandi Luar</h3>
-            <p class="deskripsi-kamar">Kamar ber-AC sejuk dengan kasur empuk, lemari, dan kamar mandi bersama di koridor luar.</p>
-            <div class="harga-container">
-              <span class="label">Biaya sewa</span>
-              <div class="harga text-muted-harga"><span class="nominal">Rp 800.000</span> / bulan</div>
-            </div>
-            <a href="detail-kamar.php?tipe=3" class="btn btn-outline btn-full">Lihat Detail</a>
-          </div>
-        </article>
-
-        <article class="card-kamar">
-          <div class="card">
-            <img src="../assets/images//kamar-tipe4.jpeg" alt="Tipe 4 AC Kos Bu Nining">
-            <span class="tersedia">Tersedia - sisa 3</span>
-          </div>
-          <div class="card-body">
-            <h3 class="tipe-kamar">Tipe 4 AC, Kamar Mandi Dalam</h3>
-            <p class="deskripsi-kamar">Tipe terlengkap dengan pendingin AC, perabot lengkap, dan kamar mandi privat dalam kamar.</p>
-            <div class="harga-container">
-              <span class="label">Biaya sewa</span>
-              <div class="harga"><span class="nominal">Rp 950.000</span> / bulan</div>
-            </div>
-            <a href="detail-kamar.php?tipe=4" class="btn btn-outline btn-full">Lihat Detail</a>
-          </div>
-        </article>
+      <form method="get" class="filter-kamar">
+        <input type="hidden" name="jenis" value="<?= e($filter) ?>">
+        <input type="search" name="q" value="<?= e($q) ?>" class="form-input" placeholder="Cari tipe kamar..." aria-label="Cari tipe kamar">
+        <button type="submit" class="btn btn-primary">Cari</button>
+      </form>
+      <div class="chip-filter">
+        <?php foreach ($tab as $k => $lbl): ?>
+          <a href="?jenis=<?= e($k) ?>&amp;q=<?= urlencode($q) ?>" class="chip<?= $filter === $k ? ' active' : '' ?>"><?= e($lbl) ?></a>
+        <?php endforeach; ?>
       </div>
-
-      <div class="informasi">
-        <span class="icon">ℹ️</span>
-        <span>Semua tipe kamar sudah termasuk: Wi-Fi, dapur bersama, parkir motor, CCTV, dan area jemuran.</span>
+      <div class="kamar-grid" id="kamarGrid" data-api="../kamar/ketersediaan.php">
+        <?php foreach ($tipe as $t): ?>
+          <div data-kelas="<?= e($t['kelas_kamar']) ?>" class="kartu-tautan"><?= fe_kartu_kamar($t, true) ?></div>
+        <?php endforeach; ?>
+        <?php if (!$tipe): ?><p class="deskripsi">Tidak ada tipe kamar yang cocok.</p><?php endif; ?>
       </div>
     </div>
   </section>
-
-    <footer class="footer">
-      <div class="logo-judul text-white">SIPENKOS</div>
-      <p class="footer-tagline">🛡️ Hunian terpercaya & dikelola langsung oleh pemilik</p>
-      <p class="footer-location">Kos Bu Nining · Malang, Jawa Timur</p>
-
-      <div class="kontak">
-        <span>📍 Jl. Pisang Agung III No. 29</span>
-        <span>💬 WhatsApp 0854-4421-1076</span>
-        <span>⏰ Jam bertamu 07.00 - 22.00 WIB</span>
-      </div>
-
-      <div class="copyright">
-        © 2026 SIPENKOS - Kos Bu Nining Malang
-      </div>
-  </footer>
-    <script src="../assets/js/calon-penghuni/main.js"></script>
-</body>
-</html>
+<?php fe_akhir_calon(['calon-penghuni/ketersediaan']); ?>

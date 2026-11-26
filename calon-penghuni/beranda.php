@@ -1,168 +1,51 @@
-<!doctype html>
-<html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SIPENKOS - Kos Bu Nining Malang</title>
+<?php
+$base = '../';
+require_once __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/../includes/koneksi.php';
+require_once __DIR__ . '/../includes/fe.php';
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-    <link rel="stylesheet" href="../assets/css/calon-penghuni/style.css" />
-    <link rel="stylesheet" href="../assets/css/calon-penghuni/beranda.css" />
-    <link rel="stylesheet" href="../assets/css/calon-penghuni/kamar.css" />
-  </head>
-  <body>
-    <header class="navbar">
-      <div class="container navbar-container">
-        <a href="beranda.php" class="logo">
-          <span class="logo-judul">SIPENKOS</span>
-          <span class="logo-divider">|</span>
-          <span class="logo-pendukung">Kos Bu Nining</span>
-        </a>
-
-        <nav class="menu">
-          <a href="beranda.php" class="nav active">Beranda</a>
-          <a href="daftar-kamar.php" class="nav">Kamar</a>
-          <a href="tentang.php" class="nav">Tentang</a>
-        </nav>
-
-        <div class="nav-actions-wrapper">
-          <div class="nav-actions" id="guestActions">
-            <a href="registrasi.php" class="btn btn-outline">Daftar</a>
-            <a href="login.php" class="btn btn-primary">Masuk</a>
-          </div>
-
-          <div class="user-profile" id="userProfile" style="display: none">
-            <button class="btn-icon-notif" title="Notifikasi">
-              🔔<span class="badge-dot"></span>
-            </button>
-            <div class="user-info">
-              <div class="user-avatar" id="headerAvatar"></div>
-              <span class="user-name" id="headerName"></span>
-            </div>
-          </div>
+$tipe = fe_daftar_tipe($pdo);
+$banner = fe_banner_reservasi($pdo);
+fe_awal_calon($pdo, 'Kos Bu Nining Malang', ['beranda', 'kamar'], 'beranda');
+?>
+  <div class="container"><?php fe_flash(); ?></div>
+  <?php if ($banner): ?>
+  <section class="container banner-status" id="bannerStatus" aria-live="polite">
+    <div class="banner-status-icon"><?= $banner[0] ?></div>
+    <div class="banner-status-content"><strong><?= e($banner[1]) ?></strong><p><?= e($banner[2]) ?></p></div>
+    <a href="<?= e($banner[3]) ?>" class="btn btn-outline"><?= e($banner[4]) ?></a>
+  </section>
+  <?php endif; ?>
+  <section class="section-image">
+    <div class="container-image">
+      <div class="image-header">
+        <img src="../assets/images/header.jpeg" alt="Interior Kamar SIPENKOS" class="header-image" />
+        <div class="content-overlay">
+          <h1 class="judul-section">Lagi nyari kos? <span class="text-blue">SIPENKOS</span> aja</h1>
+          <p class="deskripsi">Kos Bu Nining, dekat kampus di Malang. Cek kamar kosong dan reservasi langsung dari sini.</p>
         </div>
       </div>
-    </header>
-
-    <section class="container banner-status" id="bannerStatus" hidden aria-live="polite">
-      <div class="banner-status-icon" id="bannerStatusIcon">⏳</div>
-      <div class="banner-status-content">
-        <strong id="bannerStatusTitle">Reservasimu sedang diverifikasi</strong>
-        <p id="bannerStatusDescription">Bukti pembayaran sedang diperiksa oleh pemilik kos.</p>
+    </div>
+  </section>
+  <section class="section-fasilitas">
+    <div class="container"><div class="fasilitas-wrapper"><ul class="fasilitas fasilitas-grid">
+      <li class="item-fasilitas"><span class="icon">📶</span> Wi-Fi</li><li class="item-fasilitas"><span class="icon">🍳</span> Dapur</li>
+      <li class="item-fasilitas"><span class="icon">⚡</span> Listrik</li><li class="item-fasilitas"><span class="icon">🛵</span> Parkir</li>
+      <li class="item-fasilitas"><span class="icon">🧺</span> Laundry</li><li class="item-fasilitas"><span class="icon">📹</span> CCTV</li>
+    </ul></div></div>
+  </section>
+  <section class="section-halaman">
+    <div class="container">
+      <div class="section-header">
+        <h3 class="judul-section">Pilihan Tipe Kamar</h3>
+        <p class="deskripsi">Pilih kamar yang paling pas dengan kebutuhan dan kenyamanan kamu.</p>
       </div>
-      <a href="status-pembayaran.php" class="btn btn-outline" id="bannerStatusButton">Lihat Status Reservasi</a>
-    </section>
-
-    <section class="section-image">
-      <div class="container-image">
-        <div class="image-header">
-          <img src="../assets/images//header.jpeg" alt="Interior Kamar SIPENKOS" class="header-image"/>
-          <div class="content-overlay">
-            <h1 class="judul-section">Lagi nyari kos? <span class="text-blue">SIPENKOS</span> aja</h1>
-            <p class="deskripsi">
-              Kos Bu Nining, dekat kampus di Malang. Cek kamar kosong dan
-              reservasi langsung dari sini.
-            </p>
-          </div>
-        </div>
+      <div class="kamar-grid" id="kamarGrid" data-api="../kamar/ketersediaan.php">
+        <?php foreach ($tipe as $t): ?>
+          <a href="detail-kamar.php?kelas=<?= urlencode($t['kelas_kamar']) ?>" class="kartu-tautan" data-kelas="<?= e($t['kelas_kamar']) ?>"><?= fe_kartu_kamar($t, false) ?></a>
+        <?php endforeach; ?>
+        <?php if (!$tipe): ?><p class="deskripsi">Belum ada data kamar.</p><?php endif; ?>
       </div>
-    </section>
-
-    <section class="section-fasilitas">
-      <div class="container">
-        <div class="fasilitas-wrapper">
-          <ul class="fasilitas fasilitas-grid">
-            <li class="item-fasilitas"><span class="icon">📶</span> Wi-Fi</li>
-            <li class="item-fasilitas"><span class="icon">🍳</span> Dapur</li>
-            <li class="item-fasilitas"><span class="icon">⚡</span> Listrik</li>
-            <li class="item-fasilitas"><span class="icon">🛵</span> Parkir</li>
-            <li class="item-fasilitas"><span class="icon">🧺</span> Laundry</li>
-            <li class="item-fasilitas"><span class="icon">📹</span> CCTV</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-halaman">
-      <div class="container">
-        <div class="section-header">
-          <h3 class="judul-section">Pilihan Tipe Kamar</h3>
-          <p class="deskripsi">
-            Pilih kamar yang paling pas dengan kebutuhan dan kenyamanan kamu.
-          </p>
-        </div>
-
-        <div class="kamar-grid">
-          <article class="card-kamar">
-            <div class="card">
-              <img src="../assets/images/kamar-tipe1.jpeg" alt="Tipe 1 Non-AC Kos Bu Nining"/>
-              <span class="tersedia">Tersedia - sisa 1</span>
-            </div>
-            <div class="card-body">
-              <h3 class="tipe-kamar">Tipe 1 Non-AC, Kamar Mandi Luar</h3>
-              <p class="deskripsi-kamar">Tempat tidur nyaman, lemari pakaian, dan kamar mandi luarbersama yang bersih.
-              </p>
-            </div>
-          </article>
-
-          <article class="card-kamar">
-            <div class="card">
-              <img src="../assets/images/kamar-tipe2.jpeg" alt="Tipe 2 Non-AC Kos Bu Nining" />
-              <span class="tersedia">Tersedia - sisa 2</span>
-            </div>
-            <div class="card-body">
-              <h3 class="tipe-kamar">Tipe 2 Non-AC, Kamar Mandi Dalam</h3>
-              <p class="deskripsi-kamar"> Tempat tidur, lemari, meja belajar, serta fasilitas kamar mandi pribadi di dalam kamar.
-              </p>
-            </div>
-          </article>
-
-          <article class="card-kamar">
-            <div class="card">
-              <img src="../assets/images/kamar-tipe3.jpeg" alt="Tipe 3 AC Kos Bu Nining" />
-              <span class="penuh">Penuh</span>
-            </div>
-            <div class="card-body">
-              <h3 class="tipe-kamar">Tipe 3 AC, Kamar Mandi Luar</h3>
-              <p class="deskripsi-kamar"> Kamar ber-AC sejuk dengan kasur empuk, lemari, dan kamar mandi bersama di koridor luar.
-              </p>
-            </div>
-          </article>
-
-          <article class="card-kamar">
-            <div class="card">
-              <img src="../assets/images/kamar-tipe4.jpeg" alt="Tipe 4 AC Kos Bu Nining" />
-              <span class="tersedia">Tersedia - sisa 3</span>
-            </div>
-            <div class="card-body">
-              <h3 class="tipe-kamar">Tipe 4 AC, Kamar Mandi Dalam</h3>
-              <p class="deskripsi-kamar"> Tipe terlengkap dengan pendingin AC, perabot lengkap, dan kamar mandi privat dalam kamar.
-              </p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="logo-judul text-white">SIPENKOS</div>
-      <p class="footer-tagline">
-        🛡️ Hunian terpercaya & dikelola langsung oleh pemilik
-      </p>
-      <p class="footer-location">Kos Bu Nining · Malang, Jawa Timur</p>
-
-      <div class="kontak">
-        <span>📍 Jl. Pisang Agung III No. 29</span>
-        <span>💬 WhatsApp 0854-4421-1076</span>
-        <span>⏰ Jam bertamu 07.00–22.00 WIB</span>
-      </div>
-
-      <div class="copyright">© 2026 SIPENKOS - Kos Bu Nining Malang</div>
-    </footer>
-    <script src="../assets/js/calon-penghuni/main.js"></script>
-    <script src="../assets/js/calon-penghuni/banner-status.js"></script>
-  </body>
-</html>
+    </div>
+  </section>
+<?php fe_akhir_calon(['calon-penghuni/ketersediaan']); ?>
