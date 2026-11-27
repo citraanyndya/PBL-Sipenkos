@@ -1,128 +1,76 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Status Perpanjangan Sewa - SIPENKOS</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="../assets/css/penghuni/style.css">
-  <link rel="stylesheet" href="../assets/css/penghuni/perpanjangan-sewa.css">
-</head>
-<body>
-  <div class="perpanjangan-layout">
-    <aside class="sidebar" id="sidebar">
-      <nav class="sidebar-nav" aria-label="Navigasi utama">
-        <a class="nav-link" href="dashboard.php"><span class="nav-icon">▦</span>Dashboard</a>
-        <a class="nav-link" href="tagihan.php"><span class="nav-icon">▤</span>Tagihan</a>
-        <a class="nav-link" href="riwayat-pembayaran.php"><span class="nav-icon">◴</span>Riwayat Pembayaran</a>
-        <a class="nav-link active" href="perpanjangan-sewa.php" aria-current="page"><span class="nav-icon">▣</span>Perpanjangan Sewa</a>
-        <a class="nav-link" href="laporan-kerusakan.php"><span class="nav-icon">⚒</span>Laporan Kerusakan</a>
-        <a class="nav-link" href="aturan.php"><span class="nav-icon">⚑</span>Kebijakan &amp; Aturan Kos</a>
-      </nav>
-
-      <div class="sidebar-bottom">
-        <button class="logout-button" id="logoutButton" type="button"><span class="nav-icon">⇥</span>Keluar</button>
-      </div>
-    </aside>
-
-    <main class="main-area">
-      <header class="navbar">
-        <div class="container navbar-container">
-          <a href="dashboard.php" class="logo">
-            <span class="logo-judul">SIPENKOS</span>
-            <span class="logo-divider">|</span>
-            <span class="logo-pendukung">Kos Bu Nining</span>
-          </a>
-        </div>
-
-        <div class="user-profile" id="userProfile" style="display: none;">
-          <a class="btn-icon-notif" href="notifikasi.php" title="Notifikasi" aria-label="Notifikasi">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-              <span class="badge-dot" id="notificationDot" hidden></span>
-          </a>
-          <span class="header-divider" aria-hidden="true"></span>
-          <div class="account">
-            <span class="user-avatar" id="headerAvatar"></span>
-            <span class="user-name" id="headerName"></span>
-          </div>
-        </div>
-      </header>
-
-      <section class="container">
-        <div class="perpanjangan-heading">
-          <h1>Status Perpanjangan Sewa</h1>
-          <p>Pantau pengajuan perpanjangan sewa kamu</p>
-        </div>
-
-        <div class="card-box empty-state" id="emptyState" hidden>
-          <h2>Belum ada pengajuan perpanjangan</h2>
-          <p>Ajukan perpanjangan untuk melanjutkan masa sewa kamu.</p>
-          <a href="perpanjangan-sewa.php" class="btn-utama">Ajukan Perpanjangan</a>
-        </div>
-
-        <div id="kontenStatus" hidden>
-          <div class="status-banner status-banner--menunggu" id="statusBanner" role="status">
-            <span class="status-pill" id="statusPill">Menunggu Verifikasi</span>
-            <p id="statusPesan">Pengajuan perpanjangan sedang diperiksa pemilik kos.</p>
-            <svg class="ikon status-ikon" id="statusIkon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-          </div>
-
-          <div class="status-grid">
-            <article class="card-box detail-card">
-              <h2 class="judul-card">Detail Pengajuan</h2>
-
-              <dl class="panel-detail">
-                <div><dt>Kamar</dt><dd id="detailKamar">-</dd></div>
-                <div><dt>Durasi</dt><dd id="detailDurasi">-</dd></div>
-                <div><dt>Skema Pembayaran</dt><dd id="detailSkema">-</dd></div>
-                <div><dt>Metode Pembayaran</dt><dd id="detailMetode">-</dd></div>
-                <div><dt>Masa sewa baru</dt><dd id="detailMasa">-</dd></div>
-                <div class="panel-pemisah"><dt>Total Tagihan</dt><dd id="detailTotal">-</dd></div>
-                <div class="baris-rapat"><dt>Jumlah dibayar</dt><dd id="detailDibayar">-</dd></div>
-                <div class="baris-rapat"><dt>Sisa Tagihan</dt><dd id="detailSisa">-</dd></div>
-              </dl>
-
-              <div class="aksi-detail" id="aksiDetail" hidden>
-                <a href="#" class="btn-utama" id="tombolAksi">Bayar DP Sekarang</a>
-              </div>
-
-              <div class="detail-footer">
-                <span class="nomor-permohonan">
-                  <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg>
-                  No. Permohonan: <span id="detailNomor">-</span>
-                </span>
-                <span>Diajukan secara mandiri</span>
-              </div>
-            </article>
-
-            <article class="card-box">
-              <h2 class="judul-card">Proses Perpanjangan</h2>
-              <ol class="timeline" id="timeline"></ol>
-            </article>
-          </div>
-
-          <!-- SIMULASI VERIFIKASI (KHUSUS DEVELOPMENT, hapus saat backend siap) -->
-          <section class="simulasi-verifikasi" id="simulasiVerifikasi" hidden>
-            <div class="simulasi-header">
-              <h3>Simulasi Verifikasi Pemilik Kos</h3>
-              <p>Pilih hasil pemeriksaan untuk menguji alur perpanjangan. Bagian ini hanya digunakan selama pengembangan.</p>
-            </div>
-            <div class="simulasi-actions">
-              <button type="button" id="btnSetujuiPerpanjangan" class="btn-simulasi btn-terima">✓ Setujui Perpanjangan</button>
-              <button type="button" id="btnTolakPerpanjangan" class="btn-simulasi btn-tolak">✕ Tolak Perpanjangan</button>
-            </div>
-          </section>
-        </div>
-      </section>
-    </main>
+<?php
+$base = '../';
+require_once __DIR__ . '/../includes/auth.php';
+wajib_role('penghuni');
+require_once __DIR__ . '/../includes/koneksi.php';
+require_once __DIR__ . '/../includes/fe.php';
+require_once __DIR__ . '/../includes/pemesanan.php';
+require_once __DIR__ . '/../includes/fe_bayar.php';
+$app = require __DIR__ . '/../includes/config.php';
+$u = (int) $_SESSION['user_id'];
+$id = input_int($_GET, 'id');
+$sql = "SELECT p.*, k.nomor_kamar, k.kelas_kamar, " . sql_selesai('p') . " AS selesai FROM pemesanan p JOIN kamar k ON k.id_kamar = p.id_kamar WHERE p.id_penghuni = :u";
+$st = $id ? $pdo->prepare($sql . ' AND p.id_pemesanan = :id') : $pdo->prepare($sql . ' ORDER BY p.id_pemesanan DESC LIMIT 1');
+$st->execute($id ? ['u' => $u, 'id' => $id] : ['u' => $u]);
+$p = $st->fetch();
+fe_awal_penghuni($pdo, 'Status Perpanjangan Sewa', ['perpanjangan-sewa'], 'perpanjangan');
+?>
+  <div class="perpanjangan-heading"><h1>Status Perpanjangan Sewa</h1><p>Pantau pengajuan perpanjangan sewa kamu</p></div>
+<?php if (!$p): ?>
+  <div class="card-box empty-state"><h2>Belum ada pengajuan perpanjangan</h2><p>Ajukan perpanjangan untuk melanjutkan masa sewa kamu.</p><a href="perpanjangan-sewa.php" class="btn-utama">Ajukan Perpanjangan</a></div>
+<?php fe_akhir_penghuni(['bayar']); exit; endif;
+$pb = $pdo->prepare('SELECT * FROM pembayaran WHERE id_pemesanan = :id ORDER BY id_pembayaran');
+$pb->execute(['id' => $p['id_pemesanan']]);
+$bayar = $pb->fetchAll();
+$akhir = $bayar ? end($bayar) : null;
+$menunggu = $akhir && $akhir['status_bayar'] === 'menunggu';
+$stt = $p['status_pesanan'];
+if ($stt === 'diterima') { $b = ['diterima', 'Disetujui', 'Perpanjangan disetujui. Masa sewa kamu sudah diperbarui.']; }
+elseif ($stt === 'ditolak') { $b = ['ditolak', 'Ditolak', 'Pengajuan ditolak' . (($akhir['alasan_penolakan'] ?? '') ? ': ' . $akhir['alasan_penolakan'] : '.')]; }
+elseif ($stt === 'kedaluwarsa') { $b = ['ditolak', 'Kedaluwarsa', 'Pengajuan kedaluwarsa. Silakan ajukan ulang.']; }
+elseif ($menunggu) { $b = ['menunggu', 'Menunggu Verifikasi', 'Bukti pembayaran sedang diperiksa pemilik kos.']; }
+elseif ($akhir) { $b = ['ditolak', 'Bukti Ditolak', 'Bukti terakhir ditolak: ' . ($akhir['alasan_penolakan'] ?: 'tidak dapat diverifikasi') . '. Unggah ulang bukti transfer.']; }
+else { $b = ['menunggu', 'Menunggu Pembayaran', 'Unggah bukti transfer agar pengajuan dapat diverifikasi pemilik kos.']; }
+$bisaUnggah = !$menunggu && (($stt === 'menunggu_verifikasi') || ($stt === 'diterima' && $sisa > 0));
+$pindahKamar = false;
+if ($p['id_pemesanan_asal']) {
+    $as = $pdo->prepare('SELECT k.nomor_kamar, k.kelas_kamar FROM pemesanan x JOIN kamar k ON k.id_kamar = x.id_kamar WHERE x.id_pemesanan = :id');
+    $as->execute(['id' => $p['id_pemesanan_asal']]);
+    $asal = $as->fetch();
+    $pindahKamar = $asal && $asal['nomor_kamar'] !== $p['nomor_kamar'] ? $asal : false;
+}
+$terbayar = array_sum(array_map(fn($x) => $x['status_bayar'] === 'diterima' ? $x['jml_bayar'] : 0, $bayar));
+$sisa = max($p['total_tagihan'] - $terbayar, 0);
+?>
+  <div class="status-banner status-banner--<?= $b[0] ?>" role="status"><span class="status-pill"><?= e($b[1]) ?></span><p><?= e($b[2]) ?></p></div>
+  <div class="status-grid">
+    <article class="card-box detail-card">
+      <h2 class="judul-card">Detail Pengajuan</h2>
+      <dl class="panel-detail">
+        <div><dt>Kamar</dt><dd><?= e($p['kelas_kamar']) ?> · No. <?= e($p['nomor_kamar']) ?></dd></div>
+        <div><dt>Durasi</dt><dd><?= (int) $p['durasi_bulan'] ?> bulan</dd></div>
+        <?php if ($pindahKamar): ?><div><dt>Pindah dari</dt><dd>Kamar <?= e($pindahKamar['nomor_kamar']) ?> (<?= e($pindahKamar['kelas_kamar']) ?>)</dd></div><?php endif; ?>
+        <div><dt>Masa sewa baru</dt><dd><?= e(tgl_indo($p['tgl_mulai'])) ?> – <?= e(tgl_indo($p['selesai'])) ?></dd></div>
+        <div class="panel-pemisah"><dt>Total Tagihan</dt><dd><?= e(rupiah($p['total_tagihan'])) ?></dd></div>
+        <div class="baris-rapat"><dt>Sudah terverifikasi</dt><dd><?= e(rupiah($terbayar)) ?></dd></div>
+        <div class="baris-rapat"><dt>Sisa Tagihan</dt><dd><?= e(rupiah(max($p['total_tagihan'] - $terbayar, 0))) ?></dd></div>
+      </dl>
+      <?php if ($bisaUnggah): ?>
+      <div class="aksi-detail"><?php fe_form_bayar($p, (float) $terbayar, 'perpanjangan', $app); ?></div>
+      <?php endif; ?>
+      <div class="detail-footer"><span class="nomor-permohonan">No. Permohonan: PRJ-<?= str_pad((string) $p['id_pemesanan'], 5, '0', STR_PAD_LEFT) ?></span><span>Diajukan secara mandiri</span></div>
+    </article>
+    <article class="card-box">
+      <h2 class="judul-card">Proses Perpanjangan</h2>
+      <ol class="timeline">
+        <li class="timeline-item selesai"><span class="timeline-dot">✓</span><div><p class="timeline-judul">Pengajuan dikirim</p><p class="timeline-ket"><?= e(tgl_indo($p['tgl_pemesanan'], true)) ?></p></div></li>
+        <?php foreach ($bayar as $x): ?>
+          <li class="timeline-item <?= $x['status_bayar'] === 'ditolak' ? 'ditolak' : 'selesai' ?>"><span class="timeline-dot"><?= $x['status_bayar'] === 'ditolak' ? '✕' : '✓' ?></span><div><p class="timeline-judul">Bukti pembayaran diunggah</p><p class="timeline-ket"><?= e(tgl_indo($x['tgl_bayar'], true)) ?><?= $x['status_bayar'] === 'ditolak' ? ' · ditolak: ' . e($x['alasan_penolakan']) : '' ?></p></div></li>
+        <?php endforeach; ?>
+        <?php if (!$bayar): ?><li class="timeline-item aktif"><span class="timeline-dot">◷</span><div><p class="timeline-judul">Menunggu bukti pembayaran</p><p class="timeline-ket">Unggah bukti transfer</p></div></li><?php endif; ?>
+        <li class="timeline-item <?= $stt === 'diterima' ? 'selesai' : ($menunggu ? 'aktif' : 'menunggu') ?>"><span class="timeline-dot"><?= $stt === 'diterima' ? '✓' : '◷' ?></span><div><p class="timeline-judul">Verifikasi pemilik kos</p><p class="timeline-ket"><?= $stt === 'diterima' ? 'Selesai' : ($menunggu ? 'Sedang diproses' : 'Menunggu') ?></p></div></li>
+        <li class="timeline-item <?= $stt === 'diterima' ? 'selesai' : 'menunggu' ?>"><span class="timeline-dot"><?= $stt === 'diterima' ? '✓' : '●' ?></span><div><p class="timeline-judul"><?= $pindahKamar ? 'Pindah ke Kamar ' . e($p['nomor_kamar']) : 'Masa sewa diperbarui' ?></p><p class="timeline-ket"><?= $stt === 'diterima' ? 'Berlaku sampai ' . e(tgl_indo($p['selesai'])) : 'Setelah pembayaran terverifikasi' ?></p></div></li>
+      </ol>
+    </article>
   </div>
-
-  <script src="../assets/js/penghuni/common.js"></script>
-  <script src="../assets/js/penghuni/perpanjangan-sewa.js"></script>
-  <script src="../assets/js/calon-penghuni/kamar-data.js"></script>
-</body>
-</html>
+<?php fe_akhir_penghuni(['bayar']); ?>
