@@ -1,107 +1,77 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Penghuni - SIPENKOS</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-    <link rel="stylesheet" href="../assets/css/penghuni/style.css">
-    <link rel="stylesheet" href="../assets/css/penghuni/dashboard.css">
-</head>
-<body>
-  <div class="dashboard-layout">
-    <aside class="sidebar" id="sidebar">
+<?php
+$base = '../';
+require_once __DIR__ . '/../includes/auth.php';
+wajib_role('penghuni');
+require_once __DIR__ . '/../includes/koneksi.php';
+require_once __DIR__ . '/../includes/fe.php';
+$sewa = fe_wajib_aktif($pdo);
+$u = (int) $_SESSION['user_id'];
 
-      <nav class="sidebar-nav" aria-label="Navigasi utama">
-        <a class="nav-link active" href="dashboard.php"><span class="nav-icon">▦</span>Dashboard</a>
-        <a class="nav-link" href="tagihan.php"><span class="nav-icon">▤</span>Tagihan</a>
-        <a class="nav-link" href="riwayat-pembayaran.php"><span class="nav-icon">◴</span>Riwayat Pembayaran</a>
-        <a class="nav-link" href="perpanjangan-sewa.php"><span class="nav-icon">▣</span>Perpanjangan Sewa</a>
-        <a class="nav-link" href="laporan-kerusakan.php"><span class="nav-icon">⚒</span>Laporan Kerusakan</a>
-        <a class="nav-link" href="aturan.php"><span class="nav-icon">⚑</span>Kebijakan &amp; Aturan Kos</a>
-      </nav>
+$lap = $pdo->prepare("SELECT status_laporan, COUNT(*) OVER () AS n FROM laporan_kerusakan WHERE id_penghuni = :u ORDER BY tgl_laporan DESC LIMIT 1");
+$lap->execute(['u' => $u]);
+$laporan = $lap->fetch();
+$lapLabel = ['baru' => 'Belum dikerjakan', 'diproses' => 'Sedang diproses', 'selesai' => 'Selesai'];
 
-      <div class="sidebar-bottom">
-        <button class="logout-button" id="logoutButton" type="button"><span class="nav-icon">⇥</span>Keluar</button>
-      </div>
-    </aside>
+$pb = $pdo->prepare("SELECT b.* FROM pembayaran b JOIN pemesanan p ON p.id_pemesanan = b.id_pemesanan WHERE p.id_penghuni = :u ORDER BY b.tgl_bayar DESC LIMIT 1");
+$pb->execute(['u' => $u]);
+$bayar = $pb->fetch();
+$bayarLabel = ['diterima' => ['Lunas', ''], 'menunggu' => ['Menunggu verifikasi', ' menunggu'], 'ditolak' => ['Ditolak', ' ditolak']];
 
-    <main class="main-area">
-      <header class="navbar">
-        <div class="container navbar-container">
-          <a href="dashboard.php" class="logo">
-            <span class="logo-judul">SIPENKOS</span>
-            <span class="logo-divider">|</span>
-            <span class="logo-pendukung">Kos Bu Nining</span>
-          </a>
-        </div>
-
-          <div class="user-profile" id="userProfile" style="display: none;">
-            <a class="btn-icon-notif" href="notifikasi.php" title="Notifikasi" aria-label="Notifikasi">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-              <span class="badge-dot" id="notificationDot" hidden></span>
-            </a>
-            <span class="header-divider" aria-hidden="true"></span>
-            <div class="account">
-                <span class="user-avatar" id="headerAvatar"></span>
-                <span class="user-name" id="headerName"></span>
-            </div>
-          </div>
-    </header>
-
-      <section class="container">
-        <div class="welcome-heading">
-          <h1>Selamat datang, <span id="welcomeName">Penghuni</span></h1>
-          <p id="roomSubtitle">Berikut ringkasan informasi hunian kamu.</p>
-        </div>
-
-        <section class="bill-alert" id="billAlert">
-          <div class="bill-alert-copy"><span class="alert-clock">◷</span><span id="billMessage">Memuat informasi tagihan...</span></div>
-          <a href="tagihan.php" class="primary-button" data-coming-soon>Bayar Sekarang</a>
-        </section>
-
-        <section class="summary-grid" aria-label="Ringkasan penghuni">
-          <article class="summary-card">
-            <p class="card-label">Masa Sewa</p>
-            <h2 id="rentalPeriod">-</h2>
-            <a href="perpanjangan-sewa.php">Perpanjang <span>→</span></a>
-          </article>
-          <article class="summary-card">
-            <p class="card-label">Laporan Kerusakan</p>
-            <h2 id="damageStatus">-</h2>
-            <a href="laporan-kerusakan.php">Lihat <span>→</span></a>
-          </article>
-          <article class="summary-card">
-            <p class="card-label">Pembayaran Terakhir</p>
-            <div class="last-payment-line"><h2 id="lastPaymentMonth">-</h2><span class="status-pill" id="paymentStatus">Lunas</span></div>
-            <a href="riwayat-pembayaran.php">Riwayat <span>→</span></a>
-          </article>
-        </section>
-
-        <section class="room-card">
-          <h2 class="section-card-title">Kamar Saya</h2>
-          <div class="room-detail">
-            <img id="roomImage" alt="Foto kamar penghuni">
-            <div class="room-info">
-              <h3 id="roomTitle">Informasi kamar</h3>
-              <p class="room-price" id="roomPrice">-</p>
-              <p class="room-period">Periode sewa: <span id="roomPeriod">-</span></p>
-              <a href="../penghuni/detail-kamar.php" class="secondary-button" id="roomDetailButton">Lihat Detail Kamar</a>
-            </div>
-          </div>
-        </section>
-      </section>
-    </main>
+$berjalan = fe_pemesanan_berjalan($pdo);
+// DP sudah diterima tetapi masih ada sisa tagihan?
+$sb = $pdo->prepare("SELECT p.id_pemesanan, p.total_tagihan - COALESCE((SELECT SUM(b.jml_bayar) FROM pembayaran b WHERE b.id_pemesanan = p.id_pemesanan AND b.status_bayar = 'diterima'), 0) AS sisa,
+        EXISTS (SELECT 1 FROM pembayaran b WHERE b.id_pemesanan = p.id_pemesanan AND b.status_bayar = 'menunggu') AS menunggu
+    FROM pemesanan p WHERE p.id_penghuni = :u AND p.status_pesanan = 'diterima' ORDER BY p.id_pemesanan DESC");
+$sb->execute(['u' => $u]);
+$sisaTagihan = null;
+foreach ($sb->fetchAll() as $x) { if ($x['sisa'] > 0 && !$x['menunggu']) { $sisaTagihan = $x; break; } }
+// Perpanjangan disetujui yang akan pindah kamar?
+$pd = $pdo->prepare("SELECT k.nomor_kamar, k.kelas_kamar, p.tgl_mulai FROM pemesanan p JOIN kamar k ON k.id_kamar = p.id_kamar WHERE p.id_penghuni = :u AND p.status_pesanan = 'diterima' AND p.tgl_mulai > CURRENT_DATE AND p.id_kamar <> :k ORDER BY p.tgl_mulai LIMIT 1");
+$pd->execute(['u' => $u, 'k' => $sewa['id_kamar']]);
+$pindah = $pd->fetch();
+$sisaHari = (int) floor((strtotime($sewa['selesai']) - strtotime(date('Y-m-d'))) / 86400);
+if ($berjalan) {
+    $alert = $berjalan['menunggu'] > 0
+        ? ['Pembayaran untuk Kamar ' . $berjalan['nomor_kamar'] . ' sedang diverifikasi pemilik kos.', 'status-perpanjangan-sewa.php?id=' . $berjalan['id_pemesanan'], 'Lihat Status']
+        : ['Pengajuan perpanjangan menunggu pembayaran. Unggah bukti sebelum ' . tgl_indo($berjalan['batas_hold'], true) . '.', 'status-perpanjangan-sewa.php?id=' . $berjalan['id_pemesanan'], 'Bayar Sekarang'];
+} elseif ($sisaTagihan) {
+    $alert = ['Sisa tagihan ' . rupiah($sisaTagihan['sisa']) . ' belum dilunasi.', '../calon-penghuni/pembayaran.php?id=' . $sisaTagihan['id_pemesanan'], 'Bayar Sisa'];
+} elseif ($pindah) {
+    $alert = ['Perpanjangan disetujui: mulai ' . tgl_indo($pindah['tgl_mulai']) . ' kamu pindah ke Kamar ' . $pindah['nomor_kamar'] . ' (' . $pindah['kelas_kamar'] . ').', 'tagihan.php', 'Lihat Tagihan'];
+} elseif ($sisaHari <= 30) {
+    $alert = ['Masa sewa berakhir ' . tgl_indo($sewa['selesai']) . ' (' . max($sisaHari, 0) . ' hari lagi). Ajukan perpanjangan agar kamarmu tetap aman.', 'perpanjangan-sewa.php', 'Perpanjang'];
+} else {
+    $alert = null;
+}
+fe_awal_penghuni($pdo, 'Dashboard Penghuni', ['dashboard'], 'dashboard');
+?>
+  <div class="welcome-heading">
+    <h1>Selamat datang, <span id="welcomeName"><?= e($_SESSION['nama']) ?></span></h1>
+    <p id="roomSubtitle">Kamar <?= e($sewa['nomor_kamar']) ?> · <?= e($sewa['kelas_kamar']) ?></p>
   </div>
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
-  <div class="toast-message" id="toastMessage" role="status" aria-live="polite"></div>
-
-  <script src="../assets/js/penghuni/common.js"></script>
-  <script src="../assets/js/penghuni/dashboard.js"></script>
-  <script src="../assets/js/penghuni/laporan-kerusakan.js"></script>
-</body>
-</html>
+  <?php if ($alert): ?>
+  <section class="bill-alert" id="billAlert">
+    <div class="bill-alert-copy"><span class="alert-clock">◷</span><span id="billMessage"><?= e($alert[0]) ?></span></div>
+    <a href="<?= e($alert[1]) ?>" class="primary-button"><?= e($alert[2]) ?></a>
+  </section>
+  <?php endif; ?>
+  <section class="summary-grid" aria-label="Ringkasan penghuni">
+    <article class="summary-card"><p class="card-label">Masa Sewa</p><h2 id="rentalPeriod"><?= e(tgl_indo($sewa['mulai'])) ?> – <?= e(tgl_indo($sewa['selesai'])) ?></h2><a href="perpanjangan-sewa.php">Perpanjang <span>→</span></a></article>
+    <article class="summary-card"><p class="card-label">Laporan Kerusakan</p><h2 id="damageStatus"><?= $laporan ? e($lapLabel[$laporan['status_laporan']] ?? '-') : 'Belum ada laporan' ?></h2><a href="laporan-kerusakan.php">Lihat <span>→</span></a></article>
+    <article class="summary-card"><p class="card-label">Pembayaran Terakhir</p>
+      <div class="last-payment-line"><h2 id="lastPaymentMonth"><?= $bayar ? e(nama_bulan(date('Y-m', strtotime($bayar['tgl_bayar'])))) : '-' ?></h2><?php if ($bayar): $bl = $bayarLabel[$bayar['status_bayar']]; ?><span class="status-pill<?= $bl[1] ?>" id="paymentStatus"><?= e($bl[0]) ?></span><?php endif; ?></div>
+      <a href="riwayat-pembayaran.php">Riwayat <span>→</span></a></article>
+  </section>
+  <section class="room-card">
+    <h2 class="section-card-title">Kamar Saya</h2>
+    <div class="room-detail">
+      <img id="roomImage" src="<?= e(fe_foto_kamar($sewa['foto_kamar'], $sewa['kelas_kamar'])) ?>" alt="Foto kamar penghuni">
+      <div class="room-info">
+        <h3 id="roomTitle"><?= e($sewa['kelas_kamar']) ?> · No. <?= e($sewa['nomor_kamar']) ?></h3>
+        <p class="room-price" id="roomPrice"><?= e(rupiah($sewa['harga_kontrak'] ?? $sewa['harga_sewa'])) ?> / bulan</p>
+        <p class="room-period">Periode sewa: <span id="roomPeriod"><?= e(tgl_indo($sewa['mulai'])) ?> – <?= e(tgl_indo($sewa['selesai'])) ?></span></p>
+        <a href="detail-kamar.php" class="secondary-button" id="roomDetailButton">Lihat Detail Kamar</a>
+      </div>
+    </div>
+  </section>
+<?php fe_akhir_penghuni(); ?>
