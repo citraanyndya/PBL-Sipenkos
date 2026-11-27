@@ -7,6 +7,7 @@ const STATUS_KAMAR = ['tersedia', 'ditahan', 'terisi'];
 const STATUS_PEMESANAN = ['menunggu_verifikasi', 'diterima', 'ditolak', 'kedaluwarsa'];
 const STATUS_BAYAR = ['menunggu', 'diterima', 'ditolak'];
 const STATUS_LAPORAN = ['baru', 'diproses', 'selesai'];
+const KATEGORI_LAPORAN = ['Air/Kamar Mandi', 'Listrik', 'Lainnya'];
 const BULAN_INDO = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
 // Pembayaran: metode, jenis, dan hubungan kontak darurat (whitelist).
