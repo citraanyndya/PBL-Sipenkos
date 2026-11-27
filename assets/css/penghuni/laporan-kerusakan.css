@@ -902,3 +902,43 @@
     background: var(--badge-green-bg);
     border-color: #86efac;
 }
+
+/* Fitur 09: input berkas ditampilkan apa adanya supaya nama foto yang dipilih
+   terlihat langsung. Pratinjau lama memakai JavaScript; Content-Security-Policy
+   proyek ini (script-src 'self') melarang skrip inline, dan halaman ini tidak
+   lagi memuat berkas JS sendiri. */
+.unggah--berkas {
+    cursor: default;
+}
+
+.unggah--berkas:hover {
+    background: none;
+    border-color: #d9e0ea;
+}
+
+.unggah--berkas input {
+    position: static;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    margin: 4px 0 2px;
+    opacity: 1;
+    font: inherit;
+    color: var(--text-dark);
+}
+
+.unggah--berkas input::file-selector-button {
+    margin-right: 10px;
+    padding: 8px 14px;
+    color: #fff;
+    font: inherit;
+    font-weight: 500;
+    background: var(--primary-blue);
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.unggah--berkas input::file-selector-button:hover {
+    background: var(--primary-hover, #1d4ed8);
+}

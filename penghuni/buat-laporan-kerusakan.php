@@ -49,14 +49,14 @@ fe_awal_penghuni($pdo, 'Buat Laporan Kerusakan', ['laporan-kerusakan'], 'laporan
 
     <div class="field">
       <span class="label" id="labelFoto">Foto Kerusakan (Opsional)</span>
-      <label class="unggah" for="foto">
-        <input type="file" id="foto" name="foto" accept="image/jpeg,image/png" aria-labelledby="labelFoto">
+      <div class="unggah unggah--berkas">
         <span class="unggah-ikon" aria-hidden="true">
           <svg class="ikon" viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5"/><path d="M5 20h14"/></svg>
         </span>
-        <span class="unggah-teks">Klik untuk memilih foto kerusakan</span>
-        <span class="unggah-format">Format JPG atau PNG, maksimal 5 MB</span>
-      </label>
+        <span class="unggah-teks">Pilih foto kerusakan</span>
+        <input type="file" id="foto" name="foto" accept="image/jpeg,image/png" aria-labelledby="labelFoto">
+        <span class="unggah-format">Format JPG atau PNG, maksimal 5 MB. Nama berkas yang dipilih tampil di sebelah tombol.</span>
+      </div>
     </div>
 
     <div class="aksi-form">
@@ -67,4 +67,5 @@ fe_awal_penghuni($pdo, 'Buat Laporan Kerusakan', ['laporan-kerusakan'], 'laporan
       </button>
     </div>
   </form>
+
 <?php fe_akhir_penghuni(); ?>
