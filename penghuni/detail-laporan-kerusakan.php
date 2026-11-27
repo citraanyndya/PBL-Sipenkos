@@ -1,145 +1,103 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detail Laporan Kerusakan - SIPENKOS</title>
+<?php
+$base = '../';
+require_once __DIR__ . '/../includes/auth.php';
+wajib_role('penghuni');
+require_once __DIR__ . '/../includes/koneksi.php';
+require_once __DIR__ . '/../includes/fe.php';
+fe_wajib_aktif($pdo);
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+// Hanya laporan milik penghuni yang sedang masuk yang boleh dibuka.
+$id = (int) ($_GET['id'] ?? 0);
+$stmt = $pdo->prepare(
+    "SELECT l.id_laporan, l.tgl_laporan, l.deskripsi_laporan, l.foto_kerusakan, l.status_laporan,
+            k.nomor_kamar, k.kelas_kamar, p.nama_pengelola
+       FROM laporan_kerusakan l
+       JOIN kamar k ON k.id_kamar = l.id_kamar
+       LEFT JOIN pengelola p ON p.id_pengelola = l.id_pengelola
+      WHERE l.id_laporan = :i AND l.id_penghuni = :u"
+);
+$stmt->execute(['i' => $id, 'u' => (int) $_SESSION['user_id']]);
+$lap = $stmt->fetch();
 
-  <link rel="stylesheet" href="../assets/css/penghuni/style.css">
-  <link rel="stylesheet" href="../assets/css/penghuni/laporan-kerusakan.css">
-</head>
-<body data-halaman="detail">
-  <div class="laporan-layout">
-    <aside class="sidebar" id="sidebar">
-      <nav class="sidebar-nav" aria-label="Navigasi utama">
-        <a class="nav-link" href="dashboard.php"><span class="nav-icon">▦</span>Dashboard</a>
-        <a class="nav-link" href="tagihan.php"><span class="nav-icon">▤</span>Tagihan</a>
-        <a class="nav-link" href="riwayat-pembayaran.php"><span class="nav-icon">◴</span>Riwayat Pembayaran</a>
-        <a class="nav-link" href="perpanjangan-sewa.php"><span class="nav-icon">▣</span>Perpanjangan Sewa</a>
-        <a class="nav-link active" href="laporan-kerusakan.php" aria-current="page"><span class="nav-icon">⚒</span>Laporan Kerusakan</a>
-        <a class="nav-link" href="aturan.php"><span class="nav-icon">⚑</span>Kebijakan &amp; Aturan Kos</a>
-      </nav>
+fe_awal_penghuni($pdo, 'Detail Laporan Kerusakan', ['laporan-kerusakan'], 'laporan');
+?>
+  <a href="laporan-kerusakan.php" class="link-kembali">
+    <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Kembali ke Laporan Kerusakan
+  </a>
 
-      <div class="sidebar-bottom">
-        <button class="logout-button" id="logoutButton" type="button"><span class="nav-icon">⇥</span>Keluar</button>
-      </div>
-    </aside>
-
-    <main class="main-area">
-      <header class="navbar">
-        <div class="container navbar-container">
-          <a href="dashboard.php" class="logo">
-            <span class="logo-judul">SIPENKOS</span>
-            <span class="logo-divider">|</span>
-            <span class="logo-pendukung">Kos Bu Nining</span>
-          </a>
-        </div>
-
-        <div class="user-profile" id="userProfile" style="display: none;">
-          <a class="btn-icon-notif" href="notifikasi.php" title="Notifikasi" aria-label="Notifikasi">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-            <span class="badge-dot" id="notificationDot" hidden></span>
-          </a>
-          <span class="header-divider" aria-hidden="true"></span>
-          <div class="account">
-            <span class="user-avatar" id="headerAvatar"></span>
-            <span class="user-name" id="headerName"></span>
-          </div>
-        </div>
-      </header>
-
-      <section class="container">
-        <a href="laporan-kerusakan.php" class="link-kembali">
-          <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          Kembali ke Laporan Kerusakan
-        </a>
-
-        <!-- Bila id laporan tidak ditemukan -->
-        <div class="card-box kosong" id="tidakDitemukan" hidden>
-          <h2>Laporan tidak ditemukan</h2>
-          <p>Laporan yang kamu cari tidak ada atau sudah dihapus.</p>
-          <a href="laporan-kerusakan.php" class="btn-outline">Lihat Semua Laporan</a>
-        </div>
-
-        <div id="kontenDetail" hidden>
-          <div class="judul-detail">
-            <div class="judul-detail-kiri">
-              <h1 id="detailJudul">-</h1>
-              <span class="badge-status" id="detailStatus">-</span>
-            </div>
-            <p class="id-tiket">ID Tiket: <span id="detailId">-</span></p>
-          </div>
-
-          <div class="detail-grid">
-            <article class="card-box">
-              <dl class="info-laporan">
-                <div>
-                  <dt>Kategori</dt>
-                  <dd id="detailKategori">-</dd>
-                </div>
-                <div>
-                  <dt>Lokasi</dt>
-                  <dd id="detailLokasi">-</dd>
-                </div>
-                <div>
-                  <dt>Tanggal Lapor</dt>
-                  <dd id="detailTanggal">-</dd>
-                </div>
-              </dl>
-
-              <h2 class="sub-judul">Deskripsi</h2>
-              <p class="deskripsi-laporan" id="detailDeskripsi">-</p>
-
-              <div id="blokFoto" hidden>
-                <h2 class="sub-judul">Foto Kerusakan</h2>
-                <img class="foto-laporan" id="detailFoto" alt="Foto kerusakan">
-              </div>
-
-              <p class="catatan-pelapor">
-                <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-                <span id="detailPelapor">Pengajuan dibuat oleh penghuni</span>
-              </p>
-            </article>
-
-            <article class="card-box">
-              <h2 class="judul-card">Riwayat Penanganan</h2>
-              <ol class="timeline" id="timeline"></ol>
-
-              <div class="catatan-pengelola" id="catatanPengelola" hidden>
-                <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
-                <div>
-                  <p class="label-kecil">Catatan Pengelola</p>
-                  <p id="catatanIsi">-</p>
-                </div>
-              </div>
-            </article>
-          </div>
-
-          <!-- SIMULASI PENANGANAN (KHUSUS DEVELOPMENT, hapus saat backend siap) -->
-          <section class="simulasi-verifikasi" id="simulasiPenanganan" hidden>
-            <div class="simulasi-header">
-              <h3>Simulasi Penanganan Pemilik Kos</h3>
-              <p>Ubah status laporan untuk menguji alur. Bagian ini hanya digunakan selama pengembangan.</p>
-            </div>
-            <label class="simulasi-catatan">
-              <span>Catatan pengelola (opsional)</span>
-              <input type="text" id="simulasiCatatan" placeholder="Contoh: Tukang dijadwalkan datang besok pagi">
-            </label>
-            <div class="simulasi-actions">
-              <button type="button" id="btnProsesLaporan" class="btn-simulasi btn-proses" hidden>Terima &amp; Proses Laporan</button>
-              <button type="button" id="btnSelesaiLaporan" class="btn-simulasi btn-terima" hidden>✓ Tandai Selesai</button>
-            </div>
-          </section>
-        </div>
-      </section>
-    </main>
+<?php if (!$lap): ?>
+  <div class="card-box kosong">
+    <h2>Laporan tidak ditemukan</h2>
+    <p>Laporan yang kamu cari tidak ada atau bukan milikmu.</p>
+    <a href="laporan-kerusakan.php" class="btn-outline">Lihat Semua Laporan</a>
+  </div>
+<?php else:
+  [$kategori, $judul, $isi] = fe_pecah_laporan($lap['deskripsi_laporan']);
+  $label = ['baru' => 'Baru', 'diproses' => 'Diproses', 'selesai' => 'Selesai'];
+  $urut = ['baru' => 0, 'diproses' => 1, 'selesai' => 2][$lap['status_laporan']] ?? 0;
+  $tahap = [
+      ['Laporan dikirim', 'Laporan kamu sudah masuk ke pemilik kos.'],
+      ['Sedang diproses', 'Pemilik kos menindaklanjuti perbaikan.'],
+      ['Selesai', 'Perbaikan dinyatakan selesai oleh pemilik kos.'],
+  ];
+?>
+  <div class="judul-detail">
+    <div class="judul-detail-kiri">
+      <h1><?= e($judul) ?></h1>
+      <span class="badge-status badge-status--<?= e($lap['status_laporan']) ?>"><?= e($label[$lap['status_laporan']]) ?></span>
+    </div>
+    <p class="id-tiket">ID Tiket: <span>#<?= (int) $lap['id_laporan'] ?></span></p>
   </div>
 
-  <script src="../assets/js/penghuni/common.js"></script>
-  <script src="../assets/js/penghuni/laporan-kerusakan.js"></script>
-</body>
-</html>
+  <div class="detail-grid">
+    <article class="card-box">
+      <dl class="info-laporan">
+        <div><dt>Kategori</dt><dd><?= e($kategori) ?></dd></div>
+        <div><dt>Lokasi</dt><dd>Kamar <?= e($lap['nomor_kamar']) ?> &middot; <?= e($lap['kelas_kamar']) ?></dd></div>
+        <div><dt>Tanggal Lapor</dt><dd><?= e(tgl_indo($lap['tgl_laporan'], true)) ?></dd></div>
+      </dl>
+
+      <h2 class="sub-judul">Deskripsi</h2>
+      <p class="deskripsi-laporan"><?= nl2br(e($isi)) ?></p>
+
+      <?php if ($lap['foto_kerusakan']): ?>
+        <h2 class="sub-judul">Foto Kerusakan</h2>
+        <img class="foto-laporan" src="<?= e(url_berkas('kerusakan', $lap['foto_kerusakan'])) ?>" alt="Foto kerusakan yang kamu laporkan">
+      <?php endif; ?>
+
+      <p class="catatan-pelapor">
+        <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span>Status laporan hanya bisa diubah oleh pemilik kos.</span>
+      </p>
+    </article>
+
+    <article class="card-box">
+      <h2 class="judul-card">Riwayat Penanganan</h2>
+      <ol class="timeline">
+        <?php foreach ($tahap as $i => [$t, $ket]): ?>
+          <li class="timeline-item <?= $i < $urut ? 'selesai' : ($i === $urut ? 'berjalan' : 'menunggu') ?>">
+            <span class="timeline-dot" aria-hidden="true">
+              <svg class="ikon" viewBox="0 0 24 24"><?= $i <= $urut ? '<path d="M20 6L9 17l-5-5"/>' : '<circle cx="12" cy="12" r="9"/>' ?></svg>
+            </span>
+            <div>
+              <p class="timeline-judul"><?= e($t) ?></p>
+              <p class="timeline-ket"><?= e($ket) ?></p>
+            </div>
+          </li>
+        <?php endforeach; ?>
+      </ol>
+
+      <?php if ($lap['nama_pengelola']): ?>
+        <div class="catatan-pengelola">
+          <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+          <div>
+            <p class="catatan-judul">Ditangani oleh</p>
+            <p><?= e($lap['nama_pengelola']) ?></p>
+          </div>
+        </div>
+      <?php endif; ?>
+    </article>
+  </div>
+<?php endif; ?>
+<?php fe_akhir_penghuni(); ?>
